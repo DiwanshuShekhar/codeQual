@@ -1,6 +1,7 @@
 import json
 from json import JSONDecodeError
 
+from codeQual import ROOT_DIR, logging
 from codeQual.annotate import Annotator
 from codeQual.codenet import CodeNetPython
 from codeQual.gpt import ChatGPT
@@ -23,10 +24,10 @@ Step 3: From a score of 1 to 5 where 5 being of the highest quality, score each 
 
 Provide output for all above steps in a single JSON format as follows:
 
-[{"step1": "..."},
-{"step2": "functionality": "...","readability": "...", "pythonic": "...", "error_handling": "...", "efficiency": "..."},
-{"step3": "functionality": "...","readability": "...", "pythonic": "...", "error_handling": "...", "efficiency": "..."}
-]
+{"step1": "...",
+ "step2": {"functionality": "...","readability": "...", "pythonic": "...", "error_handling": "...", "efficiency": "..."},
+ "step3": {"functionality": "...","readability": "...", "pythonic": "...", "error_handling": "...", "efficiency": "..."}
+}
 """
 
 
@@ -37,28 +38,26 @@ def write_code_qual_data(path: str) -> None:
     annotator = Annotator(codenet_python_client, chat_gpt_client)
 
     data = {}
-    errors = []
 
-    with open(path, "w") as f:
+    with open(path, "a") as f:
         for problem_id, submission_id, response in annotator.annotate():
-            print(response)
+            # print(response)
             try:
                 chatgpt_response = json.loads(response)
-            except JSONDecodeError:
-                print(
+            except JSONDecodeError as e:
+                logging.exception(
                     f"Error decoding response: {response} for problem_id: {problem_id} and submission_id: {submission_id}"
                 )
-                errors.append((problem_id, submission_id, response))
+                annotator.write_error(problem_id, submission_id, response, str(e))
             else:
                 data["problem_id"] = problem_id
                 data["submission_id"] = submission_id
-                data["problem_description"] = chatgpt_response[0]["step1"]
-                data["quality_assessment"] = chatgpt_response[1]["step2"]
-                data["quality_score"] = chatgpt_response[2]["step3"]
+                data["problem_description"] = chatgpt_response["step1"]
+                data["quality_assessment"] = chatgpt_response["step2"]
+                data["quality_score"] = chatgpt_response["step3"]
                 json.dump(data, f)
                 f.write("\n")
-
-    write_errors(errors)
+                annotator.write_checkpoint(submission_id)
 
 
 def write_errors(errors: list) -> None:
@@ -66,6 +65,7 @@ def write_errors(errors: list) -> None:
         for error in errors:
             data = dict(problem_id=error[0], submission_id=error[1], response=error[2])
             json.dump(data, f)
+            f.write("\n")
 
 
 if __name__ == "__main__":
