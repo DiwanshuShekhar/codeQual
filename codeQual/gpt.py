@@ -21,7 +21,7 @@ class ChatGPT:
         self.stop = stop
 
     def get_response(self, user_msg: list[dict]) -> str:
-        self.init_messages.extend(user_msg[2])
+        self.init_messages.extend(user_msg)
 
         client = OpenAI()
         response = client.chat.completions.create(
