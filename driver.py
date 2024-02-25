@@ -60,13 +60,5 @@ def write_code_qual_data(path: str) -> None:
                 annotator.write_checkpoint(submission_id)
 
 
-def write_errors(errors: list) -> None:
-    with open("data/CodeQualData/errors.jsonl", "w") as f:
-        for error in errors:
-            data = dict(problem_id=error[0], submission_id=error[1], response=error[2])
-            json.dump(data, f)
-            f.write("\n")
-
-
 if __name__ == "__main__":
     write_code_qual_data("data/CodeQualData/all_data.jsonl")
