@@ -1,4 +1,7 @@
+import json
+import os
 from concurrent import futures
+from typing import Any
 
 from codeQual import logging
 from codeQual.codenet import CodeNetPython
@@ -40,3 +43,20 @@ class Annotator:
             f.write(problem_id + " " + submission_id + "\n")
             f.write(response + "\n")
             f.write(err_msg + "\n")
+
+    def write_data(
+        self, problem_id: str, submission_id: str, chatgpt_response: Any
+    ) -> None:
+        directory = f"data/CodeQualData/{problem_id}"
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
+        data = {}
+        with open(f"{directory}/data.jsonl", "a") as f:
+            data["problem_id"] = problem_id
+            data["submission_id"] = submission_id
+            data["problem_description"] = chatgpt_response["step1"]
+            data["quality_assessment"] = chatgpt_response["step2"]
+            data["quality_score"] = chatgpt_response["step3"]
+            json.dump(data, f)
+            f.write("\n")

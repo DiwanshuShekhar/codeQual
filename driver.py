@@ -33,11 +33,9 @@ Provide output for all above steps in a single JSON format as follows:
 
 def write_code_qual_data(path: str) -> None:
     init_msg = [{"role": "system", "content": SYSTEM}]
-    chat_gpt_client = ChatGPT("gpt-4", init_msg, 42, 1.0, 500)
+    chat_gpt_client = ChatGPT("gpt-4-turbo-preview", init_msg, 42, 1.0, 500)
     codenet_python_client = CodeNetPython("data/CodeNet/python_800")
     annotator = Annotator(codenet_python_client, chat_gpt_client)
-
-    data = {}
 
     with open(path, "a") as f:
         for problem_id, submission_id, response in annotator.annotate():
@@ -50,13 +48,7 @@ def write_code_qual_data(path: str) -> None:
                 )
                 annotator.write_error(problem_id, submission_id, response, str(e))
             else:
-                data["problem_id"] = problem_id
-                data["submission_id"] = submission_id
-                data["problem_description"] = chatgpt_response["step1"]
-                data["quality_assessment"] = chatgpt_response["step2"]
-                data["quality_score"] = chatgpt_response["step3"]
-                json.dump(data, f)
-                f.write("\n")
+                annotator.write_data(problem_id, submission_id, chatgpt_response)
                 annotator.write_checkpoint(submission_id)
 
 
