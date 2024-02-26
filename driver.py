@@ -23,11 +23,12 @@ Step 3: From a score of 1 to 5 where 5 being of the highest quality, score each 
 ---
 
 Provide output for all above steps in a single JSON format as follows:
-
+```json
 {"step1": "...",
  "step2": {"functionality": "...","readability": "...", "pythonic": "...", "error_handling": "...", "efficiency": "..."},
  "step3": {"functionality": "...","readability": "...", "pythonic": "...", "error_handling": "...", "efficiency": "..."}
 }
+```
 """
 
 
@@ -41,6 +42,7 @@ def write_code_qual_data(path: str) -> None:
         for problem_id, submission_id, response in annotator.annotate():
             # print(response)
             try:
+                response = "\n".join(response.split("\n")[1:-1])
                 chatgpt_response = json.loads(response)
             except JSONDecodeError as e:
                 logging.exception(
