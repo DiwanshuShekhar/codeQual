@@ -1,9 +1,20 @@
+import json
 import os
 
 
 class CodeNetPython:
     def __init__(self, path: str):
         self.path = path
+        self.problem_desc = {}
+        with open(
+            os.path.join(
+                os.path.dirname(self.path), "py800_metadata_problem_desc.jsonl"
+            ),
+            "r",
+        ) as f:
+            for line in f:
+                data = json.loads(line)
+                self.problem_desc[data["problem_id"]] = data["description"]
 
     def next_submission(self):
         """
@@ -13,3 +24,6 @@ class CodeNetPython:
             for file in files:
                 if file.endswith(".py"):
                     yield os.path.join(root, file)
+
+    def get_problem_desc(self, problem_id: str) -> str:
+        return self.problem_desc[problem_id]

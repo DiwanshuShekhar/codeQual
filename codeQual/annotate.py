@@ -9,15 +9,25 @@ from codeQual.gpt import ChatGPT
 
 
 class Annotator:
-    def __init__(self, codenet_python: CodeNetPython, chatgpt: ChatGPT):
+    def __init__(
+        self,
+        codenet_python: CodeNetPython,
+        chatgpt: ChatGPT,
+        skip_problem_ids: list[str] = [],
+    ):
         self.codenet_python = codenet_python
         self.chatgpt = chatgpt
         self.usr_msgs = []
         for submission in self.codenet_python.next_submission():
             problem_id = submission.split("/")[-2]
+            if problem_id in skip_problem_ids:
+                continue
             submission_id = submission.split("/")[-1].split(".")[0]
             code = open(submission).read()
             user_content = "```\n" + code + "\n```\n"
+            user_content += (
+                '"""\n' + self.codenet_python.get_problem_desc(problem_id) + '\n"""\n'
+            )
             user_msg = [{"role": "user", "content": user_content}]
             self.usr_msgs.append((problem_id, submission_id, user_msg))
 
@@ -47,7 +57,7 @@ class Annotator:
     def write_data(
         self, problem_id: str, submission_id: str, chatgpt_response: Any
     ) -> None:
-        directory = f"data/CodeQualData/{problem_id}"
+        directory = f"data/CodeQualData/py800_annotated/{problem_id}"
         if not os.path.exists(directory):
             os.makedirs(directory)
 
@@ -55,8 +65,10 @@ class Annotator:
         with open(f"{directory}/data.jsonl", "a") as f:
             data["problem_id"] = problem_id
             data["submission_id"] = submission_id
-            data["problem_description"] = chatgpt_response["step1"]
-            data["quality_assessment"] = chatgpt_response["step2"]
-            data["quality_score"] = chatgpt_response["step3"]
+            data["problem_description"] = self.codenet_python.get_problem_desc(
+                problem_id
+            )
+            data["quality_assessment"] = chatgpt_response["step1"]
+            data["quality_score"] = chatgpt_response["step2"]
             json.dump(data, f)
             f.write("\n")
