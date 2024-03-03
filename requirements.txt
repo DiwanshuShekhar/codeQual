@@ -2,3 +2,5 @@ httpx
 beautifulsoup4
 openai
 transformers
+datasets
+matplotlib
