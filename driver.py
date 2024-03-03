@@ -1,6 +1,9 @@
 import json
 from json import JSONDecodeError
 
+import httpx
+import openai
+
 from codeQual import ROOT_DIR, logging
 from codeQual.annotate import Annotator
 from codeQual.codenet import CodeNetPython
@@ -20,11 +23,12 @@ Step 2: From a score of 1 to 5 where 5 being of the highest quality, score each 
 
 ---
 
-Provide output for all above steps in a single JSON format as follows. The output must be directly decoded into a JSON format without any pre-processing
-
+Provide output for all above steps in a single JSON format as follows.
+```json
 {"step1":{ "functionality": "...","readability": "...", "pythonic": "...", "error_handling": "...", "efficiency": "..."},
 "step2": {"functionality": "...","readability": "...", "pythonic": "...", "error_handling": "...", "efficiency": "..."},
 }
+```
 """
 
 
@@ -45,6 +49,16 @@ def write_code_qual_data() -> None:
             logging.exception(
                 f"Error decoding response: {response} for problem_id: {problem_id} and submission_id: {submission_id}"
             )
+            annotator.write_error(problem_id, submission_id, response, str(e))
+        except openai.BadRequestError as e:
+            logging.exception(
+                f"Error decoding response: {response} for problem_id: {problem_id} and submission_id: {submission_id}"
+            )
+        except httpx.HTTPStatusError as e:
+            logging.exception(
+                f"Error decoding response: {response} for problem_id: {problem_id} and submission_id: {submission_id}"
+            )
+            annotator.write_error(problem_id, submission_id, response, str(e))
             annotator.write_error(problem_id, submission_id, response, str(e))
         else:
             annotator.write_data(problem_id, submission_id, chatgpt_response)
