@@ -1,3 +1,4 @@
+import argparse
 import json
 from json import JSONDecodeError
 
@@ -7,6 +8,7 @@ import openai
 from codeQual import ROOT_DIR, logging
 from codeQual.annotate import Annotator
 from codeQual.codenet import CodeNetPython
+from codeQual.finetune import trainer
 from codeQual.gpt import ChatGPT
 
 SYSTEM = """You will be provided with a piece of Python code delimited by three backticks (```) followed by it's description delimited by three double quotes (\"\"\"). Your task is to follow the following steps to answer user queries.
@@ -30,6 +32,15 @@ Provide output for all above steps in a single JSON format as follows.
 }
 ```
 """
+
+parser = argparse.ArgumentParser(description="CodeQual Data and Model Training")
+
+parser.add_argument(
+    "--annotate", action="store_true", help="annotate codenet data using chatgpt"
+)
+parser.add_argument(
+    "--fine-tune", help="fine-tune model using annotated data", action="store_true"
+)
 
 
 def write_code_qual_data() -> None:
@@ -66,4 +77,8 @@ def write_code_qual_data() -> None:
 
 
 if __name__ == "__main__":
-    write_code_qual_data()
+    args = parser.parse_args()
+    if args.annotate:
+        write_code_qual_data()
+    if args.fine_tune:
+        trainer.train()

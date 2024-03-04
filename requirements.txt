@@ -4,3 +4,4 @@ openai
 transformers
 datasets
 matplotlib
+scikit-learn
