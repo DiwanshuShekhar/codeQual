@@ -7,14 +7,18 @@ from transformers import (
     TrainingArguments,
 )
 
+from codeQual import set_device
+
+
+device = set_device.set()
 num_classes = 3
 
 # Load pre-trained model and tokenizer
 model_name = "microsoft/codebert-base"
-# model_name = 'codellama/CodeLlama-7b-Python-hf'
 model = AutoModelForSequenceClassification.from_pretrained(
     model_name, num_labels=num_classes, max_length=512
-)
+).to(device)
+
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 tokenizer.add_special_tokens({"pad_token": "[PAD]"})
 
@@ -46,12 +50,13 @@ batch_size = 4
 logging_steps = len(codequal_encoded["train"]) // batch_size
 training_args = TrainingArguments(
     output_dir="training_output",
-    num_train_epochs=2,
+    num_train_epochs=5,
     learning_rate=2e-5,
     per_device_train_batch_size=batch_size,
     per_device_eval_batch_size=batch_size,
     weight_decay=0.01,
     evaluation_strategy="epoch",
+    save_strategy="epoch",
     disable_tqdm=False,
     logging_steps=logging_steps,
     push_to_hub=False,
