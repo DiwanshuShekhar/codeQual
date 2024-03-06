@@ -61,6 +61,7 @@ training_args = TrainingArguments(
     logging_steps=logging_steps,
     push_to_hub=False,
     log_level="error",
+    neftune_noise_alpha=0.1,
 )
 
 trainer = Trainer(
