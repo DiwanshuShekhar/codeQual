@@ -75,7 +75,7 @@ class Annotator:
             data["problem_description"] = self.codenet_python.get_problem_desc(
                 problem_id
             )
-            data["quality_assessment"] = chatgpt_response["step1"]
+            # data["quality_assessment"] = chatgpt_response["step1"]
             data["quality_score"] = chatgpt_response["step2"]
             json.dump(data, f)
             f.write("\n")
