@@ -44,7 +44,7 @@ def write_code_qual_data(output_dir: str) -> None:
     chat_gpt_client = ChatGPT("gpt-4-turbo-preview", init_msg, 42, 1.0, 500)
     codenet_python_client = CodeNetPython("data/CodeQualData/py800_sampled")
     skip_problems = []
-    with open("../data/CodeQualData/problems.txt", "r") as f:
+    with open("data/CodeQualData/problems.txt", "r") as f:
         skip_problems = f.read().splitlines()
 
     annotator = Annotator(
