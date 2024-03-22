@@ -13,11 +13,13 @@ class Annotator:
         self,
         codenet_python: CodeNetPython,
         chatgpt: ChatGPT,
+        output_dir: str,
         skip_problem_ids: list[str] = [],
     ):
         self.codenet_python = codenet_python
         self.chatgpt = chatgpt
         self.usr_msgs = []
+        self.output_dir = output_dir
         for submission in self.codenet_python.next_submission():
             problem_id = submission.split("/")[-2]
             if problem_id in skip_problem_ids:
@@ -42,15 +44,16 @@ class Annotator:
             resp = self.chatgpt.get_response(m[2])
             yield m[0], m[1], resp
 
-    def write_checkpoint(self, submission_id: str, output_dir: str) -> None:
-        checkpoint = os.path.join(output_dir, "checkpoint.txt")
+    def write_checkpoint(self, submission_id: str) -> None:
+        checkpoint = os.path.join(self.output_dir, "submissions.txt")
         with open(checkpoint, "a") as f:
             f.write(submission_id + "\n")
 
     def write_error(
         self, problem_id: str, submission_id: str, response: str, err_msg: str
     ) -> None:
-        with open(f"data/CodeQualData/errors/{submission_id}.jsonl", "w") as f:
+        directory = os.path.join(self.output_dir, problem_id)
+        with open(f"{directory}/{submission_id}", "w") as f:
             f.write(problem_id + " " + submission_id + "\n")
             f.write(response + "\n")
             f.write(err_msg + "\n")
@@ -60,9 +63,8 @@ class Annotator:
         problem_id: str,
         submission_id: str,
         chatgpt_response: Any,
-        output_dir: str,
     ) -> None:
-        directory = os.path.join(output_dir, problem_id)
+        directory = os.path.join(self.output_dir, problem_id)
         if not os.path.exists(directory):
             os.makedirs(directory)
 

@@ -43,8 +43,15 @@ def write_code_qual_data(output_dir: str) -> None:
     init_msg = [{"role": "system", "content": SYSTEM}]
     chat_gpt_client = ChatGPT("gpt-4-turbo-preview", init_msg, 42, 1.0, 500)
     codenet_python_client = CodeNetPython("data/CodeQualData/py800_sampled")
+    skip_problems = []
+    with open("../data/CodeQualData/problems.txt", "r") as f:
+        skip_problems = f.read().splitlines()
+
     annotator = Annotator(
-        codenet_python_client, chat_gpt_client, skip_problem_ids=["p02546", "p03494"]
+        codenet_python_client,
+        chat_gpt_client,
+        output_dir,
+        skip_problem_ids=skip_problems,
     )
 
     for problem_id, submission_id, response in annotator.annotate():
@@ -61,17 +68,15 @@ def write_code_qual_data(output_dir: str) -> None:
             logging.exception(
                 f"Error decoding response: {response} for problem_id: {problem_id} and submission_id: {submission_id}"
             )
+            annotator.write_error(problem_id, submission_id, response, str(e))
         except httpx.HTTPStatusError as e:
             logging.exception(
                 f"Error decoding response: {response} for problem_id: {problem_id} and submission_id: {submission_id}"
             )
             annotator.write_error(problem_id, submission_id, response, str(e))
-            annotator.write_error(problem_id, submission_id, response, str(e))
         else:
-            annotator.write_data(
-                problem_id, submission_id, chatgpt_response, output_dir
-            )
-            annotator.write_checkpoint(submission_id, output_dir)
+            annotator.write_data(problem_id, submission_id, chatgpt_response)
+            annotator.write_checkpoint(submission_id)
 
 
 if __name__ == "__main__":
