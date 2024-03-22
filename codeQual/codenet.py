@@ -14,7 +14,7 @@ class CodeNetPython:
         ) as f:
             for line in f:
                 data = json.loads(line)
-                self.problem_desc[data["problem_id"]] = data["description"]
+                self.problem_desc[data["problem_id"]] = data["problem"]
 
     def next_submission(self):
         """

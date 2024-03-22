@@ -82,6 +82,6 @@ def write_code_qual_data(output_dir: str) -> None:
 if __name__ == "__main__":
     args = parser.parse_args()
     if args.annotate:
-        write_code_qual_data(args.output_dir)
+        write_code_qual_data(args.annotate[0])
     if args.fine_tune:
         trainer.train()
