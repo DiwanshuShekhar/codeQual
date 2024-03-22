@@ -62,6 +62,7 @@ training_args = TrainingArguments(
     push_to_hub=False,
     log_level="error",
     neftune_noise_alpha=0.1,
+    report_to="wandb",
 )
 
 trainer = Trainer(

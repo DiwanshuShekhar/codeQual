@@ -42,8 +42,9 @@ class Annotator:
             resp = self.chatgpt.get_response(m[2])
             yield m[0], m[1], resp
 
-    def write_checkpoint(self, submission_id: str) -> None:
-        with open("data/CodeQualData/checkpoint.txt", "a") as f:
+    def write_checkpoint(self, submission_id: str, output_dir: str) -> None:
+        checkpoint = os.path.join(output_dir, "checkpoint.txt")
+        with open(checkpoint, "a") as f:
             f.write(submission_id + "\n")
 
     def write_error(
@@ -55,9 +56,13 @@ class Annotator:
             f.write(err_msg + "\n")
 
     def write_data(
-        self, problem_id: str, submission_id: str, chatgpt_response: Any
+        self,
+        problem_id: str,
+        submission_id: str,
+        chatgpt_response: Any,
+        output_dir: str,
     ) -> None:
-        directory = f"data/CodeQualData/py800_annotated/{problem_id}"
+        directory = os.path.join(output_dir, problem_id)
         if not os.path.exists(directory):
             os.makedirs(directory)
 

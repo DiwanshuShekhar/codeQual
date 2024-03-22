@@ -33,15 +33,13 @@ Provide output for step 2 in a  JSON format as follows.
 
 parser = argparse.ArgumentParser(description="CodeQual Data and Model Training")
 
-parser.add_argument(
-    "--annotate", action="store_true", help="annotate codenet data using chatgpt"
-)
+parser.add_argument("--annotate", nargs="+", help="annotate codenet data using chatgpt")
 parser.add_argument(
     "--fine-tune", help="fine-tune model using annotated data", action="store_true"
 )
 
 
-def write_code_qual_data() -> None:
+def write_code_qual_data(output_dir: str) -> None:
     init_msg = [{"role": "system", "content": SYSTEM}]
     chat_gpt_client = ChatGPT("gpt-4-turbo-preview", init_msg, 42, 1.0, 500)
     codenet_python_client = CodeNetPython("data/CodeQualData/py800_sampled")
@@ -70,13 +68,15 @@ def write_code_qual_data() -> None:
             annotator.write_error(problem_id, submission_id, response, str(e))
             annotator.write_error(problem_id, submission_id, response, str(e))
         else:
-            annotator.write_data(problem_id, submission_id, chatgpt_response)
-            annotator.write_checkpoint(submission_id)
+            annotator.write_data(
+                problem_id, submission_id, chatgpt_response, output_dir
+            )
+            annotator.write_checkpoint(submission_id, output_dir)
 
 
 if __name__ == "__main__":
     args = parser.parse_args()
     if args.annotate:
-        write_code_qual_data()
+        write_code_qual_data(args.output_dir)
     if args.fine_tune:
         trainer.train()
