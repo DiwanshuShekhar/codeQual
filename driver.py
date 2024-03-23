@@ -42,7 +42,7 @@ parser.add_argument(
 def write_code_qual_data(output_dir: str) -> None:
     init_msg = [{"role": "system", "content": SYSTEM}]
     chat_gpt_client = ChatGPT("gpt-4-turbo-preview", init_msg, 42, 1.0, 500)
-    codenet_python_client = CodeNetPython("data/CodeQualData/py800_sampled")
+    codenet_python_client = CodeNetPython("data/CodeQualData/py800_sampled_2each")
     skip_problems = []
     with open("data/CodeQualData/problems.txt", "r") as f:
         skip_problems = f.read().splitlines()
@@ -53,23 +53,12 @@ def write_code_qual_data(output_dir: str) -> None:
         output_dir,
         skip_problem_ids=skip_problems,
     )
-
     for problem_id, submission_id, response in annotator.annotate():
         # print(response)
         try:
             response = "\n".join(response.split("\n")[1:-1])
             chatgpt_response = json.loads(response)
         except JSONDecodeError as e:
-            logging.exception(
-                f"Error decoding response: {response} for problem_id: {problem_id} and submission_id: {submission_id}"
-            )
-            annotator.write_error(problem_id, submission_id, response, str(e))
-        except openai.BadRequestError as e:
-            logging.exception(
-                f"Error decoding response: {response} for problem_id: {problem_id} and submission_id: {submission_id}"
-            )
-            annotator.write_error(problem_id, submission_id, response, str(e))
-        except httpx.HTTPStatusError as e:
             logging.exception(
                 f"Error decoding response: {response} for problem_id: {problem_id} and submission_id: {submission_id}"
             )
