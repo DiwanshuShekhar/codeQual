@@ -8,7 +8,7 @@ import openai
 from codeQual import ROOT_DIR, logging
 from codeQual.annotate import Annotator
 from codeQual.codenet import CodeNetPython
-from codeQual.finetune import trainer
+from codeQual.finetune import get_trainer
 from codeQual.gpt import ChatGPT
 
 SYSTEM = """You will be provided with a piece of Python code delimited by three backticks (```) followed by it's description delimited by three double quotes (\"\"\"). Your task is to follow the following steps to answer user queries.
@@ -37,6 +37,13 @@ parser.add_argument("--annotate", nargs="+", help="annotate codenet data using c
 parser.add_argument(
     "--fine-tune", help="fine-tune model using annotated data", action="store_true"
 )
+parser.add_argument(
+    "--search", help="search for best hyper-parameters", action="store_true"
+)
+
+import os
+
+os.environ["WANDB_PROJECT"] = "codequalstarcoder3b"
 
 
 def write_code_qual_data(output_dir: str) -> None:
@@ -73,4 +80,61 @@ if __name__ == "__main__":
     if args.annotate:
         write_code_qual_data(args.annotate[0])
     if args.fine_tune:
+        # BestRun(run_id='4d8d0227', objective=1.9723376712247884,
+        #         hyperparameters={'learning_rate': 1.3959891925455376e-05,
+        #                          'num_train_epochs': 10, 'per_device_train_batch_size': 8}
+        trainer = get_trainer("epoch10batch1wr0.2data1", 10, 1.396e-05, 1)
         trainer.train()
+    if args.search:
+        from ray.tune.search.hyperopt import HyperOptSearch
+        from ray.tune.search import ConcurrencyLimiter
+        from ray.tune.schedulers import ASHAScheduler
+        from ray import tune
+
+        hpo = HyperOptSearch(
+            metric="eval_accuracy", mode="max"
+        )  # objective, accuracy, f1, precision, recall
+        hpo = ConcurrencyLimiter(hpo, max_concurrent=2)
+        space = {
+            "learning_rate": tune.loguniform(1e-5, 1e-1),
+            "num_train_epochs": tune.choice([5, 10, 20]),
+            "per_device_train_batch_size": tune.choice([4, 8, 16]),
+        }
+
+        def space_search(trial):
+            return {
+                "learning_rate": trial.suggest_loguniform("learning_rate", 1e-5, 1e-1),
+                "num_train_epochs": trial.suggest_categorical(
+                    "num_train_epochs", [5, 10, 20]
+                ),
+                "per_device_train_batch_size": trial.suggest_categorical(
+                    "per_device_train_batch_size", [4, 8, 16]
+                ),
+            }
+
+        def hp_search(trial):
+            return space
+
+        # documentation:
+        # https://huggingface.co/docs/transformers/v4.39.3/en/hpo_train#hyperparameter-search-using-trainer-api
+        # https://docs.ray.io/en/latest/tune/getting-started.html
+
+        trainer = get_trainer("codequal-hyperparameter-search", 10, 1.396e-05, 8)
+        best_trial = trainer.hyperparameter_search(
+            hp_space=hp_search,
+            direction="maximize",
+            backend="ray",
+            n_trials=10,
+            # Choose among many libraries:
+            # https://docs.ray.io/en/latest/tune/api_docs/suggestion.html
+            search_alg=hpo,
+            # Choose among schedulers:
+            # https://docs.ray.io/en/latest/tune/api_docs/schedulers.html
+            scheduler=ASHAScheduler(metric="eval_accuracy", mode="max"),
+            resources_per_trial={"cpu": 2},
+        )
+        print(f"best trail:\n{best_trial}")
+        # for n, v in best_trial.hyperparameters.items():
+        #     setattr(trainer.args, n, v)
+
+        # trainer.train()
