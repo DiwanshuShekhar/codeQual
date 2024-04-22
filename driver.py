@@ -43,7 +43,7 @@ parser.add_argument(
 
 import os
 
-os.environ["WANDB_PROJECT"] = "codequalstarcoder3b"
+os.environ["WANDB_PROJECT"] = "codequalbert"
 
 
 def write_code_qual_data(output_dir: str) -> None:
@@ -83,7 +83,7 @@ if __name__ == "__main__":
         # BestRun(run_id='4d8d0227', objective=1.9723376712247884,
         #         hyperparameters={'learning_rate': 1.3959891925455376e-05,
         #                          'num_train_epochs': 10, 'per_device_train_batch_size': 8}
-        trainer = get_trainer("epoch10batch1wr0.2data1", 10, 1.396e-05, 1)
+        trainer = get_trainer("epoch5batch1wr0.2data1lr1.396", 5, 1.396e-05, 1)
         trainer.train()
     if args.search:
         from ray.tune.search.hyperopt import HyperOptSearch
@@ -97,20 +97,9 @@ if __name__ == "__main__":
         hpo = ConcurrencyLimiter(hpo, max_concurrent=2)
         space = {
             "learning_rate": tune.loguniform(1e-5, 1e-1),
-            "num_train_epochs": tune.choice([5, 10, 20]),
-            "per_device_train_batch_size": tune.choice([4, 8, 16]),
+            "num_train_epochs": tune.choice([1, 5, 10]),
+            "per_device_train_batch_size": tune.choice([1, 2, 4]),
         }
-
-        def space_search(trial):
-            return {
-                "learning_rate": trial.suggest_loguniform("learning_rate", 1e-5, 1e-1),
-                "num_train_epochs": trial.suggest_categorical(
-                    "num_train_epochs", [5, 10, 20]
-                ),
-                "per_device_train_batch_size": trial.suggest_categorical(
-                    "per_device_train_batch_size", [4, 8, 16]
-                ),
-            }
 
         def hp_search(trial):
             return space

@@ -15,7 +15,11 @@ device = set_device.set()
 num_classes = 3
 
 # Load pre-trained model and tokenizer
-model_name = "bigcode/starcoder2-3b"  # bigcode/starcoder2-3b, microsoft/codebert-base
+# https://huggingface.co/docs/transformers/main/en/model_doc/auto#transformers.AutoModelForSequenceClassification
+# bigcode/starcoder2-3b,
+# microsoft/codebert-base, microsoft/phi-2,
+# codellama/CodeLlama-7b-Python-hf, Salesforce/codet5p-220m-py,
+model_name = "microsoft/codebert-base"
 
 
 def model_init():
@@ -41,6 +45,7 @@ codequal_encoded: DatasetDict = codequal.map(tokenize, batched=True, batch_size=
 
 # Define evaluation metrics
 def compute_metrics(pred):
+    print(f"Input to compute metrics: {pred}")
     labels = pred.label_ids
     preds = pred.predictions.argmax(-1)
     precision, recall, f1, _ = precision_recall_fscore_support(
