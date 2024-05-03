@@ -19,7 +19,7 @@ num_classes = 3
 # bigcode/starcoder2-3b,
 # microsoft/codebert-base, microsoft/phi-2,
 # codellama/CodeLlama-7b-Python-hf, Salesforce/codet5p-220m-py,
-model_name = "microsoft/codebert-base"
+model_name = os.getenv("MODEL_NAME")
 
 
 def model_init():

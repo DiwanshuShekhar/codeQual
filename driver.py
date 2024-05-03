@@ -35,15 +35,13 @@ parser = argparse.ArgumentParser(description="CodeQual Data and Model Training")
 
 parser.add_argument("--annotate", nargs="+", help="annotate codenet data using chatgpt")
 parser.add_argument(
-    "--fine-tune", help="fine-tune model using annotated data", action="store_true"
+    "--fine-tune", help="fine-tune model using annotated data", nargs="+"
 )
 parser.add_argument(
     "--search", help="search for best hyper-parameters", action="store_true"
 )
 
 import os
-
-os.environ["WANDB_PROJECT"] = "codequalbert"
 
 
 def write_code_qual_data(output_dir: str) -> None:
@@ -80,10 +78,12 @@ if __name__ == "__main__":
     if args.annotate:
         write_code_qual_data(args.annotate[0])
     if args.fine_tune:
-        # BestRun(run_id='4d8d0227', objective=1.9723376712247884,
-        #         hyperparameters={'learning_rate': 1.3959891925455376e-05,
-        #                          'num_train_epochs': 10, 'per_device_train_batch_size': 8}
-        trainer = get_trainer("epoch5batch1wr0.2data1lr1.396", 5, 1.396e-05, 1)
+        trainer = get_trainer(
+            args.fine_tune[0],
+            int(args.fine_tune[1]),
+            float(args.fine_tune[2]),
+            int(args.fine_tune[3]),
+        )
         trainer.train()
     if args.search:
         from ray.tune.search.hyperopt import HyperOptSearch
