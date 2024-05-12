@@ -1,0 +1,351 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "CodeQual",
+  "description": "Shekhar, D., & Mahoor, M. (2024). CodeQual: A dataset for fine-tuning Large Language Models for code quality assessment task [Data set]. Zenodo. https://doi.org/10.5281/zenodo.11062806",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "citeAs": "Shekhar, D., & Mahoor, M. (2024). CodeQual: A dataset for fine-tuning Large Language Models for code quality assessment task [Data set]. Zenodo. https://doi.org/10.5281/zenodo.11062806",
+  "datePublished": "2024-04-25 00:00:00",
+  "keywords": [
+    "fine-tuning",
+    "code",
+    "python",
+    "code quality"
+  ],
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "publisher": [
+    {
+      "@type": "sc:Person",
+      "name": "Diwanshu Shekhar",
+      "email": "diwanshu.shekhar@du.edu"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Dr. Mohammad Mahoor",
+      "email": "mohammad.mahoor@du.edu"
+    }
+  ],
+  "url": "https://zenodo.org/doi/10.5281/zenodo.11062805",
+  "version": "1.0.0",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "train-file",
+      "name": "train-file",
+      "description": "The dataset is hosted on Zenodo which has three splits - train, test, and test.",
+      "contentUrl": "https://zenodo.org/records/11062806/files/train.jsonl",
+      "encodingFormat": "application/jsonlines",
+      "sha256": "f9ee14410995aef59a7266324683cb09db33eea927cd6ae813f4bc0d7ae69f52"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "validation-file",
+      "name": "validation-file",
+      "description": "The dataset is hosted on Zenodo which has three splits - train, test, and test.",
+      "contentUrl": "https://zenodo.org/records/11062806/files/valid.jsonl",
+      "encodingFormat": "application/jsonlines",
+      "sha256": "c8092b52ca9281e548b42386e13b227050e24dd06fa811425d362ef39dea8cd9"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "test-file",
+      "name": "test-file",
+      "description": "The dataset is hosted on Zenodo which has three splits - train, test, and test.",
+      "contentUrl": "https://zenodo.org/records/11062806/files/test.jsonl",
+      "encodingFormat": "application/jsonlines",
+      "sha256": "9f1b8850c0af256548d7afd6738f7c67037ebca4a3bc1a42f6f574306a2fc427"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "jsonl-train",
+      "name": "jsonl-train",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "jsonl-train/problem_id",
+          "name": "problem_id",
+          "description": "Uniqiue identifier for the problem.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "train-file"
+            },
+            "extract": {
+              "column": "problem_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "jsonl-train/problem",
+          "name": "problem",
+          "description": "Natural language description of the problem.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "train-file"
+            },
+            "extract": {
+              "column": "problem"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "jsonl-train/submission_id",
+          "name": "submission_id",
+          "description": "The submission id of the code to the problem.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "train-file"
+            },
+            "extract": {
+              "column": "submission_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "jsonl-train/submission",
+          "name": "submission",
+          "description": "The code submission to the problem.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "train-file"
+            },
+            "extract": {
+              "column": "submission"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "jsonl-train/label",
+          "name": "label",
+          "description": "The label of the submission.",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileSet": {
+              "@id": "train-file"
+            },
+            "extract": {
+              "column": "label"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "jsonl-validation",
+      "name": "jsonl-validation",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "jsonl-validation/problem_id",
+          "name": "problem_id",
+          "description": "Uniqiue identifier for the problem.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "validation-file"
+            },
+            "extract": {
+              "column": "problem_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "jsonl-validation/problem",
+          "name": "problem",
+          "description": "Natural language description of the problem.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "validation-file"
+            },
+            "extract": {
+              "column": "problem"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "jsonl-validation/submission_id",
+          "name": "submission_id",
+          "description": "The submission id of the code to the problem.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "validation-file"
+            },
+            "extract": {
+              "column": "submission_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "jsonl-validation/submission",
+          "name": "submission",
+          "description": "The code submission to the problem.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "validation-file"
+            },
+            "extract": {
+              "column": "submission"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "jsonl-validation/label",
+          "name": "label",
+          "description": "The label of the submission.",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileSet": {
+              "@id": "validation-file"
+            },
+            "extract": {
+              "column": "label"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "jsonl-test",
+      "name": "jsonl-test",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "jsonl-test/problem_id",
+          "name": "problem_id",
+          "description": "Uniqiue identifier for the problem.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "test-file"
+            },
+            "extract": {
+              "column": "problem_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "jsonl-test/problem",
+          "name": "problem",
+          "description": "Natural language description of the problem.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "test-file"
+            },
+            "extract": {
+              "column": "problem"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "jsonl-test/submission_id",
+          "name": "submission_id",
+          "description": "The submission id of the code to the problem.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "test-file"
+            },
+            "extract": {
+              "column": "submission_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "jsonl-test/submission",
+          "name": "submission",
+          "description": "The code submission to the problem.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "test-file"
+            },
+            "extract": {
+              "column": "submission"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "jsonl-test/label",
+          "name": "label",
+          "description": "The label of the submission.",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileSet": {
+              "@id": "test-file"
+            },
+            "extract": {
+              "column": "label"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
