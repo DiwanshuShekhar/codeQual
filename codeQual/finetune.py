@@ -6,11 +6,13 @@ from transformers import (
     AutoTokenizer,
     Trainer,
     TrainingArguments,
+    set_seed,
 )
 
 from codeQual import set_device, ROOT_DIR
 
 
+set_seed(42)
 device = set_device.set()
 num_classes = 3
 
@@ -74,7 +76,7 @@ def get_trainer(
         eval_steps=50,  # how often to evaluate on the validation set
         save_strategy="epoch",  # no, steps, epoch
         save_steps=50,  # how often to save the model
-        save_total_limit=2,
+        save_total_limit=5,
         load_best_model_at_end=True,
         metric_for_best_model="eval_accuracy",
         greater_is_better=True,
