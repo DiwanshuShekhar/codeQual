@@ -1,6 +1,6 @@
 # CodeQual: A dataset for fine-tuning Large Language Models for code quality assessment task
 
-CodeQual is a novel fine-tuning dataset comprising 2250 Python code snippets from [CodeNet](https://zenodo.org/doi/10.5281/zenodo.4814769), each annotated by GPT-4 with a code quality label (low average, high). This dataset can be employed to fine-tune any Large Language Models trained on code for Code Quality Assessment task where a model is tasked with predicting a given code into it's quality tier. In this repository, we present [CodeQual](https://zenodo.org/doi/10.5281/zenodo.11062805) along with the codebase to fine-tune the pre-trained CodeBert Model to show it’s utility in fine-tuning LLMs.
+CodeQual is a novel fine-tuning dataset comprising 2250 Python code snippets from [CodeNet](https://zenodo.org/doi/10.5281/zenodo.4814769), each annotated by GPT-4 with a code quality label (low average, high). This dataset can be employed to fine-tune any Large Language Models trained on code for Code Quality Assessment task where a model is tasked with predicting a given code into it's quality tier. In this repository, we present [CodeQual](https://zenodo.org/doi/10.5281/zenodo.11062805) along with the codebase to fine-tune the pre-trained CodeBert Model to show it’s utility in fine-tuning LLMs. We named this fine-tuned model `CodeQualBert`.
 
 # How to use this repository
 This repository can be primarily used to fine-tune a code-trained LLM. The code uses [weights and bias](https://wandb.ai/) for experiment management and [direnv](https://direnv.net/) for environment variable management. You must have `.envrc` file in the project root directory with the following environment variables defined. The values shown for the environment variables are examples values suitable for fine-tuning a CodeBert mnodel.
@@ -30,4 +30,14 @@ features = Features({'problem_id': Value(dtype='string', id=None),
                      })
 code_qual_dataset = load_dataset('json', data_files=data_files, features=features)
 code_qual_dataset.save_to_disk('../data/hf_code_qual_dataset_v1.1')
+```
+
+# CodeQualBert Model
+The CodeQualBert model is freely and publicly available to use from the [Huggingface Hub](https://huggingface.co/diwanshus/codequalbert). One can use the model in transformers as:
+```
+# Load model directly
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+
+tokenizer = AutoTokenizer.from_pretrained("diwanshus/codequalbert")
+model = AutoModelForSequenceClassification.from_pretrained("diwanshus/codequalbert")
 ```
