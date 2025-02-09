@@ -1,0 +1,25 @@
+p02689 s986024071
+n, m = map(int,input().split())
+
+from collections import defaultdict
+d = defaultdict(list)
+heights = [0] + list(map(int,input().split()))
+for _ in range(m):
+    a, b = map(int,input().split())
+    d[a].append(b)
+    d[b].append(a)
+
+good_count = 0
+
+for i in range(1, n+1):
+    is_good = True
+    for neighbor in d[i]:
+        if heights[i] <= heights[neighbor]:
+            is_good = False
+            break
+    if is_good:
+        good_count += 1
+
+print(good_count)
+```
+Expecting value: line 1 column 1 (char 0)

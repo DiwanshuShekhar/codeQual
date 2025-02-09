@@ -1,0 +1,16 @@
+p02989 s028343151
+N = int(input())
+d = sorted(map(int, input().split()))
+mid = N // 2
+print(d[mid] - d[mid - 1])
+```
+"""
+Takahashi made N problems for competitive programming.
+The problems are numbered 1 to N, and the difficulty of Problem i is represented as an integer d_i (the higher, the harder).
+He is dividing the problems into two categories by choosing an integer K, as follows:
+
+A problem with difficulty K or higher will be for ARCs.
+A problem with difficulty lower than K will be for ABCs.
+
+How many choices of the integer K make the number of problems for ARCs and the number of problems for ABCs the same?
+Expecting value: line 1 column 1 (char 0)

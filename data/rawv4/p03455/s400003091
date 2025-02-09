@@ -1,0 +1,11 @@
+p03455 s400003091
+a, b = map(int, input().split())
+if a % 2 == 0 or b % 2 == 0:
+    print("Even")
+else:
+    print("Odd")
+```
+"""
+AtCoDeer the deer found two positive integers, a and b.
+Determine whether the product of a and b is even or odd.
+Expecting value: line 1 column 1 (char 0)

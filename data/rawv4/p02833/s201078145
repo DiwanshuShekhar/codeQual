@@ -1,0 +1,18 @@
+p02833 s201078145
+def trailing_zeros_in_factorial(n):
+    # Initialization to store the number of trailing zeros
+    count = 0
+    # Keep dividing n by powers of 5 and update the count
+    i = 5
+    while (n // i >= 1):
+        count += n // i
+        i *= 5
+    return count
+
+# Input: integer N
+N = int(input())
+
+# Output the number of trailing zeros in f(N) which is same
+# as the number of trailing zeros in the factorial of N (N!)
+print(trailing_zeros_in_factorial(N))
+Expecting value: line 1 column 1 (char 0)

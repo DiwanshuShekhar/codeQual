@@ -1,0 +1,22 @@
+p02603 s051803230
+N = int(input())
+A = [int(input()) for _ in range(N)]
+
+money = 1000
+stocks = 0
+
+for i in range(N-1):
+    if A[i] < A[i+1]:
+        # Buy stocks if the price will increase the next day
+        stocks += money // A[i]
+        money %= A[i]
+    elif A[i] > A[i+1]:
+        # Sell all stocks if the price will decrease the next day
+        money += stocks * A[i]
+        stocks = 0
+
+# Sell any remaining stocks on the last day
+money += stocks * A[N-1]
+
+print(money)
+Expecting value: line 1 column 1 (char 0)

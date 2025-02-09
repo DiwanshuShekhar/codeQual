@@ -1,0 +1,20 @@
+p03087 s895330455
+n, q = map(int, input().split())
+s = input().strip()
+# Pre-calculate the cumulative counts of "AC" occurrences up to each index
+ac_counts = [0] * n
+for i in range(1, n):
+    ac_counts[i] = ac_counts[i-1] + (1 if s[i-1:i+1] == 'AC' else 0)
+
+# Answer each query by calculating the difference in the cumulative counts
+for _ in range(q):
+    l, r = map(int, input().split())
+    # Adjust indices to zero-based and subtract to find occurrences in the range
+    print(ac_counts[r-1] - ac_counts[l-1])
+```
+"""
+You are given a string S of length N consisting of A, C, G and T. Answer the following Q queries:
+
+Query i (1 \leq i \leq Q): You will be given integers l_i and r_i (1 \leq l_i < r_i \leq N). Consider the substring of S starting at index l_i and ending at index r_i (both inclusive). In this string, how many times does AC occurs as a substring?
+"""
+Expecting value: line 1 column 1 (char 0)

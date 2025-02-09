@@ -1,0 +1,9 @@
+p03129 s098954840
+n, k = map(int, input().split())
+
+if (n-1)//2 >= k:
+    print("YES")
+else:
+    print("NO")
+```
+Expecting value: line 1 column 1 (char 0)

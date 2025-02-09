@@ -1,0 +1,20 @@
+p03437 s187837724
+import sys
+
+X, Y = map(int, input().split())
+
+if X % Y == 0:
+    print(-1)
+    sys.exit()
+
+for i in range(1, 10**6+1):
+    if (X*i) % Y != 0:
+        print(X*i)
+        break
+```
+"""
+You are given positive integers X and Y.
+If there exists a positive integer not greater than 10^{18} that is a multiple of X but not a multiple of Y, choose one such integer and print it.
+If it does not exist, print -1.
+"""
+Expecting value: line 1 column 1 (char 0)

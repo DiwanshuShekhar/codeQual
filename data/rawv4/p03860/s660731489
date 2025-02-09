@@ -1,0 +1,5 @@
+p03860 s660731489
+s = input()
+print(f"A{s[1]}C")
+```
+Expecting value: line 1 column 1 (char 0)

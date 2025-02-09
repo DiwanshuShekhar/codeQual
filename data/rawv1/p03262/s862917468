@@ -1,0 +1,24 @@
+p03262 s862917468
+import math
+
+N, X = map(int, input().split())
+x = list(map(int, input().split()))
+
+x_diff = list(map(lambda c: abs(c-X), x))
+
+print(reduce(math.gcd, x_diff))
+
+```
+"""
+There are N cities on a number line. The i-th city is located at coordinate x_i.
+Your objective is to visit all these cities at least once.
+In order to do so, you will first set a positive integer D.
+Then, you will depart from coordinate X and perform Move 1 and Move 2 below, as many times as you like:
+
+Move 1: travel from coordinate y to coordinate y + D.
+Move 2: travel from coordinate y to coordinate y - D.
+
+Find the maximum value of D that enables you to visit all the cities.
+Here, to visit a city is to travel to the coordinate where that city is located.
+"""
+Expecting value: line 1 column 1 (char 0)

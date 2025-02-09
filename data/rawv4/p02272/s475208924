@@ -1,0 +1,19 @@
+p02272 s475208924
+s = input()
+a = 10 ** 9 + 7
+x, y = 1, 0
+z = [0, 0]
+for i in s:
+    z[(i == '1') - 1] += 1
+    if i != '0':
+        y += x * z[1]
+        y %= a
+    x *= 2
+    x %= a
+    z[0] *= 2
+    z[1] *= 2
+    z[0] %= a
+    z[1] %= a
+print(y)
+```
+Expecting value: line 1 column 1 (char 0)

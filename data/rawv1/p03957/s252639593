@@ -1,0 +1,16 @@
+p03957 s252639593
+def can_obtain_cf(s):
+    # Find the first occurrence of 'C'
+    c_index = s.find('C')
+    if c_index == -1:
+        return 'No'
+    # Check if there is an 'F' after the first 'C'
+    f_index = s.find('F', c_index)
+    if f_index == -1:
+        return 'No'
+    return 'Yes'
+
+s = input()
+print(can_obtain_cf(s))
+```
+Expecting value: line 1 column 1 (char 0)

@@ -1,0 +1,13 @@
+p02795 s600270257
+import math
+
+H = int(input())
+W = int(input())
+N = int(input())
+
+max_side = max(H, W)
+min_operations = math.ceil(N / max_side)
+
+print(min_operations)
+```
+Expecting value: line 1 column 1 (char 0)

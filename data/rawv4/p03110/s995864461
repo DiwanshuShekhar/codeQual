@@ -1,0 +1,14 @@
+p03110 s995864461
+# input
+N = int(input())
+amount = 0
+for i in range(N):
+    x, unit = input().split()
+    if unit == 'JPY':
+        amount += float(x)
+    else:  # unit == 'BTC'
+        amount += float(x) * 380000.0
+
+print(amount)
+```
+Expecting value: line 1 column 1 (char 0)

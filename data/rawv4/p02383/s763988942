@@ -1,0 +1,15 @@
+p02383 s763988942
+u, s, e, w, n, b = map(int, input().split())
+rolls = input()
+for r in rolls:
+    if r == 'E':
+        u, s, e, w, n, b = w, s, u, b, n, e
+    elif r == 'S':
+        u, s, e, w, n, b = n, u, e, w, b, s
+    elif r == 'W':
+        u, s, e, w, n, b = e, s, b, u, n, w
+    elif r == 'N':
+        u, s, e, w, n, b = s, b, e, w, u, n
+print(u)
+```
+Expecting value: line 1 column 1 (char 0)

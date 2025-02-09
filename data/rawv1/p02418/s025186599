@@ -1,0 +1,14 @@
+p02418 s025186599
+s = input()
+p = input()
+
+# Create a ring shaped text by duplicating s
+ring = s + s
+
+# Check if p is in the ring shaped text
+if p in ring:
+    print("Yes")
+else:
+    print("No")
+```
+Expecting value: line 1 column 1 (char 0)

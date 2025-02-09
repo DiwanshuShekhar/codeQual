@@ -1,0 +1,58 @@
+p03222 s054312343
+
+#### Code 1
+```python
+n,h = map(int,input().split())
+a = [0]*n
+b = [0]*n
+for i in range(n):
+    a[i], b[i] = map(int,input().split())
+a = sorted(a, reverse=True)
+b = sorted(b, reverse=True)
+c = 0
+j = 0
+while j<n:
+    if b[j] > a[0]:
+        c += b[j]
+    else:
+        break
+    j += 1
+    if c >= h:
+        break
+
+if c < h:
+    j += -(-(h-c)//a[0])
+print(j)
+```
+
+**Criteria Scores**
+
+```json
+{"functionality": "4", "readability": "3", "pythonic": "3", "error_handling": "1", "efficiency": "3"}
+```
+
+**Explanation**:
+- Functionality: The code seems to implement the logic as described in the task but lacks explicit input validation (e.g., non-negative integers, ensuring n and h are within a reasonable range, etc.). It assumes the input is well-formatted.
+- Readability: Variable names could be more descriptive, making the code harder to follow. The logic, however, is straightforward.
+- Pythonic: Uses list comprehensions and sorted, which is good, but could further improve by better leveraging Python's standard library.
+- Error Handling: No explicit error handling or validation of input.
+- Efficiency: The sorting operations and while loop could become inefficient for very large datasets, but the algorithm itself is reasonably efficient for the task.
+
+
+#### Code 2
+```python
+import math,string,itertools,fractions,heapq,collections,re,array,bisect,sys,random,time,copy,functools
+from collections import deque
+
+sys.setrecursionlimit(10**7)
+inf = 10**20
+mod = 10**9 + 7
+
+DR = [1, -1, 0, 0]
+DC = [0, 0, 1, -1]
+
+def LI(): return [int(x) for x in sys.stdin.readline().split()]
+def LI_(): return [int(x)-1 for x in sys.stdin.readline().split()]
+def LF(): return [float(x) for x in sys.stdin.readline().split()]
+def LS(): return sys.stdin.readline().split()
+Expecting value: line 2 column 1 (char 1)

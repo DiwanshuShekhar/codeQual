@@ -1,0 +1,14 @@
+p03457 s844411295
+N = int(input())
+prev = [0,0,0]
+for _ in range(N):
+    t,x,y = map(int,input().split())
+    dt = t-prev[0]
+    distance = abs(x-prev[1]) + abs(y-prev[2])
+    if distance > dt or dt%2 != distance%2:
+        print("No")
+        exit()
+    prev = [t,x,y]
+print("Yes")
+```
+Expecting value: line 1 column 1 (char 0)

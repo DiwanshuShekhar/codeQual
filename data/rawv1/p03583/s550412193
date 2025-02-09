@@ -1,0 +1,15 @@
+p03583 s550412193
+N = int(input())
+
+for h in range(1, 3501):
+    for n in range(h, 3501):
+        if (4*h*n - N*h - N*n)>0 and (N*h*n) % (4*h*n - N*h - N*n)==0:
+            w = (N*h*n) // (4*h*n - N*h - N*n)
+            print(h, n, w)
+            exit()
+```
+"""
+You are given an integer N.
+Find a triple of positive integers h, n and w such that 4/N = 1/h + 1/n + 1/w.
+If there are multiple solutions, any of them will be accepted.
+Expecting value: line 1 column 1 (char 0)

@@ -1,0 +1,22 @@
+p02697 s332237890
+def create_pairs(N, M):
+    if N % 2 == 0:
+        return [(i, N - i) for i in range(1, M + 1)]
+    else:
+        pairs = []
+        left = 1
+        right = N - 1
+        for _ in range(M):
+            if right - left <= N // 2:
+                right -= 1
+            pairs.append((left, right))
+            left += 1
+            right -= 1
+        return pairs
+
+N, M = map(int, input().split())
+pairs = create_pairs(N, M)
+for a, b in pairs:
+    print(a, b)
+```
+Expecting value: line 1 column 1 (char 0)

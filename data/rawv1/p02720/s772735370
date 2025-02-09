@@ -1,0 +1,22 @@
+p02720 s772735370
+k = int(input())
+from collections import deque
+def extra(queue,k):
+
+  for _ in range(k):
+      x = queue.popleft()
+      if x%10 !=0:queue.append(x*10+(x%10)-1)
+      queue.append(x*10+(x%10))
+      if x%10 !=9:queue.append(x*10+(x%10)+1)
+  return x
+queue = deque([i for i in range(1,10)])
+print(extra(queue,k-1))
+```
+"""
+A positive integer X is said to be a lunlun number if and only if the following condition is satisfied:
+
+In the base ten representation of X (without leading zeros), for every pair of two adjacent digits, the absolute difference of those digits is at most 1.
+
+For example, 1234, 1, and 334 are lunlun numbers, while none of 31415, 119, or 13579 is.
+You are given a positive integer K. Find the K-th smallest lunlun number.
+Expecting value: line 1 column 1 (char 0)

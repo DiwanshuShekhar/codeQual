@@ -1,0 +1,12 @@
+p02957 s500633843
+a, b = map(int, input().split())
+if (a + b) % 2 == 0:
+    print((a + b) // 2)
+else:
+    print("IMPOSSIBLE")
+```
+"""
+We have two distinct integers A and B.
+Print the integer K such that |A - K| = |B - K|.
+If such an integer does not exist, print IMPOSSIBLE instead.
+Expecting value: line 1 column 1 (char 0)

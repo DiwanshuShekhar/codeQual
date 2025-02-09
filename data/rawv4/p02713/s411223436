@@ -1,0 +1,17 @@
+p02713 s411223436
+from fractions import gcd
+
+K = int(input())
+
+ans = 0
+for a in range(1, K+1):
+    for b in range(1, K+1):
+        for c in range(1, K+1):
+            ans += gcd(gcd(a, b), c)
+print(ans)
+```
+"""
+Find \displaystyle{\sum_{a=1}^{K}\sum_{b=1}^{K}\sum_{c=1}^{K} \gcd(a,b,c)}.
+Here \gcd(a,b,c) denotes the greatest common divisor of a, b, and c.
+"""
+Expecting value: line 1 column 1 (char 0)

@@ -1,0 +1,15 @@
+p02420 s038868045
+m = int(input())
+tasks = []
+for _ in range(m):
+    n = int(input())
+    tasks.append(list(map(int, input().split())))
+q = int(input())
+for _ in range(q):
+    x, y = map(int, input().split())
+    if x <= 0 or x > m or y < 0 or y >= len(tasks[x-1]):
+        print(-1)
+    else:
+        print(tasks[x-1][y])
+```
+Expecting value: line 1 column 1 (char 0)

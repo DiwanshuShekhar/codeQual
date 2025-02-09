@@ -1,0 +1,17 @@
+p02630 s792863826
+n = int(input())
+a = list(map(int, input().split()))
+q = int(input())
+
+counter = collections.Counter(a)
+total = sum(a)
+
+for _ in range(q):
+    b, c = map(int, input().split())
+    if b in counter:
+        total += (c - b) * counter[b]
+        counter[c] += counter[b]
+        counter[b] = 0
+    print(total)
+```
+Expecting value: line 1 column 1 (char 0)

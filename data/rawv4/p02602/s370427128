@@ -1,0 +1,7 @@
+p02602 s370427128
+n,k=list(map(int,input().split()))
+a=list(map(int,input().split()))
+for i in range(n-k):
+    print('Yes' if a[i+k]>a[i] else 'No')
+```
+Expecting value: line 1 column 1 (char 0)

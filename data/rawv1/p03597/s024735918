@@ -1,0 +1,7 @@
+p03597 s024735918
+N = int(input())
+A = int(input())
+black = N**2 - A
+print(black)
+```
+Expecting value: line 1 column 1 (char 0)

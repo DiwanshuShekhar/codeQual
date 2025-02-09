@@ -1,0 +1,18 @@
+p02411 s090028462
+while True:
+    m, f, b = map(int, input().split())
+    if m == f == b == -1:
+        break
+
+    if m == -1 or f == -1 or m+f < 30:
+        print('F')
+    elif m+f >= 80:
+        print('A')
+    elif m+f >= 65:
+        print('B')
+    elif m+f >= 50 or (m+f >= 30 and b >= 50):
+        print('C')
+    else:
+        print('D')
+```
+Expecting value: line 1 column 1 (char 0)

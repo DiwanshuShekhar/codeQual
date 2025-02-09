@@ -1,0 +1,12 @@
+p02616 s430299675
+n,k=map(int,input().split())
+a=sorted(map(int,input().split()))
+ans,l,r=1,len([x for x in a if x<0]),len([x for x in a if x>0])
+MOD=10**9+7
+if n==k or r==0 and k%2: print(prod(a[-k:])%MOD)
+else:
+    if k%2: ans*=a.pop();k-=1
+    b=[a[i]*a[i+1] for i in range(0,len(a)-1,2)]
+    print(ans*prod(sorted(b,reverse=r>1)[:k//2])%MOD)
+```
+Expecting value: line 1 column 1 (char 0)

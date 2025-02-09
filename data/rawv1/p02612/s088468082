@@ -1,0 +1,11 @@
+p02612 s088468082
+N = int(input())
+change = N % 1000
+print(1000 - change if change else 0)
+```
+"""
+We will buy a product for N yen (the currency of Japan) at a shop.
+If we use only 1000-yen bills to pay the price, how much change will we receive?
+Assume we use the minimum number of bills required.
+"""
+Expecting value: line 1 column 1 (char 0)

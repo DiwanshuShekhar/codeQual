@@ -1,0 +1,1 @@
+{"problem_id": "p02659", "submission_id": "s204679717", "problem_description": "Compute A \\times B, truncate its fractional part, and print the result as an integer.", "quality_score": {"functionality": "5", "readability": "5", "pythonic": "5", "error_handling": "3", "efficiency": "4"}}

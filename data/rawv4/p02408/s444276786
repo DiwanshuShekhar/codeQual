@@ -1,0 +1,14 @@
+p02408 s444276786
+n = int(input())
+cards = set()
+for _ in range(n):
+    s, r = input().split()
+    cards.add((s, int(r)))
+
+suits = ['S', 'H', 'C', 'D']
+for suit in suits:
+    for rank in range(1, 14):
+        if (suit, rank) not in cards:
+            print(suit, rank)
+```
+Expecting value: line 1 column 1 (char 0)

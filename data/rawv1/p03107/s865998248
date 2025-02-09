@@ -1,0 +1,10 @@
+p03107 s865998248
+s = input()
+print(min(s.count("0"), s.count("1")) * 2)
+```
+"""
+There are N cubes stacked vertically on a desk.
+You are given a string S of length N. The color of the i-th cube from the bottom is red if the i-th character in S is 0, and blue if that character is 1.
+You can perform the following operation any number of times: choose a red cube and a blue cube that are adjacent, and remove them. Here, the cubes that were stacked on the removed cubes will fall down onto the object below them.
+At most how many cubes can be removed?
+Expecting value: line 1 column 1 (char 0)

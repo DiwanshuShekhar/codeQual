@@ -1,0 +1,1 @@
+{"problem_id": "p02957", "submission_id": "s864398195", "problem_description": "We have two distinct integers A and B.\nPrint the integer K such that |A - K| = |B - K|.\nIf such an integer does not exist, print IMPOSSIBLE instead.", "quality_score": {"functionality": "5", "readability": "5", "pythonic": "5", "error_handling": "4", "efficiency": "5"}}

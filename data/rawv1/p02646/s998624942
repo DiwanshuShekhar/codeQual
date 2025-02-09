@@ -1,0 +1,20 @@
+p02646 s998624942
+A, V = map(int, input().split())
+B, W = map(int, input().split())
+T = int(input())
+
+if V > W:
+    if abs(A - B) <= (V - W) * T:
+        print("YES")
+    else:
+        print("NO")
+else:
+    print("NO")
+```
+"""
+Two children are playing tag on a number line. (In the game of tag, the child called "it" tries to catch the other child.) The child who is "it" is now at coordinate A, and he can travel the distance of V per second.
+The other child is now at coordinate B, and she can travel the distance of W per second.
+He can catch her when his coordinate is the same as hers.
+Determine whether he can catch her within T seconds (including exactly T seconds later).
+We assume that both children move optimally.
+Expecting value: line 1 column 1 (char 0)

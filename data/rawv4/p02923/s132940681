@@ -1,0 +1,15 @@
+p02923 s132940681
+n = int(input())
+h = list(map(int, input().split()))
+
+count = 0
+max_count = 0
+for i in range(1, n):
+    if h[i] <= h[i-1]:
+        count += 1
+        max_count = max(max_count, count)
+    else:
+        count = 0
+
+print(max_count)
+Expecting value: line 1 column 1 (char 0)

@@ -1,0 +1,24 @@
+p02866 s678588518
+from collections import Counter
+n = int(input())
+d = list(map(int,input().split()))
+mod = 998244353
+ans = 1
+if d[0] != 0:
+    print(0)
+    exit(0)
+cnt = Counter(d)
+if cnt[0] != 1:
+    print(0)
+else:
+    for i in range(1,max(d)+1):
+        ans *= cnt[i-1] ** cnt[i]
+        ans %= mod
+    print(ans)
+```
+"""
+Given is an integer sequence D_1,...,D_N of N elements. Find the number, modulo 998244353, of trees with N vertices numbered 1 to N that satisfy the following condition:
+
+For every integer i from 1 to N, the distance between Vertex 1 and Vertex i is D_i.
+"""
+Expecting value: line 1 column 1 (char 0)

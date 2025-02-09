@@ -1,0 +1,15 @@
+p03303 s972273710
+s = input()
+w = int(input())
+
+ans = ''
+for i in range(0, len(s), w):
+    ans += s[i]
+
+print(ans)
+```
+"""
+You are given a string S consisting of lowercase English letters.
+We will write down this string, starting a new line after every w letters. Print the string obtained by concatenating the letters at the beginnings of these lines from top to bottom.
+"""
+Expecting value: line 1 column 1 (char 0)

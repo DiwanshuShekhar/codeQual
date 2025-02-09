@@ -1,0 +1,24 @@
+p02271 s474368938
+N = int(input())
+A = list(map(int,input().split()))
+Q = int(input())
+m = list(map(int,input().split()))
+
+def dfs(xi,c):
+    if c in memo[xi]:
+        return
+    memo[xi].add(c)
+    if xi == N:
+        return
+    dfs(xi+1, c)
+    dfs(xi+1, c+A[xi])
+
+memo = [set() for i in range(N+1)]
+dfs(0,0)
+for mi in m:
+    if mi in memo[N]:
+        print('yes')
+    else:
+        print('no')
+```
+Expecting value: line 1 column 1 (char 0)

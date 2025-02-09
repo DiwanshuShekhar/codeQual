@@ -1,0 +1,13 @@
+p03720 s353655334
+n, m = map(int, input().split())
+roads = [0] * n
+
+for _ in range(m):
+    a, b = map(int, input().split())
+    roads[a - 1] += 1
+    roads[b - 1] += 1
+
+for road in roads:
+    print(road)
+```
+Expecting value: line 1 column 1 (char 0)

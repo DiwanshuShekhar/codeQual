@@ -1,0 +1,16 @@
+p03293 s096593409
+s, t = input().split()
+
+if t in s * 2:
+    print('Yes')
+else:
+    print('No')
+```
+"""
+You are given string S and T consisting of lowercase English letters.
+Determine if S equals T after rotation.
+That is, determine if S equals T after the following operation is performed some number of times:
+Operation: Let S = S_1 S_2 ... S_{|S|}. Change S to S_{|S|} S_1 S_2 ... S_{|S|-1}.
+Here, |X| denotes the length of the string X.
+"""
+Expecting value: line 1 column 1 (char 0)

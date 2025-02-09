@@ -1,0 +1,12 @@
+p03631 s871677031
+n = input()
+if n == n[::-1]:
+    print("Yes")
+else:
+    print("No")
+```
+"""
+You are given a three-digit positive integer N.
+Determine whether N is a palindromic number.
+Here, a palindromic number is an integer that reads the same backward as forward in decimal notation.
+Expecting value: line 1 column 1 (char 0)

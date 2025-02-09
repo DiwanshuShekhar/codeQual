@@ -1,0 +1,23 @@
+p03251 s562325588
+n,m,X,Y=map(int,input().split())
+x=list(map(int,input().split()))
+y=list(map(int,input().split()))
+x.append(X)
+y.append(Y)
+if max(x) < min(y):
+    print("No War")
+else:
+    print("War")
+```
+"""
+Our world is one-dimensional, and ruled by two empires called Empire A and Empire B.
+The capital of Empire A is located at coordinate X, and that of Empire B is located at coordinate Y.
+One day, Empire A becomes inclined to put the cities at coordinates x_1, x_2, ..., x_N under its control, and Empire B becomes inclined to put the cities at coordinates y_1, y_2, ..., y_M under its control.
+If there exists an integer Z that satisfies all of the following three conditions, they will come to an agreement, but otherwise war will break out.
+
+X < Z \leq Y
+x_1, x_2, ..., x_N < Z
+y_1, y_2, ..., y_M \geq Z
+
+Determine if war will break out.
+Expecting value: line 1 column 1 (char 0)

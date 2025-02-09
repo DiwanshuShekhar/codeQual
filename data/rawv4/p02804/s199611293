@@ -1,0 +1,32 @@
+p02804 s199611293
+n, k = map(int, input().split())
+mod = 10**9+7
+a = [int(i) for i in input().split()]
+a.sort()
+
+def power(x, y):
+    if y == 0:
+        return 1
+    elif y == 1:
+        return x
+    elif y % 2 == 0:
+        return power(x, y // 2) ** 2 % mod
+    else:
+        return power(x, y // 2) ** 2 * x % mod
+
+def comb(n, r):
+    return (fact[n] * pow(fact[n - r] * fact[r], mod - 2, mod)) % mod
+
+fact = [1]
+for i in range(1, n + 1):
+    fact.append(fact[-1] * i % mod)
+
+ans = 0
+for i in range(k - 1, n):
+    ans = (ans + a[i] * comb(i, k - 1)) % mod
+for i in range(n - k + 1):
+    ans = (ans - a[i] * comb(n - i - 1, k - 1)) % mod
+
+print(ans)
+```
+Expecting value: line 1 column 1 (char 0)

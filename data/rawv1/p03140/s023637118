@@ -1,0 +1,19 @@
+p03140 s023637118
+n = int(input())
+a = input()
+b = input()
+c = input()
+count = 0
+for i in range(n):
+    chars = {a[i], b[i], c[i]}
+    count += len(chars) - 1
+print(count)
+```
+"""
+You are given three strings A, B and C. Each of these is a string of length N consisting of lowercase English letters.
+Our objective is to make all these three strings equal. For that, you can repeatedly perform the following operation:
+
+Operation: Choose one of the strings A, B and C, and specify an integer i between 1 and N (inclusive). Change the i-th character from the beginning of the chosen string to some other lowercase English letter.
+
+What is the minimum number of operations required to achieve the objective?
+Expecting value: line 1 column 1 (char 0)

@@ -1,0 +1,16 @@
+p03767 s538145239
+import sys
+input=sys.stdin.readline
+def main():
+    n=int(input())
+    a=list(map(int,input().split()))
+    a.sort()
+    ans=0
+    for i in range(n,3*n,2):
+        ans+=a[i]
+    print(ans)
+
+if __name__=="__main__":
+    main()
+```
+Expecting value: line 1 column 1 (char 0)

@@ -1,0 +1,19 @@
+p03378 s949015170
+n,m,x=map(int,input().split())
+a=list(map(int,input().split()))
+left=0
+right=0
+for i in a:
+  if i<x:left+=1
+  else:right+=1
+print(min(left,right))
+```
+"""
+There are N + 1 squares arranged in a row, numbered 0, 1, ..., N from left to right.
+Initially, you are in Square X.
+You can freely travel between adjacent squares. Your goal is to reach Square 0 or Square N.
+However, for each i = 1, 2, ..., M, there is a toll gate in Square A_i, and traveling to Square A_i incurs a cost of 1.
+It is guaranteed that there is no toll gate in Square 0, Square X and Square N.
+Find the minimum cost incurred before reaching the goal.
+"""
+Expecting value: line 1 column 1 (char 0)

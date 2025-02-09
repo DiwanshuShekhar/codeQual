@@ -1,0 +1,40 @@
+p02851 s662868204
+n, k = map(int, input().split())
+a = list(map(int, input().split()))
+
+# Precompute the prefix sums modulo k
+prefix_sums = [0]  # Prefix sum for empty subarray
+current_sum = 0
+for ai in a:
+    current_sum += ai
+    prefix_sums.append(current_sum % k)
+
+# Count how many subarrays of each length modulo k exist
+counts = [0] * k  # Counts[i] = number of subarrays with length % k == i
+answer = 0
+
+# Use a dictionary to keep track of how many times each prefix sum modulo k has been seen
+seen_prefix_sums = {}
+
+for i, p in enumerate(prefix_sums):
+    # Adjust the prefix sum index for the modulo operation since
+    # a subarray sum that is a multiple of k is obtained when the (prefix sum index - subarray length) is a multiple of k
+    adjusted_p = (p - i % k + k) % k
+
+    # Add the current adjusted prefix sum to the seen_prefix_sums dictionary
+    if adjusted_p in seen_prefix_sums:
+        answer += seen_prefix_sums[adjusted_p]  # If we've seen this adjusted prefix sum before, increment the answer
+    else:
+        seen_prefix_sums[adjusted_p] = 0
+
+    # Now add the current prefix sum to the seen_prefix_sums dictionary
+    seen_prefix_sums[p] = seen_prefix_sums.get(p, 0) + 1
+
+    # Remove prefix sums that are too far away to be part of a valid subarray
+    if i >= k-1:  # We can only start removing after we've seen at least k prefix sums
+        removed_p = (prefix_sums[i - k + 1] - (i - k + 1) % k + k) % k
+        seen_prefix_sums[removed_p] -= 1  # Remove one occurrence of this adjusted prefix sum
+
+print(answer)
+```
+Expecting value: line 1 column 1 (char 0)

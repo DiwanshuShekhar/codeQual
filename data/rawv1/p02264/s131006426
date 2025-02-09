@@ -1,0 +1,28 @@
+p02264 s131006426
+from sys import stdin
+
+def main():
+  readline = stdin.readline
+
+  n, q = map(int, readline().split())
+  p = [list(readline().split()) for i in range(n)]
+
+  elapsed_time = 0
+  queue = p
+
+  while queue:
+    process = queue.pop(0)
+    name, time = process
+    time = int(time)
+    if time > q:
+      # If the process takes more time than quantum, put it back to the end of the queue
+      queue.append([name, time - q])
+      elapsed_time += q
+    else:
+      elapsed_time += time
+      print(name, elapsed_time)
+
+if __name__ == "__main__":
+  main()
+```
+Expecting value: line 1 column 1 (char 0)

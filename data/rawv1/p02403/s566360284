@@ -1,0 +1,13 @@
+p02403 s566360284
+while True:
+    h, w = map(int, input().split())
+    if (h, w) == (0, 0):
+        break
+    for _ in range(h):
+        print('#' * w)
+    print()
+```
+"""
+Draw a rectangle which has a height of H cm and a width of W cm. Draw a 1-cm square by single '#'.
+"""
+Expecting value: line 1 column 1 (char 0)

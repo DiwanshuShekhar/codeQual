@@ -1,0 +1,25 @@
+p02257 s916309490
+n = int(input())
+a = [int(input()) for _ in range(n)]
+
+def is_prime(x):
+    if x < 2:
+        return False
+    if x == 2:
+        return True
+    if x % 2 == 0:
+        return False
+    i = 3
+    while i ** 2 <= x:
+        if x % i == 0:
+            return False
+        i += 2
+    return True
+
+count = 0
+for x in a:
+    if is_prime(x):
+        count += 1
+print(count)
+```
+Expecting value: line 1 column 1 (char 0)

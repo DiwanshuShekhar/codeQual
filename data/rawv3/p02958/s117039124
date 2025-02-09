@@ -1,0 +1,20 @@
+p02958 s117039124
+n = int(input())
+p = list(map(int, input().split()))
+
+cnt = 0
+for i in range(n):
+    if p[i] != i+1:
+        cnt += 1
+
+if cnt in [0, 2]:
+    print("YES")
+else:
+    print("NO")
+
+```
+"""
+We have a sequence p = {p_1,\ p_2,\ ...,\ p_N} which is a permutation of {1,\ 2,\ ...,\ N}.
+You can perform the following operation at most once: choose integers i and j (1 \leq i < j \leq N), and swap p_i and p_j. Note that you can also choose not to perform it.
+Print YES if you can sort p in ascending order in this way, and NO otherwise.
+Expecting value: line 1 column 1 (char 0)

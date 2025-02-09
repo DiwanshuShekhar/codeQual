@@ -1,0 +1,11 @@
+p03125 s669037597
+A, B = map(int, input().split())
+
+# If A is a divisor of B, A divides evenly into B
+if B % A == 0:
+    print(A + B)
+else:
+    print(B - A)
+```
+"""
+Expecting value: line 1 column 1 (char 0)

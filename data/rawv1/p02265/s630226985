@@ -1,0 +1,33 @@
+p02265 s630226985
+from collections import deque
+
+n = int(input())
+dlist = deque()
+
+for _ in range(n):
+    cmd, *args = input().split()
+    if cmd == 'insert':
+        dlist.appendleft(args[0])
+    elif cmd == 'delete':
+        try:
+            dlist.remove(args[0])
+        except ValueError:
+            pass
+    elif cmd == 'deleteFirst':
+        dlist.popleft()
+    elif cmd == 'deleteLast':
+        dlist.pop()
+
+print(' '.join(dlist))
+
+```
+This code first imports the needed deque module from the collections library, which is a double-ended queue that allows adding and removing elements from either end. The code then initializes an empty deque to represent a double linked list.
+
+For each instruction (`n` lines), it reads the command (`cmd`) and its arguments (`args`) as input. It performs different operations based on the value of `cmd`:
+
+- If the command is `insert`, it inserts (`appendleft`) the specified element (`args[0]`) at the beginning of the deque.
+- If the command is `delete`, it tries to remove the first occurrence of the specified element (`args[0]`). If the element is not in the deque, it catches the `ValueError` and does nothing.
+- If the command is `deleteFirst`, it removes the first element from the deque using `popleft`.
+- If the command is `deleteLast`, it removes the last element from the deque using `pop`.
+
+Expecting value: line 1 column 1 (char 0)

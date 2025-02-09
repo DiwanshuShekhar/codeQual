@@ -1,0 +1,11 @@
+p02899 s091739362
+n = int(input())
+a = list(map(int, input().split()))
+
+stu_order = [(a[i], i + 1) for i in range(n)]
+stu_order.sort()
+
+for _, stu_num in stu_order:
+    print(stu_num, end=" ")
+```
+Expecting value: line 1 column 1 (char 0)

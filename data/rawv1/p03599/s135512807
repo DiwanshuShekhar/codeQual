@@ -1,0 +1,29 @@
+p03599 s135512807
+A, B, C, D, E, F = map(int, input().split())
+
+# 全ての水の量を計算
+w = [0] * (F+1)
+w[0] = 1
+for i in range(F+1):
+    if w[i]:
+        if i + 100 * A <= F: w[i + 100 * A] = 1
+        if i + 100 * B <= F: w[i + 100 * B] = 1
+
+# 全ての砂糖の量を計算
+s = [0] * (F+1)
+s[0] = 1
+for i in range(F+1):
+    if s[i]:
+        if i + C <= F: s[i + C] = 1
+        if i + D <= F: s[i + D] = 1
+
+ans = (0, 0)
+for i in range(1, F+1):
+    if w[i]:
+        for j in range((F-i)//100*E+1):
+            if s[j] and i + j <= F:
+                if ans[0] * (i + j) < j * (100 + ans[1]):
+                    ans = (j, i + j)
+print(ans[1], ans[0])
+```
+Expecting value: line 1 column 1 (char 0)

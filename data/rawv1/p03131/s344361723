@@ -1,0 +1,13 @@
+p03131 s344361723
+K, A, B = map(int, input().split())
+
+if B - A <= 2 or K < A:
+    print(K + 1)
+else:
+    K -= (A - 1)
+    ans = A
+    ans += (K // 2) * (B - A)
+    ans += K % 2
+    print(ans)
+```
+Expecting value: line 1 column 1 (char 0)

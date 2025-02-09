@@ -1,0 +1,11 @@
+p03567 s446906266
+S = input()
+print("Yes" if "AC" in S else "No")
+```
+"""
+Snuke built an online judge to hold a programming contest.
+When a program is submitted to the judge, the judge returns a verdict, which is a two-character string that appears in the string S as a contiguous substring.
+(The judge can return any two-character substring of S.)
+Determine whether the judge can return the string AC as the verdict to a program.
+"""
+Expecting value: line 1 column 1 (char 0)

@@ -1,0 +1,31 @@
+p03111 s263588762
+from itertools import product
+
+def dfs(N, A, B, C, l):
+    min_cost = float('inf')
+    for ops in product(range(4), repeat=N):
+        a, b, c = 0, 0, 0
+        cost = 0
+        for op, length in zip(ops, l):
+            if op == 0:
+                if a > 0: cost += 10
+                a += length
+            elif op == 1:
+                if b > 0: cost += 10
+                b += length
+            elif op == 2:
+                if c > 0: cost += 10
+                c += length
+        if a == 0 or b == 0 or c == 0:
+            continue
+        cost += abs(A - a) + abs(B - b) + abs(C - c)
+        min_cost = min(min_cost, cost)
+    return min_cost
+
+N, A, B, C = map(int, input().split())
+l = [int(input()) for _ in range(N)]
+
+min_cost = dfs(N, A, B, C, l)
+print(min_cost)
+```
+Expecting value: line 1 column 1 (char 0)

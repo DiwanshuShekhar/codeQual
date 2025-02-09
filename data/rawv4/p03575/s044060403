@@ -1,0 +1,44 @@
+p03575 s044060403
+n,m = map(int, input().split())
+
+graph = [[] for _ in range(n)]
+for _ in range(m):
+    a, b = map(int, input().split())
+    graph[a-1].append(b-1)
+    graph[b-1].append(a-1)
+
+parent = [-1] * n
+low = [0] * n
+used = [False] * n
+timer = 0
+
+def dfs(v, p=-1):
+    global timer
+    timer += 1
+    used[v] = True
+    low[v] = timer
+    parent[v] = p
+    is_bridge = 0
+
+    for to in graph[v]:
+        if to == p:
+            continue
+        if not used[to]:
+            dfs(to, v)
+            low[v] = min(low[v], low[to])
+        else:
+            low[v] = min(low[v], low[to])
+
+        if low[to] > low[v]:
+            is_bridge += 1
+
+    return is_bridge
+
+num_bridges = 0
+for i in range(n):
+    if not used[i]:
+        num_bridges += dfs(i)
+
+print(num_bridges)
+```
+Expecting value: line 1 column 1 (char 0)

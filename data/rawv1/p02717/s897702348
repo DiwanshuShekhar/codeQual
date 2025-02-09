@@ -1,0 +1,14 @@
+p02717 s897702348
+A, B, C = map(int, input().split())
+A, B = B, A
+A, C = C, A
+print(f"{A} {B} {C}")
+```
+"""
+We have three boxes A, B, and C, each of which contains an integer.
+Currently, the boxes A, B, and C contain the integers X, Y, and Z, respectively.
+We will now do the operations below in order. Find the content of each box afterward.
+
+Swap the contents of the boxes A and B
+Swap the contents of the boxes A and C
+Expecting value: line 1 column 1 (char 0)

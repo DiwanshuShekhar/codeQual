@@ -1,0 +1,28 @@
+p03625 s462310510
+N = int(input())
+A = list(map(int, input().split()))
+
+counter = {}
+# Count the occurrence of each stick length
+for length in A:
+    if length not in counter:
+        counter[length] = 0
+    counter[length] += 1
+
+# Candidates for rectangle sides, sorted in descending order
+candidates = sorted([k for k, v in counter.items() if v >= 2], reverse=True)
+
+max_area = 0
+
+# If we have at least two pairs of sticks of the same length, we can form a rectangle
+if len(candidates) >= 2:
+    # If the longest stick appears at least 4 times, it can form a square
+    if counter[candidates[0]] >= 4:
+        max_area = candidates[0] ** 2
+    else:
+        max_area = candidates[0] * candidates[1]
+elif len(candidates) == 1 and counter[candidates[0]] >= 4:
+    max_area = candidates[0] ** 2
+
+print(max_area)
+Expecting value: line 1 column 1 (char 0)

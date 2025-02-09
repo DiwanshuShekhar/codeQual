@@ -1,0 +1,25 @@
+p03042 s381864369
+S = input()
+
+def is_mm(val):
+    return 1 <= int(val) <= 12
+
+first, second = S[:2], S[2:]
+
+if is_mm(first) and is_mm(second):
+    print('AMBIGUOUS')
+elif is_mm(first):
+    print('MMYY')
+elif is_mm(second):
+    print('YYMM')
+else:
+    print('NA')
+```
+"""
+You have a digit sequence S of length 4. You are wondering which of the following formats S is in:
+
+YYMM format: the last two digits of the year and the two-digit representation of the month (example: 01 for January), concatenated in this order
+MMYY format: the two-digit representation of the month and the last two digits of the year, concatenated in this order
+
+If S is valid in only YYMM format, print YYMM; if S is valid in only MMYY format, print MMYY; if S is valid in both formats, print AMBIGUOUS; if S is valid in neither format, print NA.
+Expecting value: line 1 column 1 (char 0)

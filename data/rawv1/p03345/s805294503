@@ -1,0 +1,15 @@
+p03345 s805294503
+A, B, C, K = map(int, input().split())
+if K % 2 == 0:
+    print(A - B)
+else:
+    print(B - A)
+```
+"""
+Takahashi, Nakahashi and Hikuhashi have integers A, B and C, respectively.
+After repeating the following operation K times, find the integer Takahashi will get minus the integer Nakahashi will get:
+
+Each of them simultaneously calculate the sum of the integers that the other two people have, then replace his own integer with the result.
+
+However, if the absolute value of the answer exceeds 10^{18}, print Unfair instead.
+Expecting value: line 1 column 1 (char 0)

@@ -1,0 +1,1 @@
+{"problem_id": "p02257", "submission_id": "s966575505", "problem_description": "A prime number is a natural number which has exactly two distinct natural number divisors: 1 and itself. For example, the first four prime numbers are: 2, 3, 5 and 7.", "quality_score": {"functionality": "5", "readability": "5", "pythonic": "5", "error_handling": "3", "efficiency": "4"}}

@@ -1,0 +1,16 @@
+p03624 s839931334
+s = set(input())
+
+for c in "abcdefghijklmnopqrstuvwxyz":
+    if c not in s:
+        print(c)
+        break
+else:
+    print("None")
+```
+"""
+You are given a string S consisting of lowercase English letters.
+Find the lexicographically (alphabetically) smallest lowercase English letter that does not occur in S.
+If every lowercase English letter occurs in S, print None instead.
+"""
+Expecting value: line 1 column 1 (char 0)

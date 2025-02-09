@@ -1,0 +1,10 @@
+p02418 s844408799
+s = input() + input()
+p = input()
+
+if p in s:
+    print('Yes')
+else:
+    print('No')
+```
+Expecting value: line 1 column 1 (char 0)

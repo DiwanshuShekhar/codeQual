@@ -1,0 +1,22 @@
+p03721 s022706855
+N, K = map(int, input().split())
+AB = [list(map(int, input().split())) for _ in range(N)]
+
+# Sort by the first element of each pair a_i
+AB.sort()
+
+# Keep track of the cumulative sum of b_i
+cumulative = 0
+
+for a, b in AB:
+    cumulative += b
+
+    # If the cumulative sum reaches or exceeds K, print a_i
+    if cumulative >= K:
+        print(a)
+        break
+```
+"""
+This code defines a problem scenario involving array operations, given N operations where each operation involves adding b_i copies of an integer a_i to an array. The task is to find the K-th smallest integer in the array after performing all N operations. The code first reads inputs for N and K, followed by N pairs of integers representing each operation. Then, it sorts these operations based on the integer a_i to be inserted. Next, it iterates over the sorted operations, maintaining a cumulative sum of b_i, to find the point where the K-th position is reached or exceeded, at which point it prints the value of a_i corresponding to that operation, effectively identifying the K-th smallest integer after all operations.
+"""
+Expecting value: line 1 column 1 (char 0)

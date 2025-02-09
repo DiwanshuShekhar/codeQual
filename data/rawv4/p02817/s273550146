@@ -1,0 +1,18 @@
+p02817 s273550146
+# solution
+
+n = int(input())
+a = b = 10**9
+f = False
+ans = 2*a*b//gcd(a,b)
+for _ in range(n):
+    x = int(input())
+    y = gcd(a,x)
+    z = gcd(b,x)
+    if y > z:
+        a = y
+    else:
+        a = z
+    ans = ans//max(y,z)*x
+print(ans)
+Expecting value: line 1 column 1 (char 0)

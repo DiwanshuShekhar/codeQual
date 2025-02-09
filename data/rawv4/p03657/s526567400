@@ -1,0 +1,13 @@
+p03657 s526567400
+a, b = map(int, input().split())
+if a % 3 == 0 or b % 3 == 0 or (a + b) % 3 == 0:
+    print("Possible")
+else:
+    print("Impossible")
+```
+"""
+Snuke is giving cookies to his three goats.
+He has two cookie tins. One contains A cookies, and the other contains B cookies. He can thus give A cookies, B cookies or A+B cookies to his goats (he cannot open the tins).
+Your task is to determine whether Snuke can give cookies to his three goats so that each of them can have the same number of cookies.
+"""
+Expecting value: line 1 column 1 (char 0)

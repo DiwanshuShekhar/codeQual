@@ -1,0 +1,15 @@
+p02612 s922188183
+N = int(input())
+
+# Calculate the amount that exceeds the nearest lower multiple of 1000
+excess = N % 1000
+
+# If there is no excess, no change is needed
+if excess == 0:
+    print(0)
+# Otherwise, calculate the change from the next multiple of 1000
+else:
+    change = 1000 - excess
+    print(change)
+```
+Expecting value: line 1 column 1 (char 0)

@@ -1,0 +1,16 @@
+p03361 s433403246
+H, W = map(int, input().split())
+grid = [input() for _ in range(H)]
+
+for i in range(H):
+    for j in range(W):
+        if grid[i][j] == "#":
+            if not (i > 0 and grid[i-1][j] == "#" or
+                    i < H-1 and grid[i+1][j] == "#" or
+                    j > 0 and grid[i][j-1] == "#" or
+                    j < W-1 and grid[i][j+1] == "#"):
+                print("No")
+                return
+print("Yes")
+```
+Expecting value: line 1 column 1 (char 0)

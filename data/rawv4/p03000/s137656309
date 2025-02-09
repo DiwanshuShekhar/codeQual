@@ -1,0 +1,18 @@
+p03000 s137656309
+n, x = map(int, input().split())
+l = list(map(int, input().split()))
+
+d = 0
+count = 1
+for i in range(n):
+    d += l[i]
+    if d <= x:
+        count += 1
+    else:
+        break
+print(count)
+```
+"""
+A ball will bounce along a number line, making N + 1 bounces. It will make the first bounce at coordinate D_1 = 0, and the i-th bounce (2 \leq i \leq N+1) at coordinate D_i = D_{i-1} + L_{i-1}.
+How many times will the ball make a bounce where the coordinate is at most X?
+Expecting value: line 1 column 1 (char 0)

@@ -1,0 +1,5 @@
+p02415 s159418339
+s = input()
+print(s.swapcase())
+```
+Expecting value: line 1 column 1 (char 0)

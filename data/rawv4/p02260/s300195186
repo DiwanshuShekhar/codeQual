@@ -1,0 +1,23 @@
+p02260 s300195186
+def selection_sort(A, N):
+    count = 0
+    for i in range(N):
+        minj = i
+        for j in range(i, N):
+            if A[j] < A[minj]:
+                minj = j
+        A[i], A[minj] = A[minj], A[i]
+        if i != minj:
+            count += 1
+    return A, count
+
+def main():
+    N = int(input())
+    A = list(map(int, input().split()))
+    sorted_A, count = selection_sort(A, N)
+    print(" ".join(map(str, sorted_A)))
+    print(count)
+
+if __name__ == "__main__":
+    main()
+Expecting value: line 1 column 1 (char 0)

@@ -1,0 +1,8 @@
+p03555 s480580231
+S = input()
+T = input()
+
+# Reverse the string S and compare it with T
+print('YES' if S[::-1] == T else 'NO')
+```
+Expecting value: line 1 column 1 (char 0)

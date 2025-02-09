@@ -1,0 +1,1 @@
+{"problem_id": "p02778", "submission_id": "s359431231", "problem_description": "Given is a string S. Replace every character in S with x and print the result.", "quality_score": {"functionality": "5", "readability": "5", "pythonic": "5", "error_handling": "3", "efficiency": "4"}}

@@ -1,0 +1,14 @@
+p02983 s318260479
+l, r = map(int, input().split())
+min_mod = 2019
+
+# Since (a*b) % MOD == (a % MOD * b % MOD) % MOD, we only need to consider values up to MOD
+for i in range(l, min(r, l+2019)):
+    for j in range(i+1, min(r+1, l+2020)):
+        min_mod = min(min_mod, (i * j) % 2019)
+        if min_mod == 0:
+            break
+
+print(min_mod)
+```
+Expecting value: line 1 column 1 (char 0)

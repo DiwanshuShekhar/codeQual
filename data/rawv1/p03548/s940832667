@@ -1,0 +1,16 @@
+p03548 s940832667
+# Input data
+X, Y, Z = map(int, input().split())
+
+# Calculate the gap left after one person
+# and two gaps are seated
+gap_length = Y + 2 * Z
+
+# Determine the maximum number of people that can be seated
+# by subtracting the initial gap length from the total seat width
+# and then dividing by the gap length, discarding any remainder
+people_count = (X - gap_length) // (Y + Z)
+
+# Output the result
+print(people_count)
+Expecting value: line 1 column 1 (char 0)

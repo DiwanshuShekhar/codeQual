@@ -1,0 +1,17 @@
+p02641 s411568832
+x, n = map(int, input().split())
+p = list(map(int, input().split()))
+
+for i in range(102):
+    if x - i not in p:
+        print(x - i)
+        break
+    if x + i not in p:
+        print(x + i)
+        break
+```
+"""
+Given are an integer X and an integer sequence of length N: p_1, \ldots, p_N.
+Among the integers not contained in the sequence p_1, \ldots, p_N (not necessarily positive), find the integer nearest to X, that is, find the integer whose absolute difference with X is the minimum. If there are multiple such integers, report the smallest such integer.
+"""
+Expecting value: line 1 column 1 (char 0)

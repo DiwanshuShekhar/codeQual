@@ -1,0 +1,45 @@
+p02585 s439442114
+N, K = map(int,input().split())
+P = list(map(int,input().split()))
+C = list(map(int,input().split()))
+
+# Step 1: Convert P from 1-indexed to 0-indexed and calculate score at each position
+P = [p-1 for p in P]
+scores = [C[P[i]] for i in range(N)]
+
+# Step 2: Detect loops in the permutation
+visited = [-1]*N
+loops = []
+for i in range(N):
+    if visited[i] != -1: continue  # this index is already part of a loop
+    loop = []
+    while visited[i] == -1:
+        visited[i] = len(loops)
+        loop.append(i)
+        i = P[i]
+    loops.append(loop)
+
+# Step 3: For each loop, calculate the maximum score
+max_score = -float('inf')
+for loop in loops:
+    loop_scores = [C[P[i]] for i in loop]
+    total_score = sum(loop_scores)
+    loop_length = len(loop)
+
+    # If we can loop around more than once
+    if K > loop_length:
+        current_score = sum(loop_scores) * (K // loop_length)
+        K_mod = K % loop_length
+    else:
+        current_score = 0
+        K_mod = K
+
+    # Try starting at every position in the loop to find max score
+    extended_scores = loop_scores * 2
+    for start in range(loop_length):
+        max_mod_score = max([sum(extended_scores[start + shift:start + shift + K_mod]) for shift in range(loop_length)])
+        max_score = max(max_score, current_score + max_mod_score, total_score * (K // loop_length))
+
+print(max_score)
+```
+Expecting value: line 1 column 1 (char 0)

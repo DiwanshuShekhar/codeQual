@@ -1,0 +1,25 @@
+p03407 s763824186
+N = int(input())
+ab = [list(map(int, input().split())) for _ in range(N)]
+
+ab.sort(key=lambda x: x[1])
+
+now = 0
+flag = True
+for a, b in ab:
+    now += a
+    if now > b:
+        flag = False
+
+if flag:
+    print("Yes")
+else:
+    print("No")
+```
+"""
+Takahashi is very busy now, so he has hired N assistants numbered 1 through N.
+Assistant i needs A_1 units of time to work, and the work must be done by time B_i.
+Each assistant can be hired to do the work exactly once.
+Determine if it is possible to finish all the work by hiring the assistants if each assistant starts working immediately when hired.
+The assistants can be hired in any order.
+Expecting value: line 1 column 1 (char 0)

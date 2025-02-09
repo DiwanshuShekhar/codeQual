@@ -1,0 +1,1 @@
+{"problem_id": "p03125", "submission_id": "s972058230", "problem_description": "You are given positive integers A and B.\nIf A is a divisor of B, print A + B; otherwise, print B - A.", "quality_score": {"functionality": "5", "readability": "5", "pythonic": "5", "error_handling": "4", "efficiency": "5"}}

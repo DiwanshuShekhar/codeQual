@@ -1,0 +1,1 @@
+{"problem_id": "p02267", "submission_id": "s601381103", "problem_description": "You are given a sequence of n integers S and a sequence of different q integers T. Write a program which outputs C, the number of integers in T which are also in the set S.", "quality_score": {"functionality": "5", "readability": "4", "pythonic": "5", "error_handling": "3", "efficiency": "5"}}

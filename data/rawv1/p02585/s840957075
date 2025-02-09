@@ -1,0 +1,29 @@
+p02585 s840957075
+n, k = map(int, input().split())
+p = list(map(int, input().split()))
+c = list(map(int, input().split()))
+
+ans = -10**18
+for i in range(n):
+    current = i
+    cycle = []
+    total = 0
+    while True:
+        current = p[current] - 1
+        cycle.append(c[current])
+        total += c[current]
+        if current == i:
+            break
+
+    cycle_length = len(cycle)
+    cycle_score = 0
+    for j in range(cycle_length):
+        cycle_score += cycle[j]
+        if j + 1 > k:
+            break
+        score = cycle_score + max(0, total) * ((k - (j + 1)) // cycle_length)
+        ans = max(ans, score)
+
+print(ans)
+```
+Expecting value: line 1 column 1 (char 0)

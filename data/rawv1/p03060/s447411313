@@ -1,0 +1,12 @@
+p03060 s447411313
+n = int(input())
+v = list(map(int, input().split()))
+c = list(map(int, input().split()))
+res = 0
+for i in range(n):
+    if v[i] - c[i] > 0:
+        res += v[i] - c[i]
+print(res)
+```
+"""
+Expecting value: line 1 column 1 (char 0)

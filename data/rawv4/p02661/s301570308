@@ -1,0 +1,28 @@
+p02661 s301570308
+def median(arr):
+    n = len(arr)
+    if n % 2 == 0:
+        return (arr[n // 2 - 1] + arr[n // 2]) / 2
+    else:
+        return arr[n // 2]
+
+n = int(input())
+a = []
+b = []
+
+for _ in range(n):
+    ai, bi = map(int, input().split())
+    a.append(ai)
+    b.append(bi)
+
+a.sort()
+b.sort()
+
+median_a = median(a)
+median_b = median(b)
+
+if n % 2 == 0:
+    print(int((median_b - median_a + 1) * 2 - 1))
+else:
+    print(int(median_b - median_a + 1))
+Expecting value: line 1 column 1 (char 0)

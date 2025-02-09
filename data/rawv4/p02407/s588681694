@@ -1,0 +1,7 @@
+p02407 s588681694
+N = int(input())
+arr = list(map(int, input().split()))
+
+print(*arr[::-1])
+```
+Expecting value: line 1 column 1 (char 0)

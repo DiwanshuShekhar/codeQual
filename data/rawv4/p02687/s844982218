@@ -1,0 +1,8 @@
+p02687 s844982218
+S = input()
+if S == "ABC":
+    print("ARC")
+else:
+    print("ABC")
+```
+Expecting value: line 1 column 1 (char 0)

@@ -1,0 +1,16 @@
+p03733 s441807446
+T, N = map(int, input().split())
+A = list(map(int, input().split()))
+ans = 0
+for i in range(N):
+    if i == 0:
+        ans += T
+    else:
+        diff = A[i] - A[i - 1]
+        if diff >= T:
+            ans += T
+        else:
+            ans += diff
+print(ans)
+```
+Expecting value: line 1 column 1 (char 0)

@@ -1,0 +1,12 @@
+p03109 s034641101
+s = input().split('/')
+if int(s[1]) > 4:
+    print('TBD')
+else:
+    print('Heisei')
+```
+"""
+You are given a string S as input. This represents a valid date in the year 2019 in the yyyy/mm/dd format. (For example, April 30, 2019 is represented as 2019/04/30.)
+Write a program that prints Heisei if the date represented by S is not later than April 30, 2019, and prints TBD otherwise.
+"""
+Expecting value: line 1 column 1 (char 0)

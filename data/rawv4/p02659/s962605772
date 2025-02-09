@@ -1,0 +1,7 @@
+p02659 s962605772
+A, B = input().split()
+B = B.replace(".", "")
+ans = int(A) * int(B) // 100
+print(ans)
+```
+Expecting value: line 1 column 1 (char 0)

@@ -1,0 +1,1 @@
+{"problem_id": "p02627", "submission_id": "s913676668", "problem_description": "An uppercase or lowercase English letter \\alpha will be given as input.\nIf \\alpha is uppercase, print A; if it is lowercase, print a.", "quality_score": {"functionality": "5", "readability": "5", "pythonic": "5", "error_handling": "5", "efficiency": "5"}}

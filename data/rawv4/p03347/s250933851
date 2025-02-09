@@ -1,0 +1,15 @@
+p03347 s250933851
+N = int(input())
+A = [int(input()) for _ in range(N)]
+ans = 0
+for i in range(N-1, 0, -1):
+    if A[i] - A[i-1] > 1:
+        print(-1)
+        exit()
+    elif A[i] - A[i-1] == 1:
+        ans += 1
+    else:
+        ans += A[i]
+print(ans)
+```
+Expecting value: line 1 column 1 (char 0)

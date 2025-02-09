@@ -1,0 +1,18 @@
+p03795 s672018807
+N = int(input())
+
+price_per_meal = 800
+rebate_every_15_meals = 200
+
+total_cost = N * price_per_meal
+total_rebate = (N // 15) * rebate_every_15_meals
+
+print(total_cost - total_rebate)
+```
+"""
+Snuke has a favorite restaurant.
+The price of any meal served at the restaurant is 800 yen (the currency of Japan), and each time a customer orders 15 meals, the restaurant pays 200 yen back to the customer.
+So far, Snuke has ordered N meals at the restaurant.
+Let the amount of money Snuke has paid to the restaurant be x yen, and let the amount of money the restaurant has paid back to Snuke be y yen.
+Find x-y.
+Expecting value: line 1 column 1 (char 0)

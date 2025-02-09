@@ -1,0 +1,11 @@
+p02553 s391433729
+a, b, c, d = map(int, input().split())
+
+max_product = max(a*c, a*d, b*c, b*d)
+print(max_product)
+```
+"""
+Given are integers a,b,c and d.
+If x and y are integers and a \leq x \leq b and c\leq y \leq d hold, what is the maximum possible value of x \times y?
+"""
+Expecting value: line 1 column 1 (char 0)

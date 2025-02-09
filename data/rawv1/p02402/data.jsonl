@@ -1,0 +1,1 @@
+{"problem_id": "p02402", "submission_id": "s889959069", "problem_description": "Write a program which reads a sequence of $n$ integers $a_i (i = 1, 2, ... n)$, and prints the minimum value, maximum value and sum of the sequence.", "quality_score": {"functionality": "5", "readability": "5", "pythonic": "5", "error_handling": "4", "efficiency": "5"}}

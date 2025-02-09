@@ -1,0 +1,21 @@
+p03501 s300345091
+
+Step 3: Evaluate the functionality of the code. Following criteria can be used:
+
+a. **Correctness**: Verify if the code accomplishes what it claims to do and avoids logical errors.
+
+b. **Edge cases**: Assess if the code handles edge cases well. This might include empty inputs, maximum or minimum possible values, or unusual combinations of parameters.
+
+c. **Failure modes**: Consider how the code behaves under failure scenarios. This might involve unavailable resources, invalid inputs, or extreme conditions.
+
+Step 4: Provide a recommendation based on the assessment. This should ideally include:
+
+a. A summary of findings related to code quality based on the above steps.
+
+b. Suggested improvements or optimizations if any are identified.
+
+c. A final verdict on whether the code meets a high-quality standard or if improvements are required.
+
+---
+
+Expecting value: line 2 column 1 (char 1)

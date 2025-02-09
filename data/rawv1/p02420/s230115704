@@ -1,0 +1,20 @@
+p02420 s230115704
+def main():
+    while True:
+        S = input().split('-')
+        if len(S) < 2:
+          print(S[0])
+        else:
+            num = int(input())
+            # Generate the indicate list for each shuffle
+            shuffles = [int(input()) for _ in range(num)]
+            # Perform each shuffle
+            for shuffle in shuffles:
+                S = S[shuffle:] + S[:shuffle]
+            # Output the result after all shuffles
+            print(''.join(S))
+
+if __name__ == '__main__':
+    main()
+```
+Expecting value: line 1 column 1 (char 0)

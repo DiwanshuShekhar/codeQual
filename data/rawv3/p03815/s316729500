@@ -1,0 +1,21 @@
+p03815 s316729500
+x = int(input())
+
+# Calculate the number of cycles (6 points for each cycle)
+cycles = x // 11
+
+# Calculate remaining points after cycles
+rem = x % 11
+
+# Each cycle counts for two tosses
+tosses = cycles * 2
+
+# If remaining points are more than 0, we need at least one more toss
+if rem > 0:
+    tosses += 1
+    # If remaining points are more than 6, we need one more toss
+    if rem > 6:
+        tosses += 1
+
+print(tosses)
+Expecting value: line 1 column 1 (char 0)

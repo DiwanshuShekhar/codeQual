@@ -1,0 +1,5 @@
+p03135 s076155931
+A, B = map(int, input().split())
+print(A / B)
+```
+Expecting value: line 1 column 1 (char 0)

@@ -1,0 +1,32 @@
+p02586 s804577924
+n, m, k = map(int, input().split())
+v = [[0 for j in range(m + 1)] for i in range(n + 1)]
+for _ in range(k):
+    r, c, x = map(int, input().split())
+    v[r][c] = x
+
+dp = [[[0 for l in range(4)] for j in range(m + 1)] for i in range(n + 1)]
+
+for i in range(1, n + 1):
+    for j in range(1, m + 1):
+        for l in range(4):
+            dp[i][j][l] = dp[i][j - 1][l]
+            if l > 0 and v[i][j] > 0:
+                dp[i][j][l] = max(dp[i][j][l], dp[i][j - 1][l - 1] + v[i][j])
+
+    for j in range(1, m + 1):
+        for l in range(4):
+            dp[i][j][0] = max(dp[i][j][0], dp[i - 1][j][l])
+
+    for j in range(1, m + 1):
+        for l in range(1, 4):
+            if v[i][j] > 0:
+                dp[i][j][l] = max(dp[i][j][l], dp[i - 1][j][l - 1] + v[i][j])
+
+ans = 0
+for l in range(4):
+    ans = max(ans, dp[n][m][l])
+
+print(ans)
+```
+Expecting value: line 1 column 1 (char 0)

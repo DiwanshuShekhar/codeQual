@@ -1,0 +1,18 @@
+p02847 s531205887
+s = input()
+
+# A dictionary to map day of the week to the days until next Sunday
+days_until_sunday = {
+    "SUN": 7,
+    "MON": 6,
+    "TUE": 5,
+    "WED": 4,
+    "THU": 3,
+    "FRI": 2,
+    "SAT": 1
+}
+
+# Output the corresponding value from the dictionary
+print(days_until_sunday[s])
+```
+Expecting value: line 1 column 1 (char 0)

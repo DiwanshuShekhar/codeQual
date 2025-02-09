@@ -1,0 +1,27 @@
+p03805 s696591698
+n, m = map(int, input().split())
+edges = [list(map(int, input().split())) for _ in range(m)]
+
+# Creating an adjacency list for the graph representation
+graph = [[] for _ in range(n+1)]
+for u, v in edges:
+    graph[u].append(v)
+    graph[v].append(u)
+
+def dfs(v, visited):
+    # If all the vertices are visited, it means we have found a valid path.
+    if len(visited) == n:
+        return 1
+    ans = 0
+    for u in graph[v]:
+        # For each adjacent vertex which is not visited
+        if u not in visited:
+            visited.append(u)
+            ans += dfs(u, visited)
+            visited.pop()
+    return ans
+
+visited = [1]
+print(dfs(1, visited))
+```
+Expecting value: line 1 column 1 (char 0)

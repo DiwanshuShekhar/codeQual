@@ -1,0 +1,5 @@
+p02639 s510179131
+input_list = list(map(int, input().split()))
+print(input_list.index(0) + 1)
+```
+Expecting value: line 1 column 1 (char 0)

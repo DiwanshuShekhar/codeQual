@@ -1,0 +1,17 @@
+p02255 s475449946
+def solve(A):
+    for i in range(1, len(A)):
+        j = i
+        while j > 0 and A[j-1] > A[j]:
+            A[j], A[j-1] = A[j-1], A[j]
+            j -= 1
+        print(*A)
+
+if __name__ == '__main__':
+    _ = input()
+    A = list(map(int, input().split()))
+    solve(A)
+```
+"""
+Write a program of the Insertion Sort algorithm which sorts a sequence A in ascending order. The algorithm should be based on the following pseudocode:
+Expecting value: line 1 column 1 (char 0)

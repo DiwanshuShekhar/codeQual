@@ -1,0 +1,10 @@
+p03011 s283780561
+P, Q, R = map(int, input().split())
+print(min(P+Q, Q+R, R+P))
+```
+"""
+There are three airports A, B and C, and flights between each pair of airports in both directions.
+A one-way flight between airports A and B takes P hours, a one-way flight between airports B and C takes Q hours, and a one-way flight between airports C and A takes R hours.
+Consider a route where we start at one of the airports, fly to another airport and then fly to the other airport.
+What is the minimum possible sum of the flight times?
+Expecting value: line 1 column 1 (char 0)

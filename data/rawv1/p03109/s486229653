@@ -1,0 +1,8 @@
+p03109 s486229653
+S = input()
+if S <= "2019/04/30":
+    print("Heisei")
+else:
+    print("TBD")
+```
+Expecting value: line 1 column 1 (char 0)

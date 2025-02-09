@@ -1,0 +1,34 @@
+p03033 s566101979
+N, Q = list(map(int, input().split()))
+roadwork = []
+# Input for each roadwork
+for i in range(N):
+    S, T, X = list(map(int, input().split()))
+    roadwork.append((S-X, T-X, X))
+roadwork = sorted(roadwork, key=lambda x: x[0])
+
+departures = []
+# Input for each depart time
+for i in range(Q):
+    D = int(input())
+    departures.append((D, i))
+
+departures = sorted(departures, key=lambda x: x[0])
+
+results = [-1] * Q
+time_index = 0
+
+for start, end, x in roadwork:
+    # Binary search to find the leftmost departure time that has not been processed yet
+    while time_index < Q and departures[time_index][0] < start:
+        time_index += 1
+    blocked_time_index = time_index
+    while blocked_time_index < Q and departures[blocked_time_index][0] < end:
+        if results[departures[blocked_time_index][1]] == -1:
+            results[departures[blocked_time_index][1]] = x
+        blocked_time_index += 1
+
+for result in results:
+    print(result)
+```
+Expecting value: line 1 column 1 (char 0)

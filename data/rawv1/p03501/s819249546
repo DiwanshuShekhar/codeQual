@@ -1,0 +1,11 @@
+p03501 s819249546
+N, A, B = map(int, input().split())
+
+# Calculate the cost for each plan
+plan1_cost = N * A
+plan2_cost = B
+
+# Output the minimum cost
+print(min(plan1_cost, plan2_cost))
+```
+Expecting value: line 1 column 1 (char 0)

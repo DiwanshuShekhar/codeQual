@@ -1,0 +1,15 @@
+p02404 s654090874
+while True:
+    H, W = map(int, input().split())
+    if H == 0 and W == 0:
+        break
+    for i in range(H):
+        if i in [0, H-1]:
+            print("#" * W)
+        else:
+            print("#" + "." * (W - 2) + "#")
+    print()
+```
+"""
+Draw a frame which has a height of H cm and a width of W cm. For example, the following figure shows a frame which has a height of 6 cm and a width of 10 cm.
+Expecting value: line 1 column 1 (char 0)

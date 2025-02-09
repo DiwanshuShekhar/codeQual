@@ -1,0 +1,8 @@
+p03719 s982698792
+a, b, c = map(int, input().split())
+if a <= c <= b:
+    print("Yes")
+else:
+    print("No")
+```
+Expecting value: line 1 column 1 (char 0)

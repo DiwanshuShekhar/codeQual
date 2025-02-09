@@ -1,0 +1,15 @@
+p03457 s735107929
+n = int(input())
+plans = [[int(x) for x in input().split()] for _ in range(n)]
+td, xd, yd = 0, 0, 0
+
+for t, x, y in plans:
+    td, xd, yd = t-td, abs(x-xd), abs(y-yd)
+    if xd+yd > td or (xd+yd) % 2 != td % 2:
+        print("No")
+        exit()
+    td, xd, yd = t, x, y
+
+print("Yes")
+```
+Expecting value: line 1 column 1 (char 0)

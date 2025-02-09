@@ -1,0 +1,15 @@
+p02420 s048502603
+while True:
+    s = input()
+    if s == '-':
+        break
+    m = int(input())
+    for _ in range(m):
+        h = int(input())
+        s = s[h:] + s[:h]
+    print(s)
+```
+"""
+Your task is to shuffle a deck of n cards, each of which is marked by a alphabetical letter.
+"""
+Expecting value: line 1 column 1 (char 0)

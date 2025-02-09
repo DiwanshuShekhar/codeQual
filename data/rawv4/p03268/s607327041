@@ -1,0 +1,12 @@
+p03268 s607327041
+N,K = map(int,input().split())
+count = (N//K)**3
+if K % 2 == 0:
+    K_div_2_count = ((N + K//2)//K)**3
+    count += K_div_2_count
+print(count)
+```
+"""
+You are given integers N and K. Find the number of triples (a,b,c) of positive integers not greater than N such that a+b,b+c and c+a are all multiples of K.
+The order of a,b,c does matter, and some of them can be the same.
+Expecting value: line 1 column 1 (char 0)

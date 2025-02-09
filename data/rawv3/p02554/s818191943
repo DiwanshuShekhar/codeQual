@@ -1,0 +1,20 @@
+p02554 s818191943
+N = int(input())
+mod = 10 ** 9 + 7
+total = pow(10, N, mod)
+no_zero = pow(9, N, mod)
+no_nine = pow(9, N, mod)
+no_zero_nine = pow(8, N, mod)
+
+ans = (total - no_zero - no_nine + no_zero_nine) % mod
+print(ans)
+```
+"""
+How many integer sequences A_1,A_2,\ldots,A_N of length N satisfy all of the following conditions?
+
+0 \leq A_i \leq 9
+There exists some i such that A_i=0 holds.
+There exists some i such that A_i=9 holds.
+
+The answer can be very large, so output it modulo 10^9 + 7.
+Expecting value: line 1 column 1 (char 0)

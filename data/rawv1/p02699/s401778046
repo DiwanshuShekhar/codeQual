@@ -1,0 +1,14 @@
+p02699 s401778046
+S, W = map(int, input().split())
+
+if W >= S:
+    print("unsafe")
+else:
+    print("safe")
+```
+"""
+There are S sheep and W wolves.
+If the number of wolves is greater than or equal to that of sheep, the wolves will attack the sheep.
+If the wolves will attack the sheep, print unsafe; otherwise, print safe.
+"""
+Expecting value: line 1 column 1 (char 0)

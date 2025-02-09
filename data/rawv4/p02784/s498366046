@@ -1,0 +1,17 @@
+p02784 s498366046
+H, N = map(int, input().split())
+A = list(map(int, input().split()))
+
+if sum(A) >= H:
+    print("Yes")
+else:
+    print("No")
+```
+"""
+Raccoon is fighting with a monster.
+The health of the monster is H.
+Raccoon can use N kinds of special moves. Using the i-th move decreases the monster's health by A_i.
+There is no other way to decrease the monster's health.
+Raccoon wins when the monster's health becomes 0 or below.
+If Raccoon can win without using the same move twice or more, print Yes; otherwise, print No.
+Expecting value: line 1 column 1 (char 0)

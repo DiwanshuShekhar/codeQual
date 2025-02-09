@@ -1,0 +1,8 @@
+p02801 s605571966
+next_char = input()
+print(chr(ord(next_char) + 1))
+```
+"""
+Given is a lowercase English letter C that is not z. Print the letter that follows C in alphabetical order.
+"""
+Expecting value: line 1 column 1 (char 0)

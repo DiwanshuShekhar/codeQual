@@ -1,0 +1,14 @@
+p03307 s568053854
+def lcm(a, b):
+    # Helper function to calculate the Least Common Multiple (LCM) of two integers
+    from math import gcd
+    return abs(a*b) // gcd(a, b)
+
+N = int(input())
+print(lcm(2, N))
+```
+"""
+The helper function `gcd` from the `math` library calculates the Greatest Common Divisor (GCD) of two numbers. The LCM is then calculated using the formula LCM(a, b) = |a*b| / GCD(a, b).
+
+In this specific scenario where we want to find the minimum positive integer divisible by both 2 and N, we can calculate the LCM of 2 and N directly. The problem statement essentially describes the LCM of 2 and N, as the smallest positive integer divisible by both 2 and N.
+Expecting value: line 1 column 1 (char 0)

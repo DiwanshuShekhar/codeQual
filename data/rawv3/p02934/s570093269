@@ -1,0 +1,17 @@
+p02934 s570093269
+def calculate_harmonic_mean(A):
+    N = len(A)
+    harmonic_mean_inv = sum([1.0 / a for a in A])
+    harmonic_mean = N / harmonic_mean_inv
+    return harmonic_mean
+
+N = int(input())
+A = list(map(int, input().split()))
+
+harmonic_mean = calculate_harmonic_mean(A)
+print(harmonic_mean)
+```
+"""
+Given is a sequence of N integers A_1, \ldots, A_N.
+Find the (multiplicative) inverse of the sum of the inverses of these numbers, \frac{1}{\frac{1}{A_1} + \ldots + \frac{1}{A_N}}.
+Expecting value: line 1 column 1 (char 0)

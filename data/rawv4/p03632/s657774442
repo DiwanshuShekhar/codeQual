@@ -1,0 +1,13 @@
+p03632 s657774442
+a, b, c, d = map(int, input().split())
+
+# Calculate the period that both Alice and Bob were holding down their buttons
+overlap_start = max(a, c)
+overlap_end = min(b, d)
+
+# Calculate the duration of the overlap
+overlap_duration = overlap_end - overlap_start
+
+# If there was no overlap, print 0, otherwise print the duration of the overlap
+print(max(0, overlap_duration))
+Expecting value: line 1 column 1 (char 0)

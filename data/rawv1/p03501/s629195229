@@ -1,0 +1,9 @@
+p03501 s629195229
+N, A, B = map(int, input().split())
+
+price1 = A * N
+price2 = B
+
+print(min(price1, price2))
+```
+Expecting value: line 1 column 1 (char 0)

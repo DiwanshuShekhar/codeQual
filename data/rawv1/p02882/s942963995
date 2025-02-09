@@ -1,0 +1,19 @@
+p02882 s942963995
+import math
+
+a, b, x = map(int, input().split())
+
+# Calculate the volume of the entire block
+total_volume = a * a * b
+
+# Check if we filled more than half or not
+if x <= total_volume / 2:
+    theta_radians = math.atan((2 * x) / (a * b * b))
+else:
+    remaining_volume = total_volume - x
+    theta_radians = math.atan((2 * remaining_volume) / (a * a * a))
+
+theta_degrees = math.degrees(theta_radians)
+print(theta_degrees)
+```
+Expecting value: line 1 column 1 (char 0)

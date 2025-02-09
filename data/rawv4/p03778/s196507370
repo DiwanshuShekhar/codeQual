@@ -1,0 +1,10 @@
+p03778 s196507370
+# Calculate the difference between the two starting points
+diff = abs(a - b)
+# Check if the rectangles overlap. If yes, no need to move.
+if diff < W:
+    print(0)
+else:
+    # Otherwise, calculate the minimum distance to move
+    print(diff - W)
+Expecting value: line 1 column 1 (char 0)

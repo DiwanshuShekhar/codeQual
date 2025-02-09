@@ -1,0 +1,15 @@
+p03555 s716259021
+C1 = input()
+C2 = input()
+
+if C1 == C2[::-1]:
+    print("YES")
+else:
+    print("NO")
+```
+"""
+You are given a grid with 2 rows and 3 columns of squares.
+The color of the square at the i-th row and j-th column is represented by the character C_{ij}.
+Write a program that prints YES if this grid remains the same when rotated 180 degrees, and prints NO otherwise.
+"""
+Expecting value: line 1 column 1 (char 0)

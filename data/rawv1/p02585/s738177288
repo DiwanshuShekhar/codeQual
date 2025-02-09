@@ -1,0 +1,53 @@
+p02585 s738177288
+#!/usr/bin/env python3
+import sys
+
+sys.setrecursionlimit(10**6)
+
+N,K = map(int,input().split())
+A = list(map(int,input().split()))
+C = list(map(int,input().split()))
+P = A[:]
+for i in range(N):
+    P[i] -= 1
+
+def solve(N:int, K:int, A:List[int], C:List[int]):
+    loops = [loop(i) for i in range(N)]
+    ans = max(get_score(loops[i], K) for i in range(N))
+    return ans
+
+def get_score(ids, k):
+    s = sum(C[i] for i in ids)
+    t = len(ids)
+    if s < 0:
+        ret = 0
+        tmp = 0
+        for i in range(min(k, t)):
+            ret = max(ret, tmp)
+            tmp += C[ids[i]]
+        return max(ret, tmp)
+
+    ret = s * (k // t)
+    k %= t
+    tmp = 0
+    for i in range(k):
+        ret = max(ret, tmp)
+        tmp += C[ids[i]]
+    return ret + tmp
+
+def loop(v):
+    ids = [v]
+    while True:
+        if P[ids[-1]] == v: break
+        ids.append(P[ids[-1]])
+    return ids
+
+ans = solve(N, K, A, C)
+print(ans)
+```
+This code begins by setting up the recursion limit and reading the input values. It defines a `solve` function where the core logic resides. For each starting point `i` ranging from 0 to `N-1`, it identifies the cycle or loop that the piece follows when it continuously moves according to the rules. Each loop is a sequence of indices the piece lands on, starting from `i`.
+
+The main logic to calculate the score for a loop is in the `get_score` function. It takes the list of indices in a loop and the number of moves `k`. The strategy varies depending on whether the total score of completing the loop, `s`, is negative or not.
+
+- If `s` is negative, the function iterates through the loop, keeping track of the maximum possible score that can be achieved without completing any loop entirely, considering the limit of `k` moves.
+Expecting value: line 1 column 1 (char 0)

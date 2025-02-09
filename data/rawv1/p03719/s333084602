@@ -1,0 +1,9 @@
+p03719 s333084602
+a, b, c = map(int, input().split())
+print("Yes" if a <= c <= b else "No")
+```
+"""
+You are given three integers A, B and C.
+Determine whether C is not less than A and not greater than B.
+"""
+Expecting value: line 1 column 1 (char 0)

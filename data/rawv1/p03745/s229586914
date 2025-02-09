@@ -1,0 +1,29 @@
+p03745 s229586914
+n = int(input())
+a = list(map(int, input().split()))
+
+# Initial direction is unknown
+direction = 0
+# At least 1 subarray is needed
+count = 1
+for i in range(1, n):
+    if direction == 0:
+        if a[i] > a[i-1]:
+            # Set direction to upward
+            direction = 1
+        elif a[i] < a[i-1]:
+            # Set direction to downward
+            direction = -1
+    elif direction == 1 and a[i] < a[i-1]:
+        # Direction changed from upward to downward
+        # Increment subarray count and reset direction
+        count += 1
+        direction = 0
+    elif direction == -1 and a[i] > a[i-1]:
+        # Direction changed from downward to upward
+        # Increment subarray count and reset direction
+        count += 1
+        direction = 0
+print(count)
+```
+Expecting value: line 1 column 1 (char 0)

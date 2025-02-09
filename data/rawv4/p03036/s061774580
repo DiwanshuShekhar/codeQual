@@ -1,0 +1,16 @@
+p03036 s061774580
+r, D, x2000 = map(int, input().split())
+
+for i in range(10):
+    x2000 = r * x2000 - D
+    print(x2000)
+```
+"""
+The development of algae in a pond is as follows.
+Let the total weight of the algae at the beginning of the year i be x_i gram. For i≥2000, the following formula holds:
+
+x_{i+1} = rx_i - D
+
+You are given r, D and x_{2000}. Calculate x_{2001}, ..., x_{2010} and print them in order.
+"""
+Expecting value: line 1 column 1 (char 0)

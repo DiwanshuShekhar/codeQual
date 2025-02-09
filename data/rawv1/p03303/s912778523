@@ -1,0 +1,9 @@
+p03303 s912778523
+s = input()
+w = int(input())
+
+# Extract every w-th character from the string
+ans = s[::w]
+print(ans)
+```
+Expecting value: line 1 column 1 (char 0)

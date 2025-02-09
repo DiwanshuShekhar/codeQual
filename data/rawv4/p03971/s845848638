@@ -1,0 +1,29 @@
+p03971 s845848638
+n,a,b = map(int,input().split())
+s = input()
+ab = a + b
+for i in s:
+    if i == "a" and a > 0:
+        print("Yes")
+        a -= 1
+    elif i == "b" and b > 0 and ab > 0:
+        print("Yes")
+        b -= 1
+        ab -= 1
+    elif i == "c":
+        print("No")
+    else:
+        print("No")
+        ab -= 1
+```
+"""
+There are N participants in the CODE FESTIVAL 2016 Qualification contests. The participants are either students in Japan, students from overseas, or neither of these.
+Only Japanese students or overseas students can pass the Qualification contests. The students pass when they satisfy the conditions listed below, from the top rank down. Participants who are not students cannot pass the Qualification contests.
+
+A Japanese student passes the Qualification contests if the number of the participants who have already definitively passed is currently fewer than A+B.
+An overseas student passes the Qualification contests if the number of the participants who have already definitively passed is currently fewer than A+B and the student ranks B-th or above among all overseas students.
+
+A string S is assigned indicating attributes of all participants. If the i-th character of string S is a, this means the participant ranked i-th in the Qualification contests is a Japanese student; b means the participant ranked i-th is an overseas student; and c means the participant ranked i-th is neither of these.
+Write a program that outputs for all the participants in descending rank either Yes if they passed the Qualification contests or No if they did not pass.
+"""
+Expecting value: line 1 column 1 (char 0)

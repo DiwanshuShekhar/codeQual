@@ -1,0 +1,17 @@
+p02694 s865566170
+X = int(input())
+
+deposit = 100
+years = 0
+while deposit < X:
+    deposit += deposit // 100
+    years += 1
+
+print(years)
+```
+"""
+Takahashi has a deposit of 100 yen (the currency of Japan) in AtCoder Bank.
+The bank pays an annual interest rate of 1 % compounded annually. (A fraction of less than one yen is discarded.)
+Assuming that nothing other than the interest affects Takahashi's balance, in how many years does the balance reach X yen or above for the first time?
+"""
+Expecting value: line 1 column 1 (char 0)

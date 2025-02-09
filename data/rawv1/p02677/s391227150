@@ -1,0 +1,16 @@
+p02677 s391227150
+from math import cos, radians
+A, B, H, M = map(int, input().split())
+
+theta = abs((30*H + M*0.5) - 6*M)
+theta = min(theta, 360-theta)
+distance = (A**2 + B**2 - 2*A*B*cos(radians(theta)))**0.5
+print(distance)
+```
+The solution first calculates the angle `theta` in degrees between the two hands. To account for the shortest angle, it selects the smaller of `theta` and `360-theta`.
+
+`A` and `B` represent the lengths of the hour and minute hands, respectively. The formula utilizes the law of cosines to calculate the distance between the tips of the two hands.
+
+`cos(radians(theta))` converts the angle in degrees to radians as the `cos` function requires the angle in radians.
+
+Expecting value: line 1 column 1 (char 0)

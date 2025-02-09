@@ -1,0 +1,17 @@
+p02725 s150634759
+K, N = map(int, input().split())
+A = list(map(int, input().split()))
+
+max_dist = 0
+for i in range(1, N):
+    max_dist = max(max_dist, A[i] - A[i - 1])
+max_dist = max(max_dist, K - A[-1] + A[0])
+
+print(K - max_dist)
+```
+"""
+There is a circular pond with a perimeter of K meters, and N houses around them.
+The i-th house is built at a distance of A_i meters from the northmost point of the pond, measured clockwise around the pond.
+When traveling between these houses, you can only go around the pond.
+Find the minimum distance that needs to be traveled when you start at one of the houses and visit all the N houses.
+Expecting value: line 1 column 1 (char 0)

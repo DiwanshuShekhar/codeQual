@@ -1,0 +1,19 @@
+p02862 s235008788
+def solve():
+    from math import comb
+    MOD = 10**9 + 7
+    X, Y = map(int, input().split())
+
+    if (X + Y) % 3 != 0:
+        return 0
+    n = (2*Y - X) // 3
+    m = (2*X - Y) // 3
+
+    if n < 0 or m < 0:
+        return 0
+
+    return comb(n+m, n) % MOD
+
+print(solve())
+```
+Expecting value: line 1 column 1 (char 0)

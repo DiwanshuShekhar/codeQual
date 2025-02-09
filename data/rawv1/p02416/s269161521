@@ -1,0 +1,8 @@
+p02416 s269161521
+n = input()
+
+while n != '0':
+    print(sum(map(int, list(n))))
+    n = input()
+```
+Expecting value: line 1 column 1 (char 0)

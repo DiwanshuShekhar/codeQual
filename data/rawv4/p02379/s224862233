@@ -1,0 +1,11 @@
+p02379 s224862233
+def main():
+    x1, y1, x2, y2 = map(float, input().split())
+    dist = ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
+    print(f"{dist:.8f}")
+
+
+if __name__ == "__main__":
+    main()
+```
+Expecting value: line 1 column 1 (char 0)

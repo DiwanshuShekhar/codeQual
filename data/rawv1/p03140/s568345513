@@ -1,0 +1,28 @@
+p03140 s568345513
+N = int(input())
+A = input()
+B = input()
+C = input()
+
+ans = 0
+for i in range(N):
+    # Count the number of distinct characters in the i-th position
+    distinct_chars = len(set([A[i], B[i], C[i]]))
+    # If all three characters are the same, no operation is needed
+    if distinct_chars == 1:
+        continue
+    # If two characters are the same, one operation is needed
+    elif distinct_chars == 2:
+        ans += 1
+    # If all three characters are different, two operations are needed
+    else:
+        ans += 2
+print(ans)
+```
+The core concept to solve this problem is counting the number of distinct characters at each position across the three strings, `A`, `B`, and `C`. With this count, it’s straightforward to know the number of operations needed:
+
+- If all characters at position `i` are the same (`distinct_chars == 1`), no operation is needed.
+- If there are two distinct characters at position `i` (`distinct_chars == 2`), one change is needed to make all three characters the same.
+- If all three characters are different at position `i` (`distinct_chars == 3`), two changes are needed.
+
+Expecting value: line 1 column 1 (char 0)

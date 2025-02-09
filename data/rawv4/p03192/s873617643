@@ -1,0 +1,5 @@
+p03192 s873617643
+n = input()
+print(n.count('2'))
+```
+Expecting value: line 1 column 1 (char 0)

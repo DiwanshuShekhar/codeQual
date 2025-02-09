@@ -1,0 +1,14 @@
+p02747 s867534867
+s = input()
+
+if s == "hi" * (len(s) // 2):
+    print("Yes")
+else:
+    print("No")
+```
+"""
+A Hitachi string is a concatenation of one or more copies of the string hi.
+For example, hi and hihi are Hitachi strings, while ha and hii are not.
+Given a string S, determine whether S is a Hitachi string.
+"""
+Expecting value: line 1 column 1 (char 0)

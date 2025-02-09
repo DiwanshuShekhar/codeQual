@@ -1,0 +1,1 @@
+{"problem_id": "p03523", "submission_id": "s836532797", "problem_description": "You are given a string S.\nTakahashi can insert the character A at any position in this string any number of times.\nCan he change S into AKIHABARA?", "quality_score": {"functionality": "5", "readability": "5", "pythonic": "5", "error_handling": "3", "efficiency": "4"}}

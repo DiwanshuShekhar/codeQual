@@ -1,0 +1,8 @@
+p03303 s542920077
+s = input()
+w = int(input())
+
+answer = s[::w]
+print(answer)
+```
+Expecting value: line 1 column 1 (char 0)

@@ -1,0 +1,9 @@
+p02696 s345379790
+x = min(N, B-1)
+print((A*x)//B - A*(x//B))
+```
+"""
+Given are integers A, B, and N.
+Find the maximum possible value of floor(Ax/B) - A × floor(x/B) for a non-negative integer x not greater than N.
+Here floor(t) denotes the greatest integer not greater than the real number t.
+Expecting value: line 1 column 1 (char 0)

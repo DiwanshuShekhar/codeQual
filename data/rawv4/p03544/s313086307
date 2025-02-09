@@ -1,0 +1,17 @@
+p03544 s313086307
+n = int(input())
+dp = [2, 1]
+for i in range(2, n+1):
+    dp.append(dp[-1] + dp[-2])
+print(dp[n])
+```
+"""
+It is November 18 now in Japan. By the way, 11 and 18 are adjacent Lucas numbers.
+You are given an integer N. Find the N-th Lucas number.
+Here, the i-th Lucas number L_i is defined as follows:
+
+L_0=2
+L_1=1
+L_i=L_{i-1}+L_{i-2} (i≥2)
+"""
+Expecting value: line 1 column 1 (char 0)

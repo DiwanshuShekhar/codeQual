@@ -1,0 +1,13 @@
+p02882 s734939152
+from math import atan, degrees
+
+a, b, x = map(int, input().split())
+volume = a * a * b
+
+if x <= volume / 2:
+    theta = atan((b * a**2) / (2 * x))
+else:
+    theta = atan((2 * (volume - x)) / (a**3))
+print(degrees(theta))
+```
+Expecting value: line 1 column 1 (char 0)

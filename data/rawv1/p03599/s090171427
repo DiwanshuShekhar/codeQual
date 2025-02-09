@@ -1,0 +1,33 @@
+p03599 s090171427
+a, b, c, d, e, f = map(int, input().split())
+
+# 水の組み合わせを全探索
+water = set()
+for i in range(f//100 + 1):
+    for j in range(f//100 + 1):
+        w = 100*a*i + 100*b*j
+        if w <= f:
+            water.add(w)
+
+# 砂糖の組み合わせを全探索
+sugar = set()
+for i in range(f//c + 1):
+    for j in range(f//d + 1):
+        s = c*i + d*j
+        if s <= f:
+            sugar.add(s)
+
+ans = (0, 0)  # (砂糖水の質量, 砂糖の質量)
+max_density = 0  # 砂糖水の密度の最大値
+
+# 水と砂糖の組み合わせを全探索
+for w in water:
+    for s in sugar:
+        if w + s <= f and s <= w * e / 100:
+            density = 100 * s / (w + s)
+            if density > max_density:
+                ans = (w + s, s)
+                max_density = density
+
+print(ans[0], ans[1])
+Expecting value: line 1 column 1 (char 0)

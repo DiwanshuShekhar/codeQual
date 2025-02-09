@@ -1,0 +1,24 @@
+p03252 s761685313
+import sys
+from collections import Counter
+
+def input():
+    return sys.stdin.readline().rstrip()
+
+S = input()
+T = input()
+
+S_count = sorted(Counter(S).values())
+T_count = sorted(Counter(T).values())
+
+if S_count == T_count:
+    print('Yes')
+else:
+    print('No')
+```
+"""
+You are given strings S and T consisting of lowercase English letters.
+You can perform the following operation on S any number of times:
+Operation: Choose two distinct lowercase English letters c_1 and c_2, then replace every occurrence of c_1 with c_2, and every occurrence of c_2 with c_1.
+Determine if S and T can be made equal by performing the operation zero or more times.
+Expecting value: line 1 column 1 (char 0)

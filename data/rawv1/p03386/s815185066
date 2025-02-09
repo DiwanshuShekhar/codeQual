@@ -1,0 +1,16 @@
+p03386 s815185066
+a, b, k = map(int, input().split())
+
+for i in range(a, min(a + k, b + 1)):
+    print(i)
+
+if b - a + 1 > 2 * k:
+    for i in range(max(a + k, b - k + 1), b + 1):
+        print(i)
+```
+"""
+Print all the integers that satisfies the following in ascending order:
+
+Among the integers between A and B (inclusive), it is either within the K smallest integers or within the K largest integers.
+"""
+Expecting value: line 1 column 1 (char 0)

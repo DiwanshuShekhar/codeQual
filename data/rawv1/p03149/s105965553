@@ -1,0 +1,8 @@
+p03149 s105965553
+n1, n2, n3, n4 = sorted(input().split())
+if n1 == '1' and n2 == '4' and n3 == '7' and n4 == '9':
+    print('YES')
+else:
+    print('NO')
+```
+Expecting value: line 1 column 1 (char 0)

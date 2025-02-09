@@ -1,0 +1,1 @@
+{"problem_id": "p03583", "submission_id": "s760914518", "problem_description": "You are given an integer N.\nFind a triple of positive integers h, n and w such that 4/N = 1/h + 1/n + 1/w.\nIf there are multiple solutions, any of them will be accepted.", "quality_score": {"functionality": "5", "readability": "5", "pythonic": "5", "error_handling": "4", "efficiency": "4"}}

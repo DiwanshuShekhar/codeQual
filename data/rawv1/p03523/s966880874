@@ -1,0 +1,9 @@
+p03523 s966880874
+s = input().replace("A", "")
+
+if s == "KIHBR":
+    print("YES")
+else:
+    print("NO")
+```
+Expecting value: line 1 column 1 (char 0)

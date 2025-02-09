@@ -1,0 +1,10 @@
+p02400 s039065215
+import math
+
+r = float(input())
+area = math.pi * r * r
+circumference = 2 * math.pi * r
+
+print('{:.10f} {:.10f}'.format(area, circumference))
+```
+Expecting value: line 1 column 1 (char 0)

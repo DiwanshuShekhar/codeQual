@@ -1,0 +1,33 @@
+p02855 s994301642
+H, W, K = map(int, input().split())
+S = [input() for _ in range(H)]
+
+ans = [[0] * W for _ in range(H)]
+num = 1
+
+# First, assign numbers horizontally
+prev_strawberry = -1
+for i in range(H):
+    if "#" in S[i]:
+        for j in range(W):
+            if S[i][j] == "#":
+                if prev_strawberry != -1:
+                    num += 1
+                prev_strawberry = j
+            ans[i][j] = num
+        num += 1
+        prev_strawberry = -1
+    else:
+        if i > 0:
+            ans[i] = ans[i - 1]
+
+# Fill the gaps
+for i in range(H):
+    for j in range(W - 1, 0, -1):
+        if ans[i][j] == 0:
+            ans[i][j] = ans[i][j + 1]
+
+for row in ans:
+    print(*row)
+```
+Expecting value: line 1 column 1 (char 0)

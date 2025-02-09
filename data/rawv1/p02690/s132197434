@@ -1,0 +1,16 @@
+p02690 s132197434
+import itertools
+
+def main():
+    X = int(input())
+
+    # Try all combinations of a and b, where -200 <= a, b <= 200
+    for a, b in itertools.product(range(-200, 201), repeat=2):
+        if a**5 - b**5 == X:
+            print(a, b)
+            break
+
+if __name__ == "__main__":
+    main()
+```
+Expecting value: line 1 column 1 (char 0)

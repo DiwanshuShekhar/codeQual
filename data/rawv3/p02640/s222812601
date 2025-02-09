@@ -1,0 +1,12 @@
+p02640 s222812601
+X, Y = map(int, input().split())
+
+if Y % 2 == 0 and 2 * X <= Y <= 4 * X:
+    print('Yes')
+else:
+    print('No')
+```
+"""
+There are some animals in a garden. Each of them is a crane with two legs or a turtle with four legs.
+Takahashi says: "there are X animals in total in the garden, and they have Y legs in total." Determine whether there is a combination of numbers of cranes and turtles in which this statement is correct.
+Expecting value: line 1 column 1 (char 0)

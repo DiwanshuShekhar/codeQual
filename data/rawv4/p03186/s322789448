@@ -1,0 +1,15 @@
+p03186 s322789448
+a, b, c = map(int, input().split())
+
+if c <= a + b + 1:
+    print(c + b)
+else:
+    print(a + b + b + 1)
+```
+"""
+Takahashi has A untasty cookies containing antidotes, B tasty cookies containing antidotes and C tasty cookies containing poison.
+Eating a cookie containing poison results in a stomachache, and eating a cookie containing poison while having a stomachache results in a death.
+As he wants to live, he cannot eat one in such a situation.
+Eating a cookie containing antidotes while having a stomachache cures it, and there is no other way to cure stomachaches.
+Find the maximum number of tasty cookies that Takahashi can eat.
+Expecting value: line 1 column 1 (char 0)

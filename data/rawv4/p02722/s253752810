@@ -1,0 +1,31 @@
+p02722 s253752810
+N = int(input())
+
+def divisors(n):
+    d = set()
+    i = 1
+    while i * i <= n:
+        if n % i == 0:
+            d.add(i)
+            if i != n // i:
+                d.add(n // i)
+        i += 1
+    return d
+
+def check(x):
+    if x == 1:
+        return False
+    tmp = N
+    while tmp % x == 0:
+        tmp //= x
+    return tmp % x == 1
+
+ans = len([k for k in divisors(N-1) if k != 1]) # k=N-1の場合を先に数える
+
+for k in divisors(N)[1:]: # N自身は含めない
+    if check(k):
+        ans += 1
+
+print(ans)
+```
+Expecting value: line 1 column 1 (char 0)

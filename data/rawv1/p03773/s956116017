@@ -1,0 +1,10 @@
+p03773 s956116017
+A, B = map(int, input().split())
+print((A + B) % 24)
+```
+"""
+Dolphin loves programming contests. Today, he will take part in a contest in AtCoder.
+In this country, 24-hour clock is used. For example, 9:00 p.m. is referred to as "21 o'clock".
+The current time is A o'clock, and a contest will begin in exactly B hours.
+When will the contest begin? Answer in 24-hour time.
+Expecting value: line 1 column 1 (char 0)

@@ -1,0 +1,21 @@
+p03986 s650826027
+s = input()
+stack = []
+ans = 0
+
+for x in s:
+    if x == 'S':
+        stack.append(x)
+    elif stack:
+        stack.pop()
+        ans += 2
+print(len(s) - ans)
+```
+"""
+We have a string X, which has an even number of characters. Half the characters are S, and the other half are T.
+Takahashi, who hates the string ST, will perform the following operation 10^{10000} times:
+
+Among the occurrences of ST in X as (contiguous) substrings, remove the leftmost one. If there is no occurrence, do nothing.
+
+Find the eventual length of X.
+Expecting value: line 1 column 1 (char 0)

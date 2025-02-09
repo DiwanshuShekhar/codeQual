@@ -1,0 +1,12 @@
+p03125 s113304981
+a, b = map(int, input().split())
+if b % a == 0:
+    print(a+b)
+else:
+    print(b-a)
+```
+"""
+You are given positive integers A and B.
+If A is a divisor of B, print A + B; otherwise, print B - A.
+"""
+Expecting value: line 1 column 1 (char 0)

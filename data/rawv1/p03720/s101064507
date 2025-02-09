@@ -1,0 +1,13 @@
+p03720 s101064507
+N, M = map(int, input().split())
+cities = [0] * N
+
+for _ in range(M):
+    A, B = map(int, input().split())
+    cities[A-1] += 1
+    cities[B-1] += 1
+
+for city in cities:
+    print(city)
+```
+Expecting value: line 1 column 1 (char 0)

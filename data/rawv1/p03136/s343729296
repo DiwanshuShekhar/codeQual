@@ -1,0 +1,13 @@
+p03136 s343729296
+N = int(input())
+L = list(map(int, input().split()))
+
+# The sum of N-1 sides (excluding max side)
+sum_n_minus_1_sides = sum(L) - max(L)
+
+if max(L) < sum_n_minus_1_sides:
+    print("Yes")
+else:
+    print("No")
+```
+Expecting value: line 1 column 1 (char 0)

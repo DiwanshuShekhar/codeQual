@@ -1,0 +1,11 @@
+p03605 s590491867
+n = input()
+
+if "9" in n:
+    print('Yes')
+else:
+    print('No')
+```
+"""
+Is there the digit '9' in the two-digit number N?
+Expecting value: line 1 column 1 (char 0)

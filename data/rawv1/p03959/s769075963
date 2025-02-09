@@ -1,0 +1,29 @@
+p03959 s769075963
+
+Define the constraints and initial conditions:
+- N, the number of mountains.
+- T[], an array where T[i] is Mr. Takahashi's record for mountain i.
+- A[], an array where A[i] is Mr. Aoki's record for mountain i.
+- mod = 10**9 + 7 for output modulo.
+
+Algorithm:
+1. Verify feasibility by checking if the starting and end conditions match, i.e., Takahashi's start is not greater than Aoki's and Takahashi's end is not less than Aoki's.
+2. Traverse through each mountain to check for conflicts in records. Any discrepancy invalidates the sequence.
+3. Use a helper array, h[], that stores specific height values for mountains with determined heights based on T[] and A[]. Initialize all elements to -1 (unknown height).
+4. For each mountain i:
+   - If there is a peak height that does not match the prior peak height in T[i], record it in h[i] as a determined height.
+   - Similarly, apply the process for Aoki's record in reverse.
+5. Calculate the total number of valid configurations:
+   - Initialize ans = 1 as there is at least one way (all heights matching T and A records).
+   - Traverse through h[]. For any mountain with unknown height (-1), there are min(T[i], A[i]) possibilities for its height. Multiply ans with min(T[i], A[i]) and take modulo 10^9 + 7 to avoid overflow.
+
+The key here is to recognize that any mountain that does not have an explicitly determined height (due to a lack of increase in the recorded max height in either T[] or A[]) can have any value up to the minimum of T[i] and A[i], as it should not surpass either climber's record up to that point.
+
+Finally, output the total number of possible sequences modulo 10^9 + 7.
+
+Example:
+N = 3
+T = [1, 2, 3]
+A = [3, 2, 1]
+
+Expecting value: line 2 column 1 (char 1)

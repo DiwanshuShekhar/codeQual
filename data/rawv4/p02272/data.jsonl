@@ -1,0 +1,1 @@
+{"problem_id": "p02272", "submission_id": "s388495205", "problem_description": "Write a program of a Merge Sort algorithm implemented by the following pseudocode. You should also report the number of comparisons in the Merge function.", "quality_score": {"functionality": "5", "readability": "5", "pythonic": "5", "error_handling": "5", "efficiency": "5"}}

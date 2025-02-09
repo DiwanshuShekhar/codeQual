@@ -1,0 +1,45 @@
+p02891 s435910873
+S = input()
+K = int(input())
+
+# If S consists of all same characters
+if len(set(S)) == 1:
+    print(len(S) * K // 2)
+else:
+    # Calculate the pairs for the first string
+    cnt = 0
+    pair_cnt = 0
+    prev = ''
+    for ch in S:
+        if ch == prev:
+            cnt += 1
+            prev = ''
+        else:
+            prev = ch
+    pair_cnt += cnt
+
+    # Calculate the pairs for concatenated string
+    total_pairs = pair_cnt * K
+
+    # Check if first and last characters are same and they form pairs
+    # when the string is concatenated
+    if S[0] == S[-1]:
+        first_ch = S[0]
+        last_ch = S[-1]
+        first_ch_count = 1
+        last_ch_count = 1
+        for i in range(1, len(S)):
+            if S[i] == first_ch:
+                first_ch_count += 1
+            else:
+                break
+        for i in range(len(S)-2, -1, -1):
+            if S[i] == last_ch:
+                last_ch_count += 1
+            else:
+                break
+        if first_ch_count % 2 == 1 and last_ch_count % 2 == 1:
+            total_pairs += (K-1)
+
+    print(total_pairs)
+Expecting value: line 1 column 1 (char 0)

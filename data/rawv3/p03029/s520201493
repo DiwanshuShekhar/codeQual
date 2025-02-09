@@ -1,0 +1,11 @@
+p03029 s520201493
+A, P = map(int, input().split())
+total_pieces = A * 3 + P
+pies = total_pieces // 2
+print(pies)
+```
+"""
+We have A apples and P pieces of apple.
+We can cut an apple into three pieces of apple, and make one apple pie by simmering two pieces of apple in a pan.
+Find the maximum number of apple pies we can make with what we have now.
+Expecting value: line 1 column 1 (char 0)

@@ -1,0 +1,15 @@
+p03387 s213879248
+a, b, c = map(int, input().split())
+max_val = max(a, b, c)
+diff = (max_val - a) + (max_val - b) + (max_val - c)
+cnt = 0
+# If the total increment required to make all equal is even
+if diff % 2 == 0:
+    # Two operations are needed to increase the total by 3
+    cnt = diff // 2
+else:
+    # If it's odd, one more operation is required
+    # Add 3 (one 2-increment and one 1-increment) to make it even
+    cnt = (diff + 3) // 2
+print(cnt)
+Expecting value: line 1 column 1 (char 0)

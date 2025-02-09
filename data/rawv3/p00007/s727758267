@@ -1,0 +1,11 @@
+p00007 s727758267
+n = int(input())
+
+debt = 100000
+for i in range(n):
+    interest = debt * 0.05
+    debt += interest
+    if debt % 1000 != 0:
+        debt = (debt // 1000 + 1) * 1000
+print(int(debt))
+Expecting value: line 1 column 1 (char 0)

@@ -1,0 +1,7 @@
+p02778 s341592823
+s = input()
+print("x" * len(s))
+```
+"""
+This Python code takes an input string `s` and prints a string of the same length but with every character replaced by 'x'.
+Expecting value: line 1 column 1 (char 0)

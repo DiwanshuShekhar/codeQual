@@ -1,0 +1,5 @@
+p02627 s370889207
+c = input()
+print('A' if c.isupper() else 'a')
+```
+Expecting value: line 1 column 1 (char 0)

@@ -1,0 +1,1 @@
+{"problem_id": "p02658", "submission_id": "s238237540", "problem_description": "Given N integers A_1, ..., A_N, compute A_1 \\times ... \\times A_N.\nHowever, if the result exceeds 10^{18}, print -1 instead.", "quality_score": {"functionality": "5", "readability": "5", "pythonic": "5", "error_handling": "4", "efficiency": "5"}}

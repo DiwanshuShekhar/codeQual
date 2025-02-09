@@ -1,0 +1,36 @@
+p02665 s431662834
+def solve(N, A):
+    # Calculate the sums iteratively
+    sum_a = [0] * (N + 2)
+    for i in range(N + 1):
+        sum_a[i + 1] = sum_a[i] + A[i]
+
+    # Calculate the maximum available nodes at each level
+    max_nodes = [0] * (N + 2)
+    max_nodes[0] = 1
+    for i in range(1, N + 2):
+        max_nodes[i] = min(2 * (max_nodes[i - 1] - A[i - 1]), sum_a[N + 1] - sum_a[i])
+
+    # Check if it's possible to satisfy the constraints
+    if any(x < 0 for x in max_nodes):
+        return -1
+
+    # Count the maximum number of vertices
+    return sum(min(max_nodes[i], A[i]) for i in range(N + 1))
+
+
+# Input
+N = int(input())
+A = list(map(int, input().split()))
+
+# Solve and output
+print(solve(N, A))
+```
+Explaining this solution, it essentially follows these steps:
+1. We first calculate the cumulative sum of the `A` list so that we can quickly find totals for any section of the sequence as needed.
+2. We generate a list, `max_nodes`, containing the maximum possible number of nodes at each level of the tree.
+3. We enforce the constraint that no negative number of nodes is possible, which assures us that a valid binary tree can be formed.
+4. We then iterate from the root to the leaves (depth 0 to N+1, computing the maximum sum of all nodes allowed considering the constraints at each depth level).
+5. If there are at least as many nodes required by `A[d]` at each depth `d`, and no more than twice the remaining nodes after subtracting `A[d-1]`, the sum of `A[d]` and potentially half of the remaining nodes from the previous level gives us the maximum number of vertices.
+6. If at any point the amount of nodes calculated turns negative, meaning the conditions can't be met, the function returns `-1`.
+Expecting value: line 1 column 1 (char 0)

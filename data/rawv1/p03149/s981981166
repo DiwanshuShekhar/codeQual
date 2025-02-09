@@ -1,0 +1,8 @@
+p03149 s981981166
+N = sorted(map(int, input().split()))
+if N == [1, 4, 7, 9]:
+    print("YES")
+else:
+    print("NO")
+```
+Expecting value: line 1 column 1 (char 0)

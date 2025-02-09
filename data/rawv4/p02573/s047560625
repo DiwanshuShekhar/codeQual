@@ -1,0 +1,38 @@
+p02573 s047560625
+import sys
+input=sys.stdin.readline
+
+def find(x):  # Find the root of x
+    if p[x]!=x:
+        p[x]=find(p[x])
+    return p[x]
+
+def unite(x,y):  # Unite x's group and y's group
+    x=find(x)
+    y=find(y)
+    if x!=y:
+        p[x]=y
+
+def same(x,y):  # Check if x and y are in the same group
+    return find(x)==find(y)
+
+n,m=map(int,input().split())
+p=[i for i in range(n)]  # Parents of every node, initializing each node as its own parent
+
+for _ in range(m):
+    a,b=map(int,input().split())
+    unite(a-1,b-1)  # Unite the groups containing a and b
+
+for i in range(n):
+    find(i)  # Update the group of each node to the root of its group
+
+ans=0
+for i in range(n):
+    ans=max(ans,p.count(i))  # Count the number of occurrences of each root
+
+print(ans)
+```
+JSON Response:
+```json
+{"step2": {"functionality": "5","readability": "4", "pythonic": "5", "error_handling": "3", "efficiency": "4"}}
+Expecting value: line 1 column 1 (char 0)

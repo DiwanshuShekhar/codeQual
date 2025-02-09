@@ -1,0 +1,10 @@
+p02830 s898341435
+S, T = map(str, input().split())
+ans = ''.join([S[i] + T[i] for i in range(len(S))])
+print(ans)
+```
+"""
+Given are strings s and t of length N each, both consisting of lowercase English letters.
+Let us form a new string by alternating the characters of S and the characters of T, as follows: the first character of S, the first character of T, the second character of S, the second character of T, ..., the N-th character of S, the N-th character of T. Print this new string.
+"""
+Expecting value: line 1 column 1 (char 0)

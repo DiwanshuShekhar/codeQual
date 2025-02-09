@@ -1,0 +1,21 @@
+p02761 s218895980
+N, M = map(int, input().split())
+sc = [list(map(int, input().split())) for _ in range(M)]
+
+for i in range(1000):
+    num = str(i)
+    if len(num) != N:
+        continue
+    if all(num[s - 1] == str(c) for s, c in sc):
+        print(i)
+        break
+else:
+    print(-1)
+```
+"""
+If there is an integer not less than 0 satisfying the following conditions, print the smallest such integer; otherwise, print -1.
+
+The integer has exactly N digits in base ten. (We assume 0 to be a 1-digit integer. For other integers, leading zeros are not allowed.)
+The s_i-th digit from the left is c_i. \left(i = 1, 2, \cdots, M\right)
+"""
+Expecting value: line 1 column 1 (char 0)

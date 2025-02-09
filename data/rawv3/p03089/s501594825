@@ -1,0 +1,24 @@
+p03089 s501594825
+from collections import deque
+
+def main():
+    N = int(input())
+    b = list(map(int, input().split()))
+
+    operations = deque()
+    while b:
+        for i in range(len(b) - 1, -1, -1):
+            if b[i] == i + 1:
+                operations.appendleft(b.pop(i))
+                break
+        else:
+            print(-1)
+            return
+
+    for op in operations:
+        print(op)
+
+if __name__ == "__main__":
+    main()
+```
+Expecting value: line 1 column 1 (char 0)

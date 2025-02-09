@@ -1,0 +1,13 @@
+p02836 s335083780
+s = input()
+n = len(s) // 2
+ans = 0
+for i in range(n):
+    if s[i] != s[-i-1]:
+        ans += 1
+print(ans)
+```
+"""
+Takahashi loves palindromes. Non-palindromic strings are unacceptable to him. Each time he hugs a string, he can change one of its characters to any character of his choice.
+Given is a string S. Find the minimum number of hugs needed to make S palindromic.
+Expecting value: line 1 column 1 (char 0)

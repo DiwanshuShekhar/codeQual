@@ -1,0 +1,19 @@
+p03665 s064326616
+N, P = map(int, input().split())
+A = list(map(int, input().split()))
+
+# Count the number of bags with an odd number of biscuits
+odd = sum(a % 2 for a in A)
+
+# If there are no odd bags, the answer depends on P and the number of even bags
+if odd == 0:
+    if P == 0:
+        print(2 ** N)
+    else:
+        print(0)
+else:
+    # When there's at least one odd, you can make both even and odd totals
+    # Half the combinations will sum to even, and half to odd
+    print(2 ** (N - 1))
+```
+Expecting value: line 1 column 1 (char 0)

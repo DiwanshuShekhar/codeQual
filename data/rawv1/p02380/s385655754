@@ -1,0 +1,18 @@
+p02380 s385655754
+import math
+
+a, b, C = map(float, input().split())
+S = 0.5 * a * b * math.sin(math.radians(C))
+l = math.sqrt(a**2 + b**2 - 2*a*b*math.cos(math.radians(C)))
+L = a + b + l
+h = S * 2 / a
+
+print("{:.8f}".format(S))
+print("{:.8f}".format(L))
+print("{:.8f}".format(h))
+```
+"""
+- The area of the triangle (S)
+- The length of the circumference of the triangle (L)
+- The height of the triangle when side 'a' is viewed as the base (h)
+Expecting value: line 1 column 1 (char 0)

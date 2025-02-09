@@ -1,0 +1,17 @@
+p03292 s026576177
+def solve(A123):
+    # Sort the tasks by their cost A[i] in non-decreasing order.
+    A123.sort()
+
+    # The minimum total cost to complete all tasks will be the difference
+    # between the second and first task plus the difference between the
+    # third and second task. This represents doing tasks in order.
+    return (A123[1] - A123[0]) + (A123[2] - A123[1])
+
+# Input
+A123 = list(map(int, input().split()))
+
+# Solve
+print(solve(A123))
+```
+Expecting value: line 1 column 1 (char 0)

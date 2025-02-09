@@ -1,0 +1,2 @@
+{"problem_id": "p02418", "submission_id": "s250937876", "problem_description": "Write a program which finds a pattern $p$ in a ring shaped text $s$.", "quality_score": {"functionality": "5", "readability": "5", "pythonic": "5", "error_handling": "2", "efficiency": "3"}}
+{"problem_id": "p02418", "submission_id": "s350494437", "problem_description": "Write a program which finds a pattern $p$ in a ring shaped text $s$.", "quality_score": {"functionality": "5", "readability": "5", "pythonic": "5", "error_handling": "3", "efficiency": "4"}}

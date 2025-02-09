@@ -1,0 +1,11 @@
+p02416 s986190876
+N = input()
+
+while N != "0":
+    print(sum(map(int, list(N))))
+    N = input()
+```
+"""
+Write a program which reads an integer and prints sum of its digits.
+"""
+Expecting value: line 1 column 1 (char 0)

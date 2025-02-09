@@ -1,0 +1,15 @@
+p03986 s151944704
+S = input()
+
+stack = []
+for s in S:
+    if s == "S":
+        stack.append(s)
+    elif stack and stack[-1] == "S":
+        stack.pop()
+    else:
+        stack.append(s)
+
+print(len(stack))
+```
+Expecting value: line 1 column 1 (char 0)

@@ -1,0 +1,6 @@
+p03729 s044068996
+S = input().rstrip().split()
+result = 'YES' if S[0][-1] == S[1][0] and S[1][-1] == S[2][0] else 'NO'
+print(result)
+```
+Expecting value: line 1 column 1 (char 0)

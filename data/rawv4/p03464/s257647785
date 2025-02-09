@@ -1,0 +1,31 @@
+p03464 s257647785
+from math import ceil
+
+K = int(input())
+A = list(map(int, input().split()))
+L, R = 2, 2
+
+for n in reversed(A):
+    L = ceil(L / n) * n
+    R = (R // n) * n + n - 1
+    if L > R:
+        print(-1)
+        break
+else:
+    print(L, R)
+```
+"""
+An adult game master and N children are playing a game on an ice rink.
+The game consists of K rounds.
+In the i-th round, the game master announces:
+
+Form groups consisting of A_i children each!
+
+Then the children who are still in the game form as many groups of A_i children as possible.
+One child may belong to at most one group.
+Those who are left without a group leave the game. The others proceed to the next round.
+Note that it's possible that nobody leaves the game in some round.
+In the end, after the K-th round, there are exactly two children left, and they are declared the winners.
+You have heard the values of A_1, A_2, ..., A_K. You don't know N, but you want to estimate it.
+Find the smallest and the largest possible number of children in the game before the start, or determine that no valid values of N exist.
+Expecting value: line 1 column 1 (char 0)

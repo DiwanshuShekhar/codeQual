@@ -1,0 +1,16 @@
+p02601 s528582310
+a, b, c  = map(int, input().split())
+k = int(input())
+while k > 0 and a >= b:
+    b *= 2
+    k -= 1
+while k > 0 and b >= c:
+    c *= 2
+    k -= 1
+
+if a < b and b < c:
+    print("Yes")
+else:
+    print("No")
+```
+Expecting value: line 1 column 1 (char 0)

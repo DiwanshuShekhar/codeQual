@@ -1,0 +1,39 @@
+p03138 s032018714
+n, k = map(int, input().split())
+a = list(map(int, input().split()))
+
+# At most 40 bits are needed to represent K
+total_bits = 40
+
+answer = 0
+for d in range(total_bits, -1, -1):
+    # Try to set the d-th bit (from the right, 0-indexed) of X to 1 if possible
+    if not k & (1 << d):
+        # If the d-th bit of K is not set, we cannot set the d-th bit of X
+        continue
+
+    # Temporarily calculate the value of f by assuming the d-th bit of X is set
+    temp_x = answer | (1 << d)
+    temp_f = 0
+    for ai in a:
+        temp_f += temp_x ^ ai
+
+    # We can only keep the d-th bit of X if it doesn't make X exceed K
+    if temp_x <= k:
+        answer = temp_x
+        # Update the current maximum value of f
+        current_f = temp_f
+
+# Calculate the final value of f for the determined X
+final_f = 0
+for ai in a:
+    final_f += answer ^ ai
+
+# Check if setting X to K itself gives a better result
+f_with_k = 0
+for ai in a:
+    f_with_k += k ^ ai
+
+print(max(final_f, f_with_k))
+```
+Expecting value: line 1 column 1 (char 0)

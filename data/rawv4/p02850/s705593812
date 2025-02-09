@@ -1,0 +1,39 @@
+p02850 s705593812
+N = int(input())
+edges = [[] for _ in range(N+1)]
+
+for _ in range(N-1):
+    a, b = map(int, input().split())
+    edges[a].append(b)
+    edges[b].append(a)
+
+# Determine the depth of each node and the parent node
+depth = [0] * (N+1)
+parent = [0] * (N+1)
+queue = [(1, 0, -1)]  # (node, depth, parent)
+while queue:
+    v, d, p = queue.pop()
+    depth[v] = d
+    parent[v] = p
+    for w in edges[v]:
+        if w != p:  # To avoid going back to where it came from
+            queue.append((w, d+1, v))
+
+# Paint the edges
+color = [0] * (N+1)
+for i in range(1, N+1):
+    available_colors = set(range(1, len(edges[i])+1))
+    for j in edges[i]:
+        if depth[j] < depth[i]:
+            if color[j] in available_colors:
+                available_colors.remove(color[j])
+    for j in edges[i]:
+        if depth[j] > depth[i]:
+            color[j] = available_colors.pop()
+
+max_color = max(color)
+print(max_color)
+for i in range(2, N+1):
+    print(color[i])
+```
+Expecting value: line 1 column 1 (char 0)

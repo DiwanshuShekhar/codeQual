@@ -1,0 +1,18 @@
+p03400 s474398186
+N, D = map(int, input().split())
+X = int(input())
+chocolates = X
+
+for _ in range(N):
+    A = int(input())
+    chocolates += (D-1)//A + 1
+
+print(chocolates)
+```
+"""
+Some number of chocolate pieces were prepared for a training camp.
+The camp had N participants and lasted for D days.
+The i-th participant (1 \leq i \leq N) ate one chocolate piece on each of the following days in the camp: the 1-st day, the (A_i + 1)-th day, the (2A_i + 1)-th day, and so on.
+As a result, there were X chocolate pieces remaining at the end of the camp. During the camp, nobody except the participants ate chocolate pieces.
+Find the number of chocolate pieces prepared at the beginning of the camp.
+Expecting value: line 1 column 1 (char 0)

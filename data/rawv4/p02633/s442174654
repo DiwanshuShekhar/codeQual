@@ -1,0 +1,14 @@
+p02633 s442174654
+x = int(input())
+
+# To find the minimum k such that k*x is divisible by 360,
+# we keep adding x to a running sum until it is divisible by 360
+sum_x = 0
+k = 0
+while True:
+    k += 1
+    sum_x += x
+    if sum_x % 360 == 0:
+        print(k)
+        break
+Expecting value: line 1 column 1 (char 0)

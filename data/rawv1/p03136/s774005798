@@ -1,0 +1,55 @@
+p03136 s774005798
+
+**Problem Statement:**
+
+You are given `N` numbers, each representing the length of a stick. Your task is to determine whether these sticks can be used to form the sides of a convex polygon. A necessary and sufficient criterion for this is that no single side should be longer than the sum of the lengths of all the other sides.
+
+**Input:**
+
+- An integer `N`, representing the number of sticks.
+- A list of `N` integers, where the `i-th` integer represents the length of the `i-th` stick.
+
+**Output:**
+
+- "Yes", if the sticks can be used to form the sides of a polygon.
+- "No", otherwise.
+
+**Algorithm:**
+
+1. **Inputs:** Read the integer `N` and the list of integers representing the stick lengths.
+
+2. **Sort the Stick Lengths:** Sort the list of stick lengths in non-decreasing order. This step ensures that the longest stick will be at the last position in the sorted list.
+
+3. **Check Polygon Formation Criterion:**
+    - Calculate the sum of all the stick lengths.
+    - Remove the length of the longest stick (which is now at the end of the sorted list) from this sum. The result is the sum of the lengths of all sticks except the longest one.
+    - If the length of the longest stick is strictly less than the sum of all other sticks, then it's possible to form a convex polygon. Print "Yes".
+    - Otherwise, print "No".
+
+4. **Output the Result:** Based on the above condition, output "Yes" or "No".
+
+**Sample Code:**
+
+```python
+# Step 1: Input
+N = int(input())
+stick_lengths = list(map(int, input().split()))
+
+# Step 2: Sort the stick lengths
+sorted_lengths = sorted(stick_lengths)
+
+# Step 3: Check if a polygon can be formed
+sum_of_lengths = sum(sorted_lengths)
+longest_stick = sorted_lengths[-1]
+
+# If the longest stick is shorter than the sum of the others, print "Yes"
+if longest_stick < (sum_of_lengths - longest_stick):
+    print("Yes")
+else:
+    print("No")
+```
+
+**Explanation:**
+
+- Sorting the stick lengths simplifies finding the longest stick and comparing it against the sum of other sticks.
+Expecting value: line 2 column 1 (char 1)

@@ -1,0 +1,1 @@
+{"problem_id": "p02779", "submission_id": "s915038241", "problem_description": "Given is a sequence of integers A_1, A_2, ..., A_N.\nIf its elements are pairwise distinct, print YES; otherwise, print NO.", "quality_score": {"functionality": "5", "readability": "5", "pythonic": "5", "error_handling": "5", "efficiency": "5"}}

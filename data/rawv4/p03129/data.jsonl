@@ -1,0 +1,1 @@
+{"problem_id": "p03129", "submission_id": "s056895635", "problem_description": "Determine if we can choose K different integers between 1 and N (inclusive) so that no two of them differ by 1.", "quality_score": {"functionality": "3", "readability": "3", "pythonic": "3", "error_handling": "2", "efficiency": "3"}}

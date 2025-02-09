@@ -1,0 +1,15 @@
+p02813 s417199851
+from itertools import permutations
+
+n = int(input())
+p = tuple(map(int, input().split()))
+q = tuple(map(int, input().split()))
+
+# Generate all permutations of size n
+perms = list(permutations(range(1, n+1)))
+a = perms.index(p)
+b = perms.index(q)
+
+# Calculate the absolute difference between the indices
+print(abs(a - b))
+Expecting value: line 1 column 1 (char 0)

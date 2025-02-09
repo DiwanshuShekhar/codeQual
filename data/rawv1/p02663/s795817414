@@ -1,0 +1,15 @@
+p02663 s795817414
+H1, M1, H2, M2, K = map(int, input().split())
+
+wake_time = H1 * 60 + M1
+sleep_time = H2 * 60 + M2
+available_time = sleep_time - wake_time - K
+
+print(max(0, available_time))
+```
+"""
+In this problem, we use the 24-hour clock.
+Takahashi gets up exactly at the time H_1 : M_1 and goes to bed exactly at the time H_2 : M_2. (See Sample Inputs below for clarity.)
+He has decided to study for K consecutive minutes while he is up.
+What is the length of the period in which he can start studying?
+Expecting value: line 1 column 1 (char 0)

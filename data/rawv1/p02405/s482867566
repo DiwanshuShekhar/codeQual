@@ -1,0 +1,17 @@
+p02405 s482867566
+H, W = map(int, input().split())
+while H or W:
+    for i in range(H):
+        for j in range(W):
+            if (i+j) % 2 == 0:
+                print("#", end="")
+            else:
+                print(".", end="")
+        print()
+    print()
+    H, W = map(int, input().split())
+```
+"""
+Draw a chessboard which has a height of H cm and a width of W cm. For example, the following figure shows a chessboard which has a height of 6 cm and a width of 10 cm.
+"""
+Expecting value: line 1 column 1 (char 0)

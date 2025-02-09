@@ -1,0 +1,2 @@
+{"problem_id": "p02606", "submission_id": "s405227494", "problem_description": "How many multiples of d are there among the integers between L and R (inclusive)?", "quality_score": {"functionality": "5", "readability": "5", "pythonic": "5", "error_handling": "3", "efficiency": "2"}}
+{"problem_id": "p02606", "submission_id": "s775503153", "problem_description": "How many multiples of d are there among the integers between L and R (inclusive)?", "quality_score": {"functionality": "5", "readability": "4", "pythonic": "4", "error_handling": "2", "efficiency": "4"}}

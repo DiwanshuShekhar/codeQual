@@ -1,0 +1,17 @@
+p03131 s230151929
+n,x = map(int,input().split())
+a = list(map(int,input().split()))
+index = 0
+for i in range(n):
+    if x == 0:
+        break
+    if x>=a[i]:
+        x -= a[i]
+        index +=1
+    else:
+        x = 0
+        break
+print(index)
+
+```
+Expecting value: line 1 column 1 (char 0)

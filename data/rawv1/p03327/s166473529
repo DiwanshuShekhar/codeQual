@@ -1,0 +1,13 @@
+p03327 s166473529
+N = int(input())
+if N <= 999:
+    print("ABC")
+else:
+    print("ABD")
+```
+"""
+Decades have passed since the beginning of AtCoder Beginner Contest.
+The contests are labeled as ABC001, ABC002, ... from the first round, but after the 999-th round ABC999, a problem occurred: how the future rounds should be labeled?
+In the end, the labels for the rounds from the 1000-th to the 1998-th are decided: ABD001, ABD002, ..., ABD999.
+You are given an integer N between 1 and 1998 (inclusive). Print the first three characters of the label of the N-th round of AtCoder Beginner Contest.
+Expecting value: line 1 column 1 (char 0)

@@ -1,0 +1,23 @@
+p03910 s580946438
+N = int(input())
+
+# The sum of all problem scores from 1 to N
+total = N * (N + 1) // 2
+
+# If we can use all problems from 1 to N to reach exactly N points, we output all
+if total == N:
+    for i in range(1, N + 1):
+        print(i)
+# Otherwise, we find the smallest number k such that the sum from 1 to k exceeds N
+# and calculate the difference, which is the score we need to exclude to reach N points
+else:
+    for k in range(1, N + 1):
+        if (k * (k + 1) // 2) > N:
+            break
+    diff = (k * (k + 1) // 2) - N
+    # Output all numbers from 1 to k, excluding the calculated difference
+    for i in range(1, k + 1):
+        if i != diff:
+            print(i)
+```
+Expecting value: line 1 column 1 (char 0)

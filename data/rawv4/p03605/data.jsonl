@@ -1,0 +1,1 @@
+{"problem_id": "p03605", "submission_id": "s417408237", "problem_description": "It is September 9 in Japan now.\nYou are given a two-digit integer N. Answer the question: Is 9 contained in the decimal notation of N?", "quality_score": {"functionality": "5", "readability": "5", "pythonic": "5", "error_handling": "3", "efficiency": "5"}}

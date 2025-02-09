@@ -1,0 +1,37 @@
+p02536 s092353397
+import sys
+
+input = sys.stdin.readline
+
+N, M = map(int, input().split())
+
+# Create a list to hold the list of connected cities for each city
+connections = [[] for _ in range(N)]
+
+for _ in range(M):
+    a, b = map(int, input().split())
+    # Since cities are numbered from 1, but lists are 0-indexed, we subtract 1
+    connections[a-1].append(b-1)
+    connections[b-1].append(a-1)
+
+# Keep track of which cities have been visited
+visited = [False] * N
+
+def dfs(city):
+    """Depth-first search to mark all cities connected to the current city"""
+    if visited[city]:
+        return
+    visited[city] = True
+    for next_city in connections[city]:
+        dfs(next_city)
+
+# Count how many groups of connected cities there are
+groups = 0
+for city in range(N):
+    if not visited[city]:
+        dfs(city)
+        groups += 1
+
+# The number of roads needed is the number of groups - 1
+print(groups - 1)
+Expecting value: line 1 column 1 (char 0)

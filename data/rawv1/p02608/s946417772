@@ -1,0 +1,23 @@
+p02608 s946417772
+n = int(input())
+result = [0]*(n+1)
+
+for x in range(1, 105):
+    for y in range(1, 105):
+        for z in range(1, 105):
+            f = x**2 + y**2 + z**2 + x*y + y*z + z*x
+            if f <= n:
+                result[f] += 1
+
+for i in range(1, n+1):
+    print(result[i])
+```
+"""
+Let f(n) be the number of triples of integers (x,y,z) that satisfy both of the following conditions:
+
+1 \leq x,y,z
+x^2 + y^2 + z^2 + xy + yz + zx = n
+
+Given an integer N, find each of f(1),f(2),f(3),\ldots,f(N).
+"""
+Expecting value: line 1 column 1 (char 0)

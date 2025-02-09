@@ -1,0 +1,14 @@
+p02402 s278082786
+N = int(input())
+A = list(map(int, input().split()))
+
+min_val = min(A)
+max_val = max(A)
+sum_val = sum(A)
+
+print(min_val, max_val, sum_val)
+```
+"""
+Write a program which reads a sequence of $n$ integers $a_i (i = 1, 2, ... n)$, and prints the minimum value, maximum value and sum of the sequence.
+"""
+Expecting value: line 1 column 1 (char 0)

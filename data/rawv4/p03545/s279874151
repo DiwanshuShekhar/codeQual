@@ -1,0 +1,15 @@
+p03545 s279874151
+s = input()
+# Consider every combination of + and - for the operators
+for op1 in ['+', '-']:
+    for op2 in ['+', '-']:
+        for op3 in ['+', '-']:
+            # Formulate the expression using the operators
+            expression = s[0] + op1 + s[1] + op2 + s[2] + op3 + s[3]
+            # Evaluate the expression
+            if eval(expression) == 7:
+                # Print the expression with =7 and exit the loop
+                print(expression + '=7')
+                exit()
+```
+Expecting value: line 1 column 1 (char 0)

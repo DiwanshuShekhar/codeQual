@@ -1,0 +1,21 @@
+p02642 s667014269
+n = int(input())
+A = sorted([int(input()) for _ in range(n)])
+
+ans = 0
+for i in range(n):
+    for j in range(i):
+        if A[i] % A[j] == 0:
+            break
+    else:
+        ans += 1
+
+print(ans)
+```
+"""
+Given is a number sequence A of length N.
+Find the number of integers i \left(1 \leq i \leq N\right) with the following property:
+
+For every integer j \left(1 \leq j \leq N\right) such that i \neq j , A_j does not divide A_i.
+"""
+Expecting value: line 1 column 1 (char 0)

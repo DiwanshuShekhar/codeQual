@@ -1,0 +1,1 @@
+{"problem_id": "p02408", "submission_id": "s625955670", "problem_description": "Taro is going to play a card game. However, now he has only n cards, even though there should be 52 cards (he has no Jokers).", "quality_score": {"functionality": "5", "readability": "5", "pythonic": "5", "error_handling": "4", "efficiency": "4"}}

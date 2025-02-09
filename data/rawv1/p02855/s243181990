@@ -1,0 +1,42 @@
+p02855 s243181990
+
+The algorithm works as follow:
+1. Start by initializing a matrix `s` with zeros of size `H x W`.
+2. Assign unique numbers to strawberries in the input, and zero to empty cells while reading the input.
+3. For each row:
+   a. Skip the row if it has only zeros, i.e., if it doesn't contain any strawberries.
+   b. For rows that contain strawberries, replace zeros with the closest strawberry number on their left. If a cell is a strawberry, remember its number to fill subsequent zeros until the next strawberry is found.
+4. After processing all rows, if there are any rows consisting solely of zeros (which means they were below or above a row of strawberries), fill those rows with numbers from the nearest non-zero row above or below them.
+
+The most crucial part of the algorithm is to assign numbers correctly according to the strawberries' distribution and ensure that each strawberry leads to a separate piece when cut. In summary, the operation proceeds row-wise to decorate each section with a unique number; then, unfilled rows are updated based on their closest filled neighbors.
+
+Let's write down the pseudo-code based on the algorithm described:
+
+```python
+input H, W, K
+initialize matrix s with zeros, size H x W
+num = 1
+for each row i from 0 to H-1
+    read input row
+    for each column j from 0 to W-1
+        if cell contains a strawberry
+            s[i, j] = num
+            num += 1
+        else
+            s[i, j] = 0
+
+for each row i from 0 to H-1
+    if row contains a strawberry
+        for each cell j in row i
+            if cell contains a strawberry
+                remember strawberry number
+            else
+                fill cell with last remembered strawberry number
+    else
+        copy numbers from nearest filled row above or below
+
+for each row in s
+    print the row as output
+```
+
+Expecting value: line 2 column 1 (char 1)

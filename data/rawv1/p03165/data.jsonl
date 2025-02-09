@@ -1,0 +1,1 @@
+{"problem_id": "p03165", "submission_id": "s069359857", "problem_description": "You are given strings s and t.\nFind one longest string that is a subsequence of both s and t.", "quality_score": {"functionality": "5", "readability": "5", "pythonic": "5", "error_handling": "4", "efficiency": "5"}}

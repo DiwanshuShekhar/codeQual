@@ -1,0 +1,13 @@
+p02898 s241100673
+N, K = map(int, input().split())
+heights = list(map(int, input().split()))
+
+can_ride_count = sum(1 for height in heights if height >= K)
+print(can_ride_count)
+```
+"""
+N friends of Takahashi has come to a theme park.
+To ride the most popular roller coaster in the park, you must be at least K centimeters tall.
+The i-th friend is h_i centimeters tall.
+How many of the Takahashi's friends can ride the roller coaster?
+Expecting value: line 1 column 1 (char 0)

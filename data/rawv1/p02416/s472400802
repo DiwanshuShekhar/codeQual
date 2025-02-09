@@ -1,0 +1,8 @@
+p02416 s472400802
+n = int(input())
+print(sum(map(int, str(n))))
+```
+"""
+Write a program which reads an integer and prints sum of its digits.
+"""
+Expecting value: line 1 column 1 (char 0)

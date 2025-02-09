@@ -1,0 +1,16 @@
+p03712 s172360562
+h, w = map(int, input().split())
+image = ['#' * (w + 2)]
+for _ in range(h):
+    image.append('#' + input() + '#')
+image.append('#' * (w + 2))
+
+for row in image:
+    print(row)
+```
+"""
+You are given a image with a height of H pixels and a width of W pixels.
+Each pixel is represented by a lowercase English letter.
+The pixel at the i-th row from the top and j-th column from the left is a_{ij}.
+Put a box around this image and output the result. The box should consist of # and have a thickness of 1.
+Expecting value: line 1 column 1 (char 0)

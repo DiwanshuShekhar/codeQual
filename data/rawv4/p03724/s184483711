@@ -1,0 +1,25 @@
+p03724 s184483711
+n,m=map(int,input().split())
+a=[0]*n
+for i in range(m):
+    b,c=map(int,input().split())
+    a[b-1]+=1
+    a[c-1]+=1
+for i in range(n):
+    if a[i]%2==1:
+        print("NO")
+        exit()
+print("YES")
+```
+"""
+Takahashi is not good at problems about trees in programming contests, and Aoki is helping him practice.
+First, Takahashi created a tree with N vertices numbered 1 through N, and wrote 0 at each edge.
+Then, Aoki gave him M queries. The i-th of them is as follows:
+
+Increment the number written at each edge along the path connecting vertices a_i and b_i, by one.
+
+After Takahashi executed all of the queries, he told Aoki that, for every edge, the written number became an even number.
+However, Aoki forgot to confirm that the graph Takahashi created was actually a tree, and it is possible that Takahashi made a mistake in creating a tree or executing queries.
+Determine whether there exists a tree that has the property mentioned by Takahashi.
+"""
+Expecting value: line 1 column 1 (char 0)

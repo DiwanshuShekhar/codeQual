@@ -1,0 +1,17 @@
+p02779 s868583686
+from collections import Counter
+
+def main():
+    n = int(input())
+    a = list(map(int, input().split()))
+
+    counter = Counter(a)
+    if all(count == 1 for count in counter.values()):
+        print("YES")
+    else:
+        print("NO")
+
+if __name__ == "__main__":
+    main()
+```
+Expecting value: line 1 column 1 (char 0)

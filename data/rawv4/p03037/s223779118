@@ -1,0 +1,19 @@
+p03037 s223779118
+n,m = map(int,input().split())
+l_max = 0
+r_min = float("inf")
+for _ in range(m):
+    l,r = map(int,input().split())
+    l_max = max(l_max,l)
+    r_min = min(r_min,r)
+if r_min-l_max + 1 <= 0:
+    print(0)
+else:
+    print(r_min-l_max+1)
+```
+"""
+We have N ID cards, and there are M gates.
+We can pass the i-th gate if we have one of the following ID cards: the L_i-th, (L_i+1)-th, ..., and R_i-th ID cards.
+How many of the ID cards allow us to pass all the gates alone?
+"""
+Expecting value: line 1 column 1 (char 0)

@@ -1,0 +1,18 @@
+p03475 s534171924
+N=int(input())
+event=[]
+for i in range(N-1):
+  c,s,f=map(int,input().split())
+  event.append((c,s,f))
+event.append((0,0,0))
+
+for i in range(N):
+  time=0
+  for j in range(i,N-1):
+    c,s,f=event[j]
+    if time<s:
+      time=s+c
+    else:
+      time+=-(-(time-s)//f)*f+c
+  print(time)
+Expecting value: line 1 column 1 (char 0)

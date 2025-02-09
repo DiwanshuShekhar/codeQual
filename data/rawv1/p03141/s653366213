@@ -1,0 +1,21 @@
+p03141 s653366213
+N = int(input())
+AB = [tuple(map(int, input().split())) for _ in range(N)]
+
+# 各皿を食べたときの得点の差（高橋さん - 青木さん）を計算
+diff = [(a+b, a, b) for a, b in AB]
+# 得点の差が大きい順にソート
+diff.sort(reverse=True)
+
+ans = 0
+# 高橋さんと青木さんが交互に皿を選ぶ
+for i in range(N):
+    if i % 2 == 0:
+        # 高橋さんのターン
+        ans += diff[i][1]
+    else:
+        # 青木さんのターン
+        ans -= diff[i][2]
+print(ans)
+```
+Expecting value: line 1 column 1 (char 0)

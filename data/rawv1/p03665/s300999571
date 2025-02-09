@@ -1,0 +1,26 @@
+p03665 s300999571
+def main():
+    n, p = map(int, input().split())
+    a = list(map(int, input().split()))
+
+    # Count the number of odd and even numbers
+    odd = sum(x % 2 for x in a)
+    even = n - odd
+
+    # If there is no odd number, check if we can achieve the desired parity
+    if odd == 0:
+        if p == 0:
+            print(2 ** n)  # All bags can be chosen, because sum will always be even
+        else:
+            print(0)  # Impossible to achieve odd sum with only even numbers
+        return
+
+    # Half of the combinations will have odd sum and the other half will have even sum
+    # This is because for each selection of odd numbers, we can choose or omit an odd one to flip the sum's parity
+    print(2 ** (n - 1))
+
+if __name__ == '__main__':
+    main()
+```
+```
+Expecting value: line 1 column 1 (char 0)

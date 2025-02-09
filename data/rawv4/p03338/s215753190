@@ -1,0 +1,16 @@
+p03338 s215753190
+n = int(input())
+s = input()
+set_len = 0
+for i in range(1, n):
+    x = s[:i]
+    y = s[i:]
+    set_len = max(set_len, len(set(x) & set(y)))
+print(set_len)
+```
+"""
+You are given a string S of length N consisting of lowercase English letters.
+We will cut this string at one position into two strings X and Y.
+Here, we would like to maximize the number of different letters contained in both X and Y.
+Find the largest possible number of different letters contained in both X and Y when we cut the string at the optimal position.
+Expecting value: line 1 column 1 (char 0)

@@ -1,0 +1,1 @@
+{"problem_id": "p02835", "submission_id": "s535779564", "problem_description": "Given are three integers A_1, A_2, and A_3.\nIf A_1+A_2+A_3 is greater than or equal to 22, print bust; otherwise, print win.", "quality_score": {"functionality": "5", "readability": "5", "pythonic": "5", "error_handling": "5", "efficiency": "5"}}

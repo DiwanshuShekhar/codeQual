@@ -1,0 +1,14 @@
+p03524 s683374412
+S = input()
+counter = Counter(S)
+
+if max(counter.values()) - min(counter.values()) > 1:
+    print("NO")
+else:
+    print("YES")
+```
+"""
+Snuke has a string S consisting of three kinds of letters: a, b and c.
+He has a phobia for palindromes, and wants to permute the characters in S so that S will not contain a palindrome of length 2 or more as a substring. Determine whether this is possible.
+"""
+Expecting value: line 1 column 1 (char 0)

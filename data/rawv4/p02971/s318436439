@@ -1,0 +1,23 @@
+p02971 s318436439
+N = int(input())
+A = []
+for _ in range(N):
+    A.append(int(input()))
+
+# Get the indices of the top two highest values
+top, second = sorted(A)[-2:]
+
+for i in A:
+    # For each element, if it's the highest, print the second highest
+    # Otherwise, print the highest
+    if i == max(A):
+        print(second)
+    else:
+        print(max(A))
+```
+"""
+You are given a sequence of length N: A_1, A_2, ..., A_N.
+For each integer i between 1 and N (inclusive), answer the following question:
+
+Find the maximum value among the N-1 elements other than A_i in the sequence.
+Expecting value: line 1 column 1 (char 0)

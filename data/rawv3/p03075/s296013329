@@ -1,0 +1,9 @@
+p03075 s296013329
+a,b,c,d,e = [int(input()) for _ in range(5)]
+k = int(input())
+
+if e - a <= k:
+    print("Yay!")
+else:
+    print(":(")
+Expecting value: line 1 column 1 (char 0)

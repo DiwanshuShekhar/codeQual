@@ -1,0 +1,6 @@
+p03737 s448661555
+s1, s2, s3 = input().split()
+print((s1[0] + s2[0] + s3[0]).upper())
+```
+"""
+Expecting value: line 1 column 1 (char 0)

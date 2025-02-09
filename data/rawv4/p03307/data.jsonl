@@ -1,0 +1,1 @@
+{"problem_id": "p03307", "submission_id": "s967984572", "problem_description": "You are given a positive integer N.\nFind the minimum positive integer divisible by both 2 and N.", "quality_score": {"functionality": "4", "readability": "3", "pythonic": "4", "error_handling": "2", "efficiency": "3"}}

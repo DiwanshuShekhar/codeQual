@@ -1,0 +1,21 @@
+p03804 s761884217
+n, m = map(int, input().split())
+a = [input() for _ in range(n)]
+b = [input() for _ in range(m)]
+
+for i in range(n - m + 1):
+    for j in range(n - m + 1):
+        match = True
+        for p in range(m):
+            for q in range(m):
+                if a[i+p][j+q] != b[p][q]:
+                    match = False
+                    break
+            if not match:
+                break
+        if match:
+            print("Yes")
+            exit()
+print("No")
+```
+Expecting value: line 1 column 1 (char 0)

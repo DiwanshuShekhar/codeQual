@@ -1,0 +1,1 @@
+{"problem_id": "p02661", "submission_id": "s657427585", "problem_description": "There are N integers X_1, X_2, \\cdots, X_N, and we know that A_i \\leq X_i \\leq B_i.\nFind the number of different values that the median of X_1, X_2, \\cdots, X_N can take.", "quality_score": {"functionality": "5", "readability": "5", "pythonic": "5", "error_handling": "3", "efficiency": "4"}}

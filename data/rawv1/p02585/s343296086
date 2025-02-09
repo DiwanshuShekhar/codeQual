@@ -1,0 +1,29 @@
+p02585 s343296086
+N, K = map(int, input().split())
+P = list(map(int, input().split()))
+C = list(map(int, input().split()))
+
+ans = -float('inf')
+for i in range(N):
+    scores = []
+    current = i
+    total = 0
+    while True:
+        current = P[current] - 1
+        total += C[current]
+        scores.append(total)
+        if current == i:
+            break
+    l = len(scores)
+    if scores[-1] > 0:
+        loop = K // l
+        remain = K % l
+        ans = max(ans, scores[-1] * loop + max(0, max(scores[:remain])))
+        loop -= 1
+        if loop >= 0:
+            ans = max(ans, scores[-1] * loop + max(scores))
+    else:
+        ans = max(ans, max(scores))
+print(ans)
+```
+Expecting value: line 1 column 1 (char 0)

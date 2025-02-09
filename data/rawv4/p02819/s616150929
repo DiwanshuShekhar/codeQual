@@ -1,0 +1,23 @@
+p02819 s616150929
+import math
+
+def is_prime(n):
+    if n < 2:
+        return False
+    for i in range(2, int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+def solve(X):
+    while True:
+        if is_prime(X):
+            return X
+        X += 1
+
+# Input X
+X = int(input())
+
+# Output the result
+print(solve(X))
+Expecting value: line 1 column 1 (char 0)

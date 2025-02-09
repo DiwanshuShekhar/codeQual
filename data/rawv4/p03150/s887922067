@@ -1,0 +1,24 @@
+p03150 s887922067
+# Define the target string
+target = 'keyence'
+
+# Get input
+s = input()
+
+# Check if the input string is already 'keyence'
+if s == target:
+    print('YES')
+else:
+    # Loop through all possible lengths of the substring to remove
+    for i in range(1, len(s)):
+        for j in range(len(s) - i + 1):
+            # Remove a substring and check if the result matches 'keyence'
+            temp = s[:j] + s[j+i:]
+            if temp == target:
+                print('YES')
+                exit()
+
+    # If no such substring removal leads to 'keyence', it's not a KEYENCE string
+    print('NO')
+```
+Expecting value: line 1 column 1 (char 0)

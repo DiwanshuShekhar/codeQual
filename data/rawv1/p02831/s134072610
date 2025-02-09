@@ -1,0 +1,10 @@
+p02831 s134072610
+from math import lcm
+
+A, B = map(int, input().split())
+
+# The minimum number of pieces that can be evenly distributed
+# in both cases is the least common multiple of A and B.
+print(lcm(A, B))
+```
+Expecting value: line 1 column 1 (char 0)

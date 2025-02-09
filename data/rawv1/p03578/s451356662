@@ -1,0 +1,29 @@
+p03578 s451356662
+N = int(input())
+D = list(map(int, input().split()))
+M = int(input())
+T = list(map(int, input().split()))
+
+# Create a dictionary to count the occurrence of each problem difficulty in D
+D_dict = {}
+for d in D:
+    if d in D_dict:
+        D_dict[d] += 1
+    else:
+        D_dict[d] = 1
+
+# Check if each problem in T can be covered by D
+possible = True
+for t in T:
+    if t in D_dict and D_dict[t] > 0:
+        D_dict[t] -= 1
+    else:
+        possible = False
+        break
+
+if possible:
+    print("YES")
+else:
+    print("NO")
+```
+Expecting value: line 1 column 1 (char 0)

@@ -1,0 +1,18 @@
+p03457 s623520926
+N = int(input())
+
+for i in range(N):
+    t,x,y = map(int,input().split())
+    if (x+y)%2 != t%2 or x+y>t:
+        print('No')
+        exit()
+print('Yes')
+```
+"""
+AtCoDeer the deer is going on a trip in a two-dimensional plane.
+In his plan, he will depart from point (0, 0) at time 0, then for each i between 1 and N (inclusive), he will visit point (x_i,y_i) at time t_i.
+If AtCoDeer is at point (x, y) at time t, he can be at one of the following points at time t+1: (x+1,y), (x-1,y), (x,y+1) and (x,y-1).
+Note that he cannot stay at his place.
+Determine whether he can carry out his plan.
+"""
+Expecting value: line 1 column 1 (char 0)

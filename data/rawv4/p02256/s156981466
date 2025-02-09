@@ -1,0 +1,11 @@
+p02256 s156981466
+def gcd(x, y):
+    while y:
+        x, y = y, x % y
+    return x
+
+a, b = map(int, input().split())
+print(gcd(a, b))
+```
+"""
+Expecting value: line 1 column 1 (char 0)

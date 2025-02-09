@@ -1,0 +1,5 @@
+p02705 s458521334
+R = int(input())
+print(2 * 3.141592653589 * R)
+```
+Expecting value: line 1 column 1 (char 0)

@@ -1,0 +1,21 @@
+p03147 s622741297
+N = int(input())
+h = list(map(int, input().split()))
+
+res = 0
+prev_h = 0
+for i in range(N):
+    if h[i] > prev_h:
+        res += h[i] - prev_h
+    prev_h = h[i]
+
+print(res)
+```
+"""
+In a flower bed, there are N flowers, numbered 1,2,......,N. Initially, the heights of all flowers are 0.
+You are given a sequence h=\{h_1,h_2,h_3,......\} as input. You would like to change the height of Flower k to h_k for all k (1 \leq  k \leq N), by repeating the following "watering" operation:
+
+Specify integers l and r. Increase the height of Flower x by 1 for all x such that l \leq x \leq r.
+
+Find the minimum number of watering operations required to satisfy the condition.
+Expecting value: line 1 column 1 (char 0)

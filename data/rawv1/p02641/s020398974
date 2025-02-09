@@ -1,0 +1,16 @@
+p02641 s020398974
+X, N = map(int, input().split())
+p = set(map(int, input().split()))
+
+left = right = X
+while True:
+    if left not in p:
+        print(left)
+        break
+    if right not in p:
+        print(right)
+        break
+    left -= 1
+    right += 1
+```
+Expecting value: line 1 column 1 (char 0)

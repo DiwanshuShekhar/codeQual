@@ -1,0 +1,24 @@
+p02263 s918319882
+lst = list(input().split())
+stack = []
+
+for el in lst:
+    if el.isdigit():
+        stack.append(int(el))
+    else:
+        b = stack.pop()
+        a = stack.pop()
+        if el == '+':
+            stack.append(a + b)
+        elif el == '-':
+            stack.append(a - b)
+        elif el == '*':
+            stack.append(a * b)
+        else:
+            raise ValueError('Operator not supported.')
+
+print(stack[0])
+```
+"""
+Reverse Polish notation is a notation where every operator follows all of its operands. For example, an expression (1+2)*(5+4) in the conventional Polish notation can be represented as 1 2 + 5 4 + * in the Reverse Polish notation. One of advantages of the Reverse Polish notation is that it is parenthesis-free.
+Expecting value: line 1 column 1 (char 0)

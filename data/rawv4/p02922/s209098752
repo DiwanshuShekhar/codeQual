@@ -1,0 +1,16 @@
+p02922 s209098752
+a, b = map(int, input().split())
+
+# Initial socket, not including the one used by the power strip itself
+sockets = 1
+
+# Counter for the number of power strips required
+power_strips = 0
+
+while sockets < b:
+    # Each power strip adds (a-1) sockets since one socket is used to connect the strip itself
+    sockets += (a - 1)
+    power_strips += 1
+
+print(power_strips)
+Expecting value: line 1 column 1 (char 0)

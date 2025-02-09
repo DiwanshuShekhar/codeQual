@@ -1,0 +1,20 @@
+p03086 s616360811
+s = input()
+ans = 0
+cnt = 0
+
+for char in s:
+    if char in "ACGT":
+        cnt += 1
+    else:
+        ans = max(ans, cnt)
+        cnt = 0
+ans = max(ans, cnt)
+
+print(ans)
+```
+"""
+You are given a string S consisting of uppercase English letters. Find the length of the longest ACGT string that is a substring (see Notes) of S.
+Here, a ACGT string is a string that contains no characters other than A, C, G and T.
+"""
+Expecting value: line 1 column 1 (char 0)

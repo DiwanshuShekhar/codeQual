@@ -1,0 +1,18 @@
+p02677 s498999230
+import math
+
+A, B, H, M = map(int, input().split())
+
+# Calculate angles in radians
+angle_h = (H % 12) * 30 + M * 0.5
+angle_m = M * 6
+diff = abs(angle_h - angle_m)
+if diff > 180:
+    diff = 360 - diff
+diff_rad = math.radians(diff)
+
+# Calculate distance between hands
+distance = math.sqrt(A**2 + B**2 - 2 * A * B * math.cos(diff_rad))
+print(distance)
+```
+Expecting value: line 1 column 1 (char 0)

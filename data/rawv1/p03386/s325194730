@@ -1,0 +1,16 @@
+p03386 s325194730
+A, B, K = map(int, input().split())
+answers = set()
+
+# Add K smallest integers between A and B
+for i in range(A, min(A+K, B+1)):
+    answers.add(i)
+
+# Add K largest integers between A and B
+for i in range(max(B-K+1, A), B+1):
+    answers.add(i)
+
+# Print in ascending order
+for answer in sorted(list(answers)):
+    print(answer)
+Expecting value: line 1 column 1 (char 0)

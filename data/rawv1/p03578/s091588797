@@ -1,0 +1,27 @@
+p03578 s091588797
+from collections import Counter
+
+# Input reading
+N = int(input())
+D = list(map(int, input().split()))
+M = int(input())
+T = list(map(int, input().split()))
+
+# Counting each problem's occurences in the lists
+candidates = Counter(D)
+requirements = Counter(T)
+
+# Checking the possibility to create the problem set
+for problem, required_amount in requirements.items():
+    if candidates[problem] < required_amount:
+        print("NO")
+        break
+else:
+    print("YES")
+```
+"""
+Rng is preparing a problem set for a qualification round of CODEFESTIVAL.
+He has N candidates of problems. The difficulty of the i-th candidate is D_i.
+There must be M problems in the problem set, and the difficulty of the i-th problem must be T_i. Here, one candidate of a problem cannot be used as multiple problems.
+Determine whether Rng can complete the problem set without creating new candidates of problems.
+Expecting value: line 1 column 1 (char 0)

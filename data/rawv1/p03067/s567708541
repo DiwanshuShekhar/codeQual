@@ -1,0 +1,11 @@
+p03067 s567708541
+A, B, C = map(int, input().split())
+if A < B:
+    print("Yes" if A < C < B else "No")
+else:
+    print("Yes" if B < C < A else "No")
+```
+"""
+There are three houses on a number line: House 1, 2 and 3, with coordinates A, B and C, respectively.
+Print Yes if we pass the coordinate of House 3 on the straight way from House 1 to House 2 without making a detour, and print No otherwise.
+Expecting value: line 1 column 1 (char 0)

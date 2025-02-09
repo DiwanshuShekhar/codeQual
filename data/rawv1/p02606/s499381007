@@ -1,0 +1,11 @@
+p02606 s499381007
+L, R, d = map(int, input().split())
+count = 0
+
+for value in range(L, R + 1):
+    if value % d == 0:
+        count += 1
+
+print(count)
+```
+Expecting value: line 1 column 1 (char 0)

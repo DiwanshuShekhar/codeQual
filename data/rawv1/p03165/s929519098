@@ -1,0 +1,40 @@
+p03165 s929519098
+from collections import deque
+
+s = input()
+t = input()
+
+ls = len(s)
+lt = len(t)
+
+# dp[i][j]: maximum length of common subsequence of s[:i] and t[:j]
+dp = [[0] * (lt+1) for _ in range(ls+1)]
+
+# Iterate through all pairs of indices (i, j)
+for i in range(ls):
+    for j in range(lt):
+        if s[i] == t[j]:
+            dp[i+1][j+1] = dp[i][j] + 1
+        else:
+            dp[i+1][j+1] = max(dp[i][j+1], dp[i+1][j])
+
+# Reconstruct the longest common subsequence
+i, j = ls, lt
+lcs = deque()
+while i > 0 and j > 0:
+    if dp[i][j] == dp[i-1][j]:
+        i -= 1
+    elif dp[i][j] == dp[i][j-1]:
+        j -= 1
+    else:
+        lcs.appendleft(s[i-1])
+        i -= 1
+        j -= 1
+
+print(''.join(lcs))
+```
+This code defines an algorithm to solve the problem of finding the longest common subsequence of two strings `s` and `t`. It uses a dynamic programming approach, where `dp[i][j]` stores the length of the longest common subsequence for the first `i` characters of `s` and the first `j` characters of `t`.
+
+The steps are as follows:
+- Initialize a 2D list `dp` with dimensions `(len(s)+1) x (len(t)+1)`, filled with zeros. This will store the length of the longest common subsequence up to each pair of indices `(i, j)`.
+Expecting value: line 1 column 1 (char 0)

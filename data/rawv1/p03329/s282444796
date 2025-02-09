@@ -1,0 +1,34 @@
+p03329 s282444796
+N = int(input())
+dp = [float('inf')] * (N+1)
+dp[0] = 0
+
+for i in range(1, N+1):
+    dp[i] = min(dp[i], dp[i-1] + 1)
+    power = 6
+    while i - power >= 0:
+        dp[i] = min(dp[i], dp[i-power] + 1)
+        power *= 6
+    power = 9
+    while i - power >= 0:
+        dp[i] = min(dp[i], dp[i-power] + 1)
+        power *= 9
+
+print(dp[N])
+```
+"""
+To make it difficult to withdraw money, a certain bank allows its customers to withdraw only one of the following amounts in one operation:
+
+
+1 yen (the currency of Japan)
+
+
+6 yen, 6^2(=36) yen, 6^3(=216) yen, ...
+
+
+9 yen, 9^2(=81) yen, 9^3(=729) yen, ...
+
+
+At least how many operations are required to withdraw exactly N yen in total?
+It is not allowed to re-deposit the money you withdrew.
+Expecting value: line 1 column 1 (char 0)

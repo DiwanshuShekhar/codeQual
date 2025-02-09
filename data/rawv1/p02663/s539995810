@@ -1,0 +1,14 @@
+p02663 s539995810
+# Get the input values
+H1, M1, H2, M2, K = map(int, input().split())
+
+# Calculate the total time Takahashi is up in minutes
+up_time = (H2 * 60 + M2) - (H1 * 60 + M1)
+
+# Calculate the time Takahashi can start studying
+studying_time = up_time - K
+
+# Print the result
+print(studying_time)
+```
+Expecting value: line 1 column 1 (char 0)

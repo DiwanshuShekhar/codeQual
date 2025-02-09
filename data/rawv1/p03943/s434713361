@@ -1,0 +1,10 @@
+p03943 s434713361
+A, B, C = map(int, input().split())
+
+# Just compare if any two packs can equal the third one.
+if A+B == C or A+C == B or B+C == A:
+    print('Yes')
+else:
+    print('No')
+```
+Expecting value: line 1 column 1 (char 0)

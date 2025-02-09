@@ -1,0 +1,14 @@
+p04011 s055599571
+a, b, c, d = [int(input()) for _ in range(4)]
+print(min(a, b) + min(c, d))
+```
+"""
+There is a hotel with the following accommodation fee:
+
+X yen (the currency of Japan) per night, for the first K nights
+Y yen per night, for the (K+1)-th and subsequent nights
+
+Tak is staying at this hotel for N consecutive nights.
+Find his total accommodation fee.
+"""
+Expecting value: line 1 column 1 (char 0)

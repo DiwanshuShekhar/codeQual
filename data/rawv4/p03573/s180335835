@@ -1,0 +1,15 @@
+p03573 s180335835
+a, b, c = map(int, input().split())
+if a == b:
+    print(c)
+elif a == c:
+    print(b)
+else:
+    print(a)
+```
+"""
+You are given three integers, A, B and C.
+Among them, two are the same, but the remaining one is different from the rest.
+For example, when A=5,B=7,C=5, A and C are the same, but B is different.
+Find the one that is different from the rest among the given three integers.
+Expecting value: line 1 column 1 (char 0)

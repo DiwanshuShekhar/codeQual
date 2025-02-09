@@ -1,0 +1,21 @@
+p03711 s529808896
+def main():
+    x, y = map(int, input().split())
+
+    # Group the months based on their classification
+    group_A = [1, 3, 5, 7, 8, 10, 12]
+    group_B = [4, 6, 9, 11]
+    group_C = [2]  # February
+
+    # Check if both months belong to the same group
+    if (x in group_A and y in group_A) or \
+       (x in group_B and y in group_B) or \
+       (x in group_C and y in group_C):
+        print("Yes")
+    else:
+        print("No")
+
+if __name__ == "__main__":
+    main()
+```
+Expecting value: line 1 column 1 (char 0)

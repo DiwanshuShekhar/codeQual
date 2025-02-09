@@ -1,0 +1,28 @@
+p02239 s524730020
+import collections
+
+N = int(input())
+
+G = collections.defaultdict(list)
+
+for _ in range(N):
+    u, k, *v = map(int, input().split())
+    G[u] = v
+
+queue = collections.deque()
+distances = [-1 for _ in range(N + 1)]
+
+queue.append((1, 0))
+distances[1] = 0
+
+while queue:
+    node, distance = queue.popleft()
+    for neighbor in G[node]:
+        if distances[neighbor] == -1:
+            distances[neighbor] = distance + 1
+            queue.append((neighbor, distance + 1))
+
+for i in range(1, N + 1):
+    print(i, distances[i])
+```
+Expecting value: line 1 column 1 (char 0)

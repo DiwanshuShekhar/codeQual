@@ -1,0 +1,46 @@
+p03646 s351515555
+
+1. **Bingo Game Check**:
+```python
+A = [list(map(int, input().split())) for i in range(3)]
+N = int(input())
+
+for k in range(N):
+    B = int(input())
+    for l in range(3):
+        for m in range(3):
+            if A[l][m] == B:
+                A[l][m] = 0
+
+if (A[0][0] == A[0][1] == A[0][2] == 0) or (A[1][0] == A[1][1] == A[1][2] == 0) or (A[2][0] == A[2][1] == A[2][2] == 0):
+    print ("Yes")
+elif (A[0][0] == A[1][0] == A[2][0] == 0) or (A[0][1] == A[1][1] == A[2][1] == 0) or (A[0][2] == A[1][2] == A[2][2] == 0):
+    print ("Yes")
+elif (A[0][0] == A[1][1] == A[2][2] == 0) or (A[0][2] == A[1][1] == A[2][0] == 0):
+    print ("Yes")
+else:
+    print ("No")
+```
+Description: Checks if a bingo card has won after marking off numbers based on input.
+
+2. **Permutation Swap for Non-Identity Indices**:
+```python
+n = int(input())
+p = list(map(int,input().split()))
+cnt_1 = 0
+cnt_2 = 0
+TF = False
+for i in range(n):
+    if (i + 1) == p[i]:
+        if TF:
+            TF = False
+            cnt_2 += 1
+            cnt_1 -= 1
+        else:
+            TF = True
+            cnt_1 += 1
+    else:
+        TF = False
+print(cnt_1 + cnt_2)
+```
+Extra data: line 2 column 2 (char 2)

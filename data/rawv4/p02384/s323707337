@@ -1,0 +1,42 @@
+p02384 s323707337
+class Dice:
+    def __init__(self, labels):
+        self.labels = labels
+
+    def roll(self, direction):
+        if direction == 'N':
+            self.labels[0], self.labels[1], self.labels[4], self.labels[5] = \
+            self.labels[1], self.labels[5], self.labels[0], self.labels[4]
+        elif direction == 'S':
+            self.labels[0], self.labels[1], self.labels[4], self.labels[5] = \
+            self.labels[4], self.labels[0], self.labels[5], self.labels[1]
+        elif direction == 'E':
+            self.labels[0], self.labels[2], self.labels[3], self.labels[5] = \
+            self.labels[3], self.labels[0], self.labels[5], self.labels[2]
+        elif direction == 'W':
+            self.labels[0], self.labels[2], self.labels[3], self.labels[5] = \
+            self.labels[2], self.labels[5], self.labels[0], self.labels[3]
+
+    def get_labels(self):
+        return self.labels
+
+# Read the initial dice configuration from the input
+labels = list(map(int, input().split()))
+dice = Dice(labels)
+
+# Process each query
+for _ in range(int(input())):
+    top, front = map(int, input().split())
+    # Try all possible direction sequences to set the correct top and front faces
+    for seq in ['NNNN', 'SS', 'EE', 'W', 'WW', 'E', 'N', 'S', 'NN', 'SE', 'SW', 'NW', 'NE']:
+        for direction in seq:
+            dice.roll(direction)
+            # Check if the current configuration has the correct top and front faces
+            if dice.get_labels()[0] == top and dice.get_labels()[1] == front:
+                print(dice.get_labels()[2])
+                break
+        if dice.get_labels()[0] == top and dice.get_labels()[1] == front:
+            break
+
+```
+Expecting value: line 1 column 1 (char 0)

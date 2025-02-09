@@ -1,0 +1,17 @@
+p03346 s938773006
+dp = [1]*(n+1)
+for i in range(n):
+    if p[i]-1 in dp:
+        dp[p[i]] = dp[p[i]-1]+1
+print(n-max(dp))
+
+```
+"""
+You are given a sequence (P_1,P_2,...,P_N) which is a permutation of the integers from 1 through N.
+You would like to sort this sequence in ascending order by repeating the following operation:
+
+Choose an element in the sequence and move it to the beginning or the end of the sequence.
+
+Find the minimum number of operations required.
+It can be proved that it is actually possible to sort the sequence using this operation.
+Expecting value: line 1 column 1 (char 0)

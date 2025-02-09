@@ -1,0 +1,26 @@
+p02598 s894197708
+import math
+
+def main():
+    n, k = map(int, input().split())
+    a = list(map(int, input().split()))
+
+    def can_split(x):
+        '''Check if it's possible to split the logs such that the maximum length of the logs is at most x'''
+        return sum((length-1)//x for length in a) <= k
+
+    # Binary search for the answer
+    low, high = 1, max(a)
+    while low < high:
+        mid = (low + high) // 2
+        if can_split(mid):
+            high = mid
+        else:
+            low = mid + 1
+
+    print(low)
+
+if __name__ == '__main__':
+    main()
+```
+Expecting value: line 1 column 1 (char 0)

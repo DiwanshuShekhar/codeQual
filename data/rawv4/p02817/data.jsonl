@@ -1,0 +1,1 @@
+{"problem_id": "p02817", "submission_id": "s121273903", "problem_description": "Given are two strings S and T consisting of lowercase English letters. Concatenate T and S in this order, without space in between, and print the resulting string.", "quality_score": {"functionality": "5", "readability": "5", "pythonic": "5", "error_handling": "5", "efficiency": "5"}}

@@ -1,0 +1,34 @@
+p03472 s498790530
+n, h = map(int, input().split())
+a = []
+b = []
+for _ in range(n):
+    ai, bi = map(int, input().split())
+    a.append(ai)
+    b.append(bi)
+
+# Sort a in descending order so that the greatest attack power is at the first index
+a.sort(reverse=True)
+# Sort b in descending order to use the greatest throw attack first
+b.sort(reverse=True)
+
+# Initialize the total number of attacks and the total damage caused by throw attacks
+attacks = 0
+throw_damage = 0
+
+# Use the throw attacks first, but only if they are stronger than the strongest wield attack
+for bi in b:
+    if bi > a[0] and h > 0:
+        h -= bi
+        attacks += 1
+        throw_damage += bi
+    if h <= 0:
+        break
+
+# If the monster's HP is still above 0 after all throw attacks, use wield attacks
+if h > 0:
+    attacks += -(-h // a[0])  # Calculate the required number of wield attacks and round up
+
+print(attacks)
+```
+Expecting value: line 1 column 1 (char 0)

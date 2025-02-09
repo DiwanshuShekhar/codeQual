@@ -1,0 +1,14 @@
+p02233 s129799907
+n = int(input())
+
+def fib(n):
+    if n == 0 or n == 1:
+        return 1
+    return fib(n-1) + fib(n-2)
+
+print(fib(n))
+```
+"""
+This code defines a recursive function `fib` to compute the n-th Fibonacci number, where the base cases are `fib(0) = fib(1) = 1`, and for `n` greater than 1, `fib(n)` is the sum of the two preceding numbers, `fib(n-1) + fib(n-2)`.
+
+Expecting value: line 1 column 1 (char 0)

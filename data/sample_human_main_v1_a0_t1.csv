@@ -1,0 +1,4604 @@
+problem_id,problem,submission_id,submission,human_label
+p03838,"Snuke has a calculator. It has a display and two buttons.
+Initially, the display shows an integer x.
+Snuke wants to change this value into another integer y, by pressing the following two buttons some number of times in arbitrary order:
+
+Button A: When pressed, the value on the display is incremented by 1.
+Button B: When pressed, the sign of the value on the display is reversed.
+
+Find the minimum number of times Snuke needs to press the buttons to achieve his objective.
+It can be shown that the objective is always achievable regardless of the values of the integers x and y.",s814078068,"x,y=map(int,input().split())
+
+ans=10**12
+if x<=y:
+  ans=min(ans,y-x)
+if -x<=y:
+  ans=min(ans,y+x+1)
+if x<=-y:
+  ans=min(ans,-y-x+1)
+if -x<=-y:
+  ans=min(ans,-y+x+2)
+
+print(ans)
+",2
+p03108,"There are N islands and M bridges.
+The i-th bridge connects the A_i-th and B_i-th islands bidirectionally.
+Initially, we can travel between any two islands using some of these bridges.
+However, the results of a survey show that these bridges will all collapse because of aging, in the order from the first bridge to the M-th bridge.
+Let the inconvenience be the number of pairs of islands (a, b) (a < b) such that we are no longer able to travel between the a-th and b-th islands using some of the bridges remaining.
+For each i (1 \leq i \leq M), find the inconvenience just after the i-th bridge collapses.",s489040369,"class UnionFind:
+    def __init__(self, n):
+        self.n = n
+        self.parent = [i for i in range(n)]
+        self.height = [1] * n
+        self.size = [1] * n
+
+    def find(self, x):
+        if self.parent[x] == x:
+            return x
+        else:
+            self.parent[x] = self.find(self.parent[x])
+            return self.parent[x]
+
+    def unite(self, x, y):
+        x = self.find(x)
+        y = self.find(y)
+        if x != y:
+            if self.height[x] < self.height[y]:
+                self.parent[x] = y
+                self.size[y] += self.size[x]
+            else:
+                self.parent[y] = x
+                self.size[x] += self.size[y]
+                if self.height[x] == self.height[y]:
+                    self.height[x] += 1
+
+    def issame(self, x, y):
+        return self.find(x) == self.find(y)
+
+    def group_size(self, x):
+        return self.size[self.find(x)]
+
+
+N, M = map(int, input().split())
+int1 = lambda x: int(x) - 1
+X = [tuple(map(int1, input().split())) for _ in range(M)]
+
+uf = UnionFind(N)
+lst = [0]
+for a, b in reversed(X):
+    if uf.issame(a, b):
+        lst.append(lst[-1])
+    else:
+        lst.append(lst[-1] + uf.group_size(a) * uf.group_size(b))
+    uf.unite(a, b)
+
+for i in range(M - 1, -1, -1):
+    print(N * (N - 1) // 2 - lst[i])
+",0
+p02789,"Takahashi is participating in a programming contest, AXC001. He has just submitted his code to Problem A.
+The problem has N test cases, all of which must be passed to get an AC verdict.
+Takahashi's submission has passed M cases out of the N test cases.
+Determine whether Takahashi's submission gets an AC.",s945302680,"A, B = map(int, input().split())
+
+if (A == B):
+  print(""Yes"")
+else:
+  print(""No"")",2
+p02729,"We have N+M balls, each of which has an integer written on it.
+It is known that:
+
+The numbers written on N of the balls are even.
+The numbers written on M of the balls are odd.
+
+Find the number of ways to choose two of the N+M balls (disregarding order) so that the sum of the numbers written on them is even.
+It can be shown that this count does not depend on the actual values written on the balls.",s656845952,"from scipy.special import comb
+N,M = input().split()
+N = int(N)
+M = int(M)
+
+A = 0
+B = 0
+if N >= 2 :
+  A = comb(N, 2, exact=True)
+
+if M >= 2 :
+  B = comb(M, 2, exact=True)
+
+print(A + B)",0
+p03253,"You are given positive integers N and M.
+How many sequences a of length N consisting of positive integers satisfy a_1 \times a_2 \times ... \times a_N = M? Find the count modulo 10^9+7.
+Here, two sequences a' and a'' are considered different when there exists some i such that a_i' \neq a_i''.",s396776378,"import sys
+sys.setrecursionlimit(10 ** 8)
+MOD = 10 ** 9 + 7
+def Z(): return int(input())
+def ZZ(): return [int(_) for _ in input().split()]
+
+def main():
+    N, M = ZZ()
+    MAX_E = 50
+
+    fact = [1] * (N+MAX_E+1) # fact[n] = n!
+    ifact = [1] * (N+MAX_E+1)
+
+    for i in range(1, N+MAX_E+1):
+        fact[i] = i * fact[i-1]
+        fact[i] %= MOD
+    ifact[N+MAX_E] = pow(fact[N+MAX_E], MOD-2, MOD)
+    for i in range(N+MAX_E)[::-1]: ifact[i] = ((i+1) * ifact[i+1]) % MOD
+
+    def combination(n, r):
+        if r < 0 or r > n: return 0
+        return (fact[n] * ifact[n-r] * ifact[r]) % MOD
+
+    def prime_factor(num):
+        i = 2
+        ret = []
+        while i*i <= num:
+            if num%i != 0:
+                i += 1
+                continue
+            cc = 0
+            while num%i == 0:
+                num //= i
+                cc += 1
+            ret.append([i, cc])
+            i += 1
+        if num != 1: ret.append([num, 1])
+        return ret
+
+    ps = prime_factor(M)
+    ans = 1
+    for p, e in ps:
+        ans *= combination(N + e - 1, N - 1)
+        ans %= MOD
+    print(ans)
+
+    return
+
+if __name__ == '__main__':
+    main()
+",1
+p02780,"We have N dice arranged in a line from left to right. The i-th die from the left shows p_i numbers from 1 to p_i with equal probability when thrown.
+We will choose K adjacent dice, throw each of them independently, and compute the sum of the numbers shown. Find the maximum possible value of the expected value of this sum.",s826882094,"import sys
+
+N,K=map(int,input().split())
+P=list(map(int,input().split()))
+Q=[(1+p)/2 for p in P]
+temp=sum(Q[:K])
+ans=temp
+for i in range(N):
+  try:
+    temp=temp-Q[i]+Q[i+K]
+    ans=max(ans,temp)
+  except:
+    pass
+else:
+  print(ans)
+",0
+p02743,Does \sqrt{a} + \sqrt{b} < \sqrt{c} hold?,s725077649,"from decimal import Decimal
+a,b,c=map(int,input().split())
+if Decimal(a)**Decimal(0.5)+Decimal(b)**Decimal(0.5)<Decimal(c)**Decimal(0.5):
+    print(""Yes"")
+else:
+    print(""No"")",2
+p03496,"Snuke has an integer sequence, a, of length N. The i-th element of a (1-indexed) is a_{i}.
+He can perform the following operation any number of times:
+
+Operation: Choose integers x and y between 1 and N (inclusive), and add a_x to a_y.
+
+He would like to perform this operation between 0 and 2N times (inclusive) so that a satisfies the condition below. Show one such sequence of operations.
+It can be proved that such a sequence of operations always exists under the constraints in this problem.
+
+Condition: a_1 \leq a_2 \leq ...  \leq a_{N}",s792091966,"n = int(input())
+a = list(map(int, input().split()))
+
+a_max = -10**7
+a_max_idx = -1
+a_min = 10**7
+a_max_idx = -1
+for i, ai in enumerate(a):
+    if a_max < ai:
+        a_max = ai
+        a_max_idx = i
+    if a_min > ai:
+        a_min = ai
+        a_min_idx = i
+
+operation = []
+if abs(a_max) > abs(a_min):
+    for i, ai in enumerate(a):
+        if ai < 0:
+            operation.append((a_max_idx + 1, i + 1))
+    # 全てが正になる
+    for i in range(1, n):
+        operation.append((i, i + 1))
+else:
+    for i, ai in enumerate(a):
+        if ai > 0:
+            operation.append((a_min_idx + 1, i + 1))
+    # 全てが正になる
+    for i in reversed(range(1, n)):
+        operation.append((i + 1, i))
+
+print(len(operation))
+for opi in operation:
+    print(*opi)
+",1
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s960589903,"n = int(input())
+li = list(map(int, input().split()))
+b = float('inf')
+for a in li:
+    c = 0
+    while a%2 == 0:
+      a = a/2
+      c += 1
+    b = min(b,c)
+print(b)
+
+",0
+p03807,"There are N integers written on a blackboard. The i-th integer is A_i.
+Takahashi will repeatedly perform the following operation on these numbers:
+
+Select a pair of integers, A_i and A_j, that have the same parity (that is, both are even or both are odd) and erase them.
+Then, write a new integer on the blackboard that is equal to the sum of those integers, A_i+A_j.
+
+Determine whether it is possible to have only one integer on the blackboard.",s067659510,"n = int(input())
+a = list(map(int, input().split(' ')))
+sum = 0
+for i in range(n):
+    sum += a[i]
+if sum % 2 == 0:
+    print('YES')
+else:
+    print('NO')
+",0
+p02771,"A triple of numbers is said to be poor when two of those numbers are equal but the other number is different from those two numbers.
+You will be given three integers A, B, and C. If this triple is poor, print Yes; otherwise, print No.",s065717707,"a, b, c = [int(i) for i in input().split()]
+print('Yes' if len(set([a, b, c])) == 2 else 'No') ",2
+p03852,"Given a lowercase English letter c, determine whether it is a vowel. Here, there are five vowels in the English alphabet: a, e, i, o and u.",s170230975,"c = (input())
+list =['a','i','u','e','o']
+if c in list:
+    print('vowel')
+else:
+    print('consonant')",2
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s697323463,"n=int(input())
+s=list(map(int,input().split()))
+count=-0
+while all(i%2==0 for i in s):
+  s=[i/2 for i in s]
+  count+=1
+print(count)
+",1
+p02403,Draw a rectangle which has a height of H cm and a width of W cm. Draw a 1-cm square by single '#'.,s857080787,"import sys
+
+while True:
+	h, w = [ int( val ) for val in sys.stdin.readline().split( "" "" ) ]
+	if 0 ==h and 0 == w:
+		break
+	print( ""{:s}\n"".format( ""#""*w )*h  )",2
+p02632,"How many strings can be obtained by applying the following operation on a string S exactly K times: ""choose one lowercase English letter and insert it somewhere""?
+The answer can be enormous, so print it modulo (10^9+7).",s865926057,"## https://atcoder.jp/contests/abc171/submissions/14626518
+## パクった
+
+k=int(input())
+s=input()
+len_s=len(s)
+
+p = 10 ** 9 + 7
+
+pow26=pow(26,k,p)
+pow25=pow(26,p-1-1,p)*25%p
+ans=0
+for i in range(k+1): ## i:末尾以外に入る文字数
+  ans+=pow26
+  ans%=p
+  pow26=(pow26*pow25)%p * (len_s+i)%p * pow(i+1,p-2,p)%p
+print(ans)",0
+p02903,"We have a square grid with H rows and W columns.
+Snuke wants to write 0 or 1 in each of the squares.
+Here, all of the following conditions have to be satisfied:
+
+For every row, the smaller of the following is A: the number of 0s contained in the row, and the number of 1s contained in the row. (If these two numbers are equal, “the smaller” should be read as “either”.)
+For every column, the smaller of the following is B: the number of 0s contained in the column, and the number of 1s contained in the column.
+
+Determine if these conditions can be satisfied by writing 0 or 1 in each of the squares. If the answer is yes, show one way to fill the squares so that the conditions are satisfied.",s837916504,"h, w, a, b = map(int, input().split())
+
+for i in range(b):
+    ans = '0'*a + '1'*(w-a)
+    print(ans)
+for i in range(h-b):
+    ans = '1'*a + '0'*(w-a)
+    print(ans)",2
+p02921,"You will be given a string S of length 3 representing the weather forecast for three days in the past.
+The i-th character (1 \leq i \leq 3) of S represents the forecast for the i-th day. S, C, and R stand for sunny, cloudy, and rainy, respectively.
+You will also be given a string T of length 3 representing the actual weather on those three days.
+The i-th character (1 \leq i \leq 3) of S represents the actual weather on the i-th day. S, C, and R stand for sunny, cloudy, and rainy, respectively.
+Print the number of days for which the forecast was correct.",s480750614,"s = list(input())
+t = list(input())
+l = list()
+for i in range(3):
+  l.append(1) if s[i] == t[i] else l.append(0)
+print(sum(l))",2
+p04031,"Evi has N integers a_1,a_2,..,a_N. His objective is to have N equal integers by transforming some of them.
+He may transform each integer at most once. Transforming an integer x into another integer y costs him (x-y)^2 dollars. Even if a_i=a_j (i≠j), he has to pay the cost separately for transforming each of them (See Sample 2).
+Find the minimum total cost to achieve his objective.",s054698501,"num = int(input())
+str_line = input().split("" "")
+num_line = [int(n) for n in str_line]
+
+ave = 0
+for i in range(num):
+    ave += num_line[i]
+
+if ave%num == 0:
+    ave //= num
+
+else:
+    if ave%num <= num/2:
+        ave //= num
+    else:
+        ave = -(-ave//num)
+
+wa = 0
+for i in range(num):
+    temp = num_line[i] - ave
+    wa += temp*temp
+
+print(wa)",0
+p02720,"A positive integer X is said to be a lunlun number if and only if the following condition is satisfied:
+
+In the base ten representation of X (without leading zeros), for every pair of two adjacent digits, the absolute difference of those digits is at most 1.
+
+For example, 1234, 1, and 334 are lunlun numbers, while none of 31415, 119, or 13579 is.
+You are given a positive integer K. Find the K-th smallest lunlun number.",s370456912,"k = int(input())
+
+def rec(d, n, array):
+    array.append(n)
+
+    if d == 10:
+        return
+
+    for i in [-1, 0, 1]:
+        add = n % 10 + i
+        if 0 <= add <= 9:
+            rec(d + 1, 10 * n + add, array)
+
+
+array = []
+for i in range(1, 10):
+    rec(1, i, array)
+
+s_array = sorted(array)
+ans = s_array[k - 1]
+print(ans)",1
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s477101046,"N = int(input())
+a = list(map(int,input().split()))
+count=0
+while True:
+    flag = False
+    for i in range(N):
+        if a[i] % 2==1:
+            flag = True
+    if flag:
+        break
+    for i in range(N):
+        a[i]/=2
+
+    count += 1
+
+print(count)",0
+p02393,"Write a program which reads three integers, and prints them in ascending order.",s912141105,"print(' '.join(str(n)for n in sorted(list(map(int,input().split())))))
+",1
+p03469,"On some day in January 2018, Takaki is writing a document. The document has a column where the current date is written in yyyy/mm/dd format. For example, January 23, 2018 should be written as 2018/01/23.
+After finishing the document, she noticed that she had mistakenly wrote 2017 at the beginning of the date column. Write a program that, when the string that Takaki wrote in the date column, S, is given as input, modifies the first four characters in S to 2018 and prints it.",s452987146,"print (input().replace('2017/','2018/'))
+",1
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s532806806,"import os, sys, math
+if os.environ.get(""DEBUG"") is not None:
+    sys.stdin = open(""in.txt"", ""r"")
+rl = sys.stdin.readline
+
+n = int(rl())
+a = list(map(int, rl().split()))
+
+ans = math.inf
+for it in a:
+    cnt = 0
+    while it > 0 and it % 2 == 0:
+        it /= 2
+        cnt += 1
+    ans = min(ans, cnt)
+print(ans)
+",0
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s019499854,"n=int(input())
+a=list(map(int,input().split()))
+b=[]
+for i in range(n):
+    count=0
+    while a[i]%2==0:
+        a[i]=a[i]//2
+        count+=1
+    b.append(count)
+print(min(b))",0
+p02576,"Takahashi loves takoyaki - a ball-shaped snack.
+With a takoyaki machine, he can make at most X pieces of takoyaki at a time, taking T minutes regardless of the number of pieces to make.
+How long does it take to make N takoyaki?",s420033940,"n, x, t = map(int,input().split(' '))
+r = int(n / x) + (1 if n % x > 0 else 0)
+print(r * t)",1
+p02260,Write a program of the Selection Sort algorithm which sorts a sequence A in ascending order. The algorithm should be based on the following pseudocode:,s507941849,"def sort(a):
+    n = len(a)
+    nswaps = 0
+    for i in range(n):
+        minv = None
+        minp = -1
+        for j in range(i, n):
+            if minv == None or minv > a[j]:
+                minv = a[j]
+                minp = j
+        a[minp], a[i] = a[i], a[minp]
+        if i != minp:
+            nswaps += 1
+    return nswaps
+
+n = int(raw_input())
+a = map(int, raw_input().split(' '))
+nswaps = sort(a)
+print ' '.join(map(str, a))
+print nswaps",1
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s761423801,"import sys
+
+read = sys.stdin.read
+readline = sys.stdin.readline
+readlines = sys.stdin.readlines
+sys.setrecursionlimit(10 ** 9)
+INF = 1 << 60
+MOD = 1000000007
+
+
+def main():
+    N, *A = map(int, read().split())
+
+    ans = 0
+    while True:
+        ok = True
+        for i in range(N):
+            if A[i] % 2 == 0:
+                A[i] //= 2
+            else:
+                ok = False
+        if ok:
+            ans += 1
+        else:
+            break
+
+    print(ans)
+    return
+
+
+if __name__ == '__main__':
+    main()
+",0
+p02679,"We have caught N sardines. The deliciousness and fragrantness of the i-th sardine is A_i and B_i, respectively.
+We will choose one or more of these sardines and put them into a cooler. However, two sardines on bad terms cannot be chosen at the same time.
+The i-th and j-th sardines (i \neq j) are on bad terms if and only if A_i \cdot A_j + B_i \cdot B_j = 0.
+In how many ways can we choose the set of sardines to put into the cooler? Since the count can be enormous, print it modulo 1000000007.",s465041137,"
+from fractions import Fraction
+from collections import defaultdict
+def resolve():
+    # A1*A2 + B1*B2 = 0 式変形 A1/B1 = -(B2/A2)
+    # a, b の0がある条件を考える
+
+    MOD = 1000000007
+    N = int(input())
+    zeroes = 0
+    hash1 = defaultdict(int) #
+    hash2 = defaultdict(str) #中の悪い相手を記入
+    for _ in range(N):
+        a, b = map(int, input().split())
+        if a==0 and b==0:
+            zeroes += 1
+        elif b == 0:
+            hash1[""1/0""] += 1
+            hash2[""1/0""] = ""0/1""
+        elif a == 0:
+            hash1[""0/1""] += 1
+            hash2[""0/1""] = ""1/0""
+        else: # a, bが0以外
+            rat1 = Fraction(a, b)
+            rat2 = Fraction(-b, a)
+            hash1[str(rat1)] += 1
+            hash2[str(rat1)] = str(rat2) # 相手を入れる
+
+    confirmed = set()
+    ans = 1
+    for k, v in hash1.items():
+        if k in confirmed: # 確認済みを数えないようにする
+            continue
+        bad = hash1.get(hash2[k], 0) # 中の悪い相手, キーがなかったら0を出力
+        cnt1 = pow(2, v, MOD) - 1
+        cnt2 = pow(2, bad, MOD) - 1
+        ans = (ans * (cnt1 + cnt2 + 1)) % MOD
+        # 確認済みにする
+        confirmed.add(k)
+        confirmed.add(hash2[k])
+        # ※ ループ中に値を変更したらエラー
+        # hash1[k] = -1
+
+    ans = (ans + zeroes + MOD -1) % MOD
+    print(ans)
+
+if __name__ == ""__main__"":
+    resolve()",0
+p02548,"Given is a positive integer N.
+How many tuples (A,B,C) of positive integers satisfy A \times B + C = N?",s210152960,"n = int(input())
+ans = 0
+for i in range(1,n):
+	ans += n//i
+	if n%i == 0:
+		ans -= 1
+print(ans)		",0
+p02585,"Takahashi will play a game using a piece on an array of squares numbered 1, 2, \cdots, N. Square i has an integer C_i written on it. Also, he is given a permutation of 1, 2, \cdots, N: P_1, P_2, \cdots, P_N.
+Now, he will choose one square and place the piece on that square. Then, he will make the following move some number of times between 1 and K (inclusive):
+
+In one move, if the piece is now on Square i (1 \leq i \leq N), move it to Square P_i. Here, his score increases by C_{P_i}.
+
+Help him by finding the maximum possible score at the end of the game. (The score is 0 at the beginning of the game.)",s323078011,"n,k=map(int,input().split())
+p=list(map(int,input().split()))
+c=list(map(int,input().split()))
+ans=-10**10
+for i in range(n):
+	loop=[0]
+	now=i
+	while True:
+		now=p[now]-1
+		loop.append(loop[-1]+c[now])
+		if now==i:
+			break
+	L=len(loop)-1
+	if k<=L:
+		score=max(loop[1:k+1])
+		ans=max(score,ans)
+	else:
+		score=max(loop[-1],0)*(k//L-1)
+		ans=max(ans,score)
+		for j in range(k%L+L):
+			score+=loop[j%L+1]-loop[j%L]
+			ans=max(score,ans)
+print(ans)",1
+p03265,"There is a square in the xy-plane. The coordinates of its four vertices are (x_1,y_1),(x_2,y_2),(x_3,y_3) and (x_4,y_4) in counter-clockwise order.
+(Assume that the positive x-axis points right, and the positive y-axis points up.)
+Takahashi remembers (x_1,y_1) and (x_2,y_2), but he has forgot (x_3,y_3) and (x_4,y_4).
+Given x_1,x_2,y_1,y_2, restore x_3,y_3,x_4,y_4. It can be shown that x_3,y_3,x_4 and y_4 uniquely exist and have integer values.",s124578684,"import os
+import sys
+import math
+if os.environ.get(""DEBUG"") is not None:
+    sys.stdin = open(""in.txt"", ""r"")
+rl = sys.stdin.readline
+rls = sys.stdin.readline().rstrip(""\n"")
+
+x1, y1, x2, y2 = map(int, rls.split())
+dx, dy = x2 - x1, y2 - y1
+x3, y3 = x2 - dy, y2 + dx
+x4, y4 = x1 - dy, y1 + dx
+print(x3, y3, x4, y4)",1
+p02789,"Takahashi is participating in a programming contest, AXC001. He has just submitted his code to Problem A.
+The problem has N test cases, all of which must be passed to get an AC verdict.
+Takahashi's submission has passed M cases out of the N test cases.
+Determine whether Takahashi's submission gets an AC.",s563731716,"import sys
+import os
+
+MOD = 10 ** 9 + 7
+
+
+def main():
+    if os.getenv(""LOCAL""):
+        sys.stdin = open(""input.txt"", ""r"")
+
+    N, M = list(map(int, sys.stdin.buffer.readline().split()))
+    print('Yes' if N == M else 'No')
+
+
+if __name__ == '__main__':
+    main()
+",1
+p03434,"We have N cards. A number a_i is written on the i-th card.
+Alice and Bob will play a game using these cards. In this game, Alice and Bob alternately take one card. Alice goes first.
+The game ends when all the cards are taken by the two players, and the score of each player is the sum of the numbers written on the cards he/she has taken. When both players take the optimal strategy to maximize their scores, find Alice's score minus Bob's score.",s331863108,"N = int(input())
+a = list(map(int,input().split()))
+
+a.sort(reverse=True)
+
+ans = 0
+
+for i in range(0,N):
+  ans = ans + a[i]*(-1)**i
+
+
+print(ans)
+",2
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s456112701,"n = input()
+nums = [int(i) for i in input().split("" "")]
+
+def is_even(num_list):
+  for num in num_list:
+    if num % 2 != 0:
+      return False
+  return True
+
+counter = 0
+while(is_even(nums)):
+  counter += 1
+  nums = [n/2 for n in nums]
+print(counter)
+",0
+p02577,"An integer N is a multiple of 9 if and only if the sum of the digits in the decimal representation of N is a multiple of 9.
+Determine whether N is a multiple of 9.",s764118377,"n=input()
+li=list(map(int, n))
+sum=0
+for i in range(len(li)):
+    sum+=li[i]
+if sum%9==0:
+    print(""Yes"")
+else:
+    print(""No"")",0
+p02972,"There are N empty boxes arranged in a row from left to right.
+The integer i is written on the i-th box from the left (1 \leq i \leq N).
+For each of these boxes, Snuke can choose either to put a ball in it or to put nothing in it.
+We say a set of choices to put a ball or not in the boxes is good when the following condition is satisfied:
+
+For every integer i between 1 and N (inclusive), the total number of balls contained in the boxes with multiples of i written on them is congruent to a_i modulo 2.
+
+Does there exist a good set of choices? If the answer is yes, find one good set of choices.",s666131785,"import sys
+sys.setrecursionlimit(10 ** 6)
+# input = sys.stdin.readline    ####
+int1 = lambda x: int(x) - 1
+def II(): return int(input())
+
+def MI(): return map(int, input().split())
+def MI1(): return map(int1, input().split())
+
+def LI(): return list(map(int, input().split()))
+def LI1(): return list(map(int1, input().split()))
+def LLI(rows_number): return [LI() for _ in range(rows_number)]
+
+def printlist(lst, k='\n'): print(k.join(list(map(str, lst))))
+INF = float('inf')
+
+def solve():
+    n = II()
+    A = LI()
+
+    B = [-1] * n
+    for i in range(n, 0, -1):
+        # print(i)
+        s = 0
+        for j in range(i+i, n+1, i):
+            # print(f' {j}')
+            s ^= B[j-1]
+        B[i-1] = A[i-1] ^ s
+    # print(B)
+
+    print(sum(B))
+    for idx, b in enumerate(B):
+        if b: print(idx+1)
+
+
+if __name__ == '__main__':
+    solve()
+",1
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s498889579,"N = int(input())
+A = list(map(int,input().split()))
+flag = False
+
+for i in range(1,max(A)):
+  a = 2 ** i
+  for n in range(N):
+    if A[n] % a != 0:
+      flag = True
+      break
+  if flag:
+    break
+
+print(i-1)",0
+p03265,"There is a square in the xy-plane. The coordinates of its four vertices are (x_1,y_1),(x_2,y_2),(x_3,y_3) and (x_4,y_4) in counter-clockwise order.
+(Assume that the positive x-axis points right, and the positive y-axis points up.)
+Takahashi remembers (x_1,y_1) and (x_2,y_2), but he has forgot (x_3,y_3) and (x_4,y_4).
+Given x_1,x_2,y_1,y_2, restore x_3,y_3,x_4,y_4. It can be shown that x_3,y_3,x_4 and y_4 uniquely exist and have integer values.",s681188626,"x1,y1,x2,y2 = map(int,input().split())
+x3,y3 = x2 - (y2-y1), y2 + x2-x1
+x4,y4 = x1 - (y2-y1), y1 + x2-x1
+
+ans = [x3,y3,x4,y4]
+print(*ans)",1
+p02570,"Takahashi is meeting up with Aoki.
+They have planned to meet at a place that is D meters away from Takahashi's house in T minutes from now.
+Takahashi will leave his house now and go straight to the place at a speed of S meters per minute.
+Will he arrive in time?",s539245608,"from sys import stdin
+nii=lambda:map(int,stdin.readline().split())
+lnii=lambda:list(map(int,stdin.readline().split()))
+
+d,t,s=nii()
+print('Yes' if d/s<=t else 'No')",1
+p02388,Write a program which calculates the cube of a given integer x.,s008529846,print((lambda x : x**3)(int(input()))),1
+p02546,"In the Kingdom of AtCoder, people use a language called Taknese, which uses lowercase English letters.
+In Taknese, the plural form of a noun is spelled based on the following rules:
+
+If a noun's singular form does not end with s, append s to the end of the singular form.
+If a noun's singular form ends with s, append es to the end of the singular form.
+
+You are given the singular form S of a Taknese noun. Output its plural form.",s718487547,"a = input()
+
+if not a [-1] == ""s"":
+   print(a + ""s"")
+elif a[-1] == ""s"":
+   print(a + ""es"")
+",1
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s474006877,"import sys
+def input(): return sys.stdin.readline().strip()
+
+def pow_two(n):
+    ret = 0
+    while n % 2 == 0:
+        n //= 2
+        ret += 1
+    return ret
+
+def main():
+    n = int(input())
+    A = list(map(int, input().split()))
+    ans = 10**10
+    for a in A: ans = min(ans, pow_two(a))
+    print(ans)
+
+if __name__ == ""__main__"":
+    main()
+",0
+p03068,"You are given a string S of length N consisting of lowercase English letters, and an integer K.
+Print the string obtained by replacing every character in S that differs from the K-th character of S, with *.",s729635730,"n=int(input())
+s=input()
+k=int(input())
+for i in s:
+    if i==s[k-1]:
+        print(i,end='')
+    else:
+        print('*',end='')",1
+p03547,"In programming, hexadecimal notation is often used.
+In hexadecimal notation, besides the ten digits 0, 1, ..., 9, the six letters A, B, C, D, E and F are used to represent the values 10, 11, 12, 13, 14 and 15, respectively.
+In this problem, you are given two letters X and Y. Each X and Y is A, B, C, D, E or F.
+When X and Y are seen as hexadecimal numbers, which is larger?",s664950387,"X, Y = input().split()
+if (ord(X) < ord(Y)):
+    print('<')
+elif (ord(X) > ord(Y)):
+    print('>')
+else:
+    print('=')
+",2
+p02972,"There are N empty boxes arranged in a row from left to right.
+The integer i is written on the i-th box from the left (1 \leq i \leq N).
+For each of these boxes, Snuke can choose either to put a ball in it or to put nothing in it.
+We say a set of choices to put a ball or not in the boxes is good when the following condition is satisfied:
+
+For every integer i between 1 and N (inclusive), the total number of balls contained in the boxes with multiples of i written on them is congruent to a_i modulo 2.
+
+Does there exist a good set of choices? If the answer is yes, find one good set of choices.",s515739975,"N = int(input())
+A = list(map(int, input().split()))
+tmp = [0] * N
+ans = []
+ans_m = 0
+for i in range(N, 0, -1):
+    x = 0
+    for j in range(i, N+1, i):
+        x += tmp[j-1]
+    if x % 2 != A[i-1]:
+        tmp[i-1] = 1
+        ans_m += 1
+        ans.append(str(i))
+print(ans_m)
+if ans:
+    print("" "".join(ans))
+
+
+",1
+p02571,"Given are two strings S and T.
+Let us change some of the characters in S so that T will be a substring of S.
+At least how many characters do we need to change?
+Here, a substring is a consecutive subsequence. For example, xxx is a substring of yxxxy, but not a substring of xxyxx.",s495400940,"S = list(str(input()))
+T = list(str(input()))
+s = 0
+t = 0
+len_s = len(S)
+len_t = len(T)
+i = 0
+ans = []
+
+while i < len_s-len_t+1:
+    cnt = 0
+    #print(S[i:i+len_t])
+    for ss, tt in zip(S[i:i+len_t], T):
+        #print(ss,tt)
+        if ss != tt:
+            cnt +=1
+    ans.append(cnt)
+    i += 1
+
+#print(ans)
+print(min(ans))",0
+p03095,"You are given a string S of length N.
+Among its subsequences, count the ones such that all characters are different, modulo 10^9+7. Two subsequences are considered different if their characters come from different positions in the string, even if they are the same as strings.
+Here, a subsequence of a string is a concatenation of one or more characters from the string without changing the order.",s253196748,"import bisect,collections,copy,itertools,math,string
+import sys
+def I(): return int(sys.stdin.readline().rstrip())
+def LI(): return list(map(int,sys.stdin.readline().rstrip().split()))
+def S(): return sys.stdin.readline().rstrip()
+def LS(): return list(sys.stdin.readline().rstrip().split())
+def main():
+    n = I()
+    s = S()
+    ans = 1
+    num = 10**9 + 7
+    count = collections.Counter(s)
+
+    for value in count.values():
+        ans *= value+1
+        ans %= num
+
+    ans -= 1
+    ans % num
+    print(ans)
+
+main()
+",2
+p03095,"You are given a string S of length N.
+Among its subsequences, count the ones such that all characters are different, modulo 10^9+7. Two subsequences are considered different if their characters come from different positions in the string, even if they are the same as strings.
+Here, a subsequence of a string is a concatenation of one or more characters from the string without changing the order.",s337828734,"from collections import Counter
+
+n = int(input())
+S = input()
+mod = 10**9+7
+
+n = Counter(S)
+ans = 1
+for i, j in n.items():
+  ans *= (j+1)
+print((ans-1)%mod)
+",2
+p02721,"Takahashi has decided to work on K days of his choice from the N days starting with tomorrow.
+You are given an integer C and a string S. Takahashi will choose his workdays as follows:
+
+After working for a day, he will refrain from working on the subsequent C days.
+If the i-th character of S is x, he will not work on Day i, where Day 1 is tomorrow, Day 2 is the day after tomorrow, and so on.
+
+Find all days on which Takahashi is bound to work.",s511923027,"N,K,C = map(int,input().split())
+S = list(input())
+
+A = [0]*N
+B = [0]*N
+
+i = 0
+a = 1
+while i < N:
+    if S[i] == 'o':
+        A[i] = a
+        a += 1
+        i += C+1
+    else:
+        i += 1
+j = N-1
+b = K
+while j >= 0:
+    if S[j] == 'o':
+        B[j] = b
+        b -= 1
+        j -= C+1
+    else:
+        j -= 1
+
+for i in range(N):
+    if A[i] == B[i] and A[i] != 0:
+        print(i+1)",1
+p03435,"We have a 3 \times 3 grid. A number c_{i, j} is written in the square (i, j), where (i, j) denotes the square at the i-th row from the top and the j-th column from the left.
+According to Takahashi, there are six integers a_1, a_2, a_3, b_1, b_2, b_3 whose values are fixed, and the number written in the square (i, j) is equal to a_i + b_j.
+Determine if he is correct.",s753102695,"c = [list(map(int, input().split())) for _ in range(3)]
+a = [0, 0, 0]
+b = [0, 0, 0]
+b[0] = c[0][0] - a[0]
+b[1] = c[0][1] - a[0]
+b[2] = c[0][2] - a[0]
+a[1] = c[1][0] - b[0]
+a[2] = c[2][0] - b[0]
+
+cnt = 0
+for i in range(3):
+    for j in range(3):
+        if c[i][j] == a[i]+b[j]:
+            cnt += 1
+
+print('Yes' if cnt == 9 else 'No')",1
+p02410,"Write a program which reads a $ n \times m$ matrix $A$  and a $m \times 1$ vector $b$, and prints their product $Ab$.",s142731441,"n,m = map(int,input().split())
+A = []
+B = []
+for i in range(n):
+	tmp = list(map(int,input().split()))
+	A.append(tmp)
+	tmp=[]
+for i in range(m):
+	num = int(input())
+	B.append(num)
+for i in range(n):
+	c = 0
+	for j in range(m):
+		c += A[i][j]*B[j]
+	print(c)
+",0
+p02910,"Takahashi will do a tap dance. The dance is described by a string S where each character is L, R, U, or D. These characters indicate the positions on which Takahashi should step. He will follow these instructions one by one in order, starting with the first character.
+S is said to be easily playable if and only if it satisfies both of the following conditions:
+
+Every character in an odd position (1-st, 3-rd, 5-th, \ldots) is R, U, or D.
+Every character in an even position (2-nd, 4-th, 6-th, \ldots) is L, U, or D.
+
+Your task is to print Yes if S is easily playable, and No otherwise.",s944981871,"s = list(input())
+for i in range(len(s)):
+    if i % 2 == 0 and s[i] == ""L"":
+        print(""No"")
+        exit()
+    if i % 2 != 0 and s[i] == ""R"":
+        print(""No"")
+        exit()
+print(""Yes"")",1
+p03068,"You are given a string S of length N consisting of lowercase English letters, and an integer K.
+Print the string obtained by replacing every character in S that differs from the K-th character of S, with *.",s599952091,"from sys import stdin
+import math
+import re
+import queue
+
+input = stdin.readline
+
+MOD = 1000000007
+INF = 122337203685477580
+
+def solve():
+    N = int(input().rstrip())
+    S = (input().rstrip())
+    str = list(S)
+    K = int(input().rstrip())
+    s = str[K-1]
+    for i in range(N):
+        if(str[i] != s):
+            str[i] = ""*""
+    print(''.join(str))
+
+if __name__ == '__main__':
+    solve()
+",1
+p02570,"Takahashi is meeting up with Aoki.
+They have planned to meet at a place that is D meters away from Takahashi's house in T minutes from now.
+Takahashi will leave his house now and go straight to the place at a speed of S meters per minute.
+Will he arrive in time?",s685775910,"D,T,S = map(int,input().split())
+print('YNeos'[D/S>T::2])",1
+p02921,"You will be given a string S of length 3 representing the weather forecast for three days in the past.
+The i-th character (1 \leq i \leq 3) of S represents the forecast for the i-th day. S, C, and R stand for sunny, cloudy, and rainy, respectively.
+You will also be given a string T of length 3 representing the actual weather on those three days.
+The i-th character (1 \leq i \leq 3) of S represents the actual weather on the i-th day. S, C, and R stand for sunny, cloudy, and rainy, respectively.
+Print the number of days for which the forecast was correct.",s449218036,"a = input()
+b = input()
+ans = 0
+for i in range (0,3):
+    if a[i] == b[i]:
+        ans = ans + 1
+print(ans)",1
+p03606,"Joisino is working as a receptionist at a theater.
+The theater has 100000 seats, numbered from 1 to 100000.
+According to her memo, N groups of audiences have come so far, and the i-th group occupies the consecutive seats from Seat l_i to Seat r_i (inclusive).
+How many people are sitting at the theater now?",s652967721,"n = int(input())
+l, r = zip(*[map(int, input().split()) for _ in range(n)])
+ans = 0
+for i in range(n):
+    ans += r[i] - l[i] + 1
+print(ans)
+",2
+p03546,"Joisino the magical girl has decided to turn every single digit that exists on this world into 1.
+Rewriting a digit i with j (0≤i,j≤9) costs c_{i,j} MP (Magic Points).
+She is now standing before a wall. The wall is divided into HW squares in H rows and W columns, and at least one square contains a digit between 0 and 9 (inclusive).
+You are given A_{i,j} that describes the square at the i-th row from the top and j-th column from the left, as follows:
+
+If A_{i,j}≠-1, the square contains a digit A_{i,j}.
+If A_{i,j}=-1, the square does not contain a digit.
+
+Find the minimum total amount of MP required to turn every digit on this wall into 1 in the end.",s768090727,"from copy import copy
+h, w = map(int, input().split())
+data = [list(map(int, input().split())) for _ in range(10)]
+
+c = [list(map(int, input().split())) for _ in range(h)]
+
+d = copy(data)
+def cnt_set(d):
+    for k in range(10):
+        for i in range(10):
+            for j in range(10):
+                d[i][j] = min(d[i][j], d[i][k] + d[k][j])
+cnt_set(d)
+ans = 0
+
+for i in range(h):
+    for j in range(w):
+        if c[i][j] == -1:
+            continue
+        ans += d[c[i][j]][1]
+
+print(ans)",0
+p02577,"An integer N is a multiple of 9 if and only if the sum of the digits in the decimal representation of N is a multiple of 9.
+Determine whether N is a multiple of 9.",s690317920,"a = list(map(int, list(input())))
+sum = sum(a)
+if sum % 9 == 0:
+    print(""Yes"")
+else:
+    print(""No"")",1
+p02596,"Takahashi loves the number 7 and multiples of K.
+Where is the first occurrence of a multiple of K in the sequence 7,77,777,\ldots? (Also see Output and Sample Input/Output below.)
+If the sequence contains no multiples of K, print -1 instead.",s961721594,"import sys
+sys.setrecursionlimit(10**7)
+def input(): return sys.stdin.readline().rstrip()
+
+
+def main():
+    k = int(input())
+    cur = 0
+
+    for i in range(1, 10 ** 7):
+        cur *= 10
+        cur += 7
+        cur %= k
+
+        if cur == 0:
+            print(i)
+            return
+    print(-1)
+
+
+if __name__ == '__main__':
+    main()",0
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s221218887,"N=int(input())
+A=list(map(int,input().split()))
+ans_list = []
+
+for n in A:
+    temp = n
+    count = 0
+    while temp % 2 == 0:
+        temp /= 2
+        count = count + 1
+    ans_list.append(count)
+
+print(min(ans_list))",0
+p02885,"The window of Takahashi's room has a width of A. There are two curtains hung over the window, each of which has a horizontal length of B. (Vertically, the curtains are long enough to cover the whole window.)
+We will close the window so as to minimize the total horizontal length of the uncovered part of the window.
+Find the total horizontal length of the uncovered parts of the window then.",s027407522,"
+def main():
+    a,b = list(map(int, input().split()))
+    ans = a - 2*b
+    ans = 0 if ans < 0 else ans
+    print(ans)
+
+if __name__ == '__main__':
+    main()
+",0
+p03962,"AtCoDeer the deer recently bought three paint cans.
+The color of the one he bought two days ago is a, the color of the one he bought yesterday is b, and the color of the one he bought today is c.
+Here, the color of each paint can is represented by an integer between 1 and 100, inclusive.
+Since he is forgetful, he might have bought more than one paint can in the same color.
+Count the number of different kinds of colors of these paint cans and tell him.",s497805599,"ary = list(map(int, input().split()))
+print(len(set(ary)))",2
+p03469,"On some day in January 2018, Takaki is writing a document. The document has a column where the current date is written in yyyy/mm/dd format. For example, January 23, 2018 should be written as 2018/01/23.
+After finishing the document, she noticed that she had mistakenly wrote 2017 at the beginning of the date column. Write a program that, when the string that Takaki wrote in the date column, S, is given as input, modifies the first four characters in S to 2018 and prints it.",s873315982,"A =  input()
+A = A.replace('2017', '2018')
+print(A)",2
+p03775,"You are given an integer N.
+For two positive integers A and B, we will define F(A,B) as the larger of the following: the number of digits in the decimal notation of A, and the number of digits in the decimal notation of B.
+For example, F(3,11) = 2 since 3 has one digit and 11 has two digits.
+Find the minimum value of F(A,B) as (A,B) ranges over all pairs of positive integers such that N = A \times B.",s747563537,"import math
+def ten(p):
+    if p == 0:
+        return 0
+    else:
+        return ten(p // 10) + 1
+N = int(input())
+x = int(math.sqrt(N))
+while N % x != 0:
+    x -= 1
+y = int(N / x)
+
+print(ten(y))
+
+
+",2
+p02405,"Draw a chessboard which has a height of H cm and a width of W cm. For example, the following figure shows a chessboard which has a height of 6 cm and a width of 10 cm.",s406442727,"from sys import stdin
+
+while True:
+    h, w = (int(n) for n in stdin.readline().rstrip().split())
+
+    if h == w == 0:
+        break
+
+    for cnt in range(h):
+        print(('#.' * ((w + 2) // 2))[cnt % 2: w + cnt % 2])
+
+    print()
+
+",1
+p02924,"For an integer N, we will choose a permutation \{P_1, P_2, ..., P_N\} of \{1, 2, ..., N\}.
+Then, for each i=1,2,...,N, let M_i be the remainder when i is divided by P_i.
+Find the maximum possible value of M_1 + M_2 + \cdots + M_N.",s584179051,"def main():
+    n = int(input())
+    print((n - 1) * n // 2)
+
+
+main()
+",2
+p03059,"A biscuit making machine produces B biscuits at the following moments: A seconds, 2A seconds, 3A seconds and each subsequent multiple of A seconds after activation.
+Find the total number of biscuits produced within T + 0.5 seconds after activation.",s336471358,"import sys
+input = sys.stdin.readline
+def main():
+    A, B, T = map(int, input().split())
+    BIS = int((T+0.5)//A * B)
+    print(BIS)
+
+if __name__ == '__main__':
+    main()",2
+p03053,"You are given a grid of squares with H horizontal rows and W vertical columns, where each square is painted white or black.
+HW characters from A_{11} to A_{HW} represent the colors of the squares.
+A_{ij} is # if the square at the i-th row from the top and the j-th column from the left is black, and A_{ij} is . if that square is white.
+We will repeatedly perform the following operation until all the squares are black:
+
+Every white square that shares a side with a black square, becomes black.
+
+Find the number of operations that will be performed.
+The initial grid has at least one black square.",s371308796,"import sys
+from collections import deque
+
+input = sys.stdin.readline
+
+
+def solve(H, W, A):
+    WALL = - 10 ** 7
+    dist = [[WALL] + [-1] * W + [WALL] for _ in range(H + 2)]
+    dist[0] = dist[-1] = [WALL] * (W + 2)
+
+    queue = deque()
+    for h in range(H):
+        for w in range(W):
+            if A[h][w] == ""#"":
+                dist[h + 1][w + 1] = 0
+                queue.append((h + 1, w + 1))
+
+    while queue:
+        h, w = queue.popleft()
+        d = dist[h][w]
+        for i, j in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            y, x = h + i, w + j
+            if dist[y][x] == -1:
+                dist[y][x] = d + 1
+                queue.append((y, x))
+
+    res = max(map(max, dist))
+    return res
+
+
+def main():
+    H, W = map(int, input().split())
+    A = [None] * H
+    for i in range(H):
+        A[i] = list(input().rstrip())
+
+    ans = solve(H, W, A)
+    print(ans)
+
+
+if __name__ == ""__main__"":
+    main()
+",2
+p02379,"Write a program which calculates the distance between two points P1(x1, y1) and P2(x2, y2).",s936197872,"import math
+
+def main():
+    X1, Y1, X2, Y2 = map(float, input().split())
+
+    dist = math.sqrt((X2 - X1) ** 2 + (Y2 - Y1) ** 2)
+    print(dist)
+
+main()",2
+p02388,Write a program which calculates the cube of a given integer x.,s822876513,"# -*- coding: utf-8 -*-
+a = int(raw_input())
+# ??????
+print a*a*a",1
+p03456,"AtCoDeer the deer has found two positive integers, a and b.
+Determine whether the concatenation of a and b in this order is a square number.",s377891681,"a, b = map(str, input().split())
+num = int(a+b)
+flag = False
+for i in range(1, 1001):
+    if i*i > num:
+        break
+    elif i*i == num:
+        print(""Yes"")
+        flag = True
+if not flag:
+    print(""No"")",1
+p02255,Write a program of the Insertion Sort algorithm which sorts a sequence A in ascending order. The algorithm should be based on the following pseudocode:,s584798574,"def show_list(target):
+    for i, item in enumerate(target):
+        if i == len(target) - 1:
+            print(item)
+        else:
+            print(item, end="" "")
+
+def insection_sort(target):
+    for i in range(1, len(target)):
+        show_list(target)
+        j = i - 1
+        while j >= 0:
+            if target[j] > target[j+1]:
+                target[j], target[j+1] = target[j+1], target[j]
+                j -= 1
+            else:
+                break
+    return target
+
+if __name__ == ""__main__"":
+    n = input()
+    a = [int(x) for x in input().split()]
+    answer = insection_sort(a)
+    show_list(answer)",1
+p03206,"In some other world, today is December D-th.
+Write a program that prints Christmas if D = 25, Christmas Eve if D = 24, Christmas Eve Eve if D = 23 and Christmas Eve Eve Eve if D = 22.",s459875732,"D=int(input())
+if D==25:
+  print(""Christmas"")
+if D==24:
+  print(""Christmas Eve"")
+if D==23:
+  print(""Christmas Eve Eve"")
+if D==22:
+  print(""Christmas Eve Eve Eve"")",0
+p03265,"There is a square in the xy-plane. The coordinates of its four vertices are (x_1,y_1),(x_2,y_2),(x_3,y_3) and (x_4,y_4) in counter-clockwise order.
+(Assume that the positive x-axis points right, and the positive y-axis points up.)
+Takahashi remembers (x_1,y_1) and (x_2,y_2), but he has forgot (x_3,y_3) and (x_4,y_4).
+Given x_1,x_2,y_1,y_2, restore x_3,y_3,x_4,y_4. It can be shown that x_3,y_3,x_4 and y_4 uniquely exist and have integer values.",s599617140,"a,b,c,d=map(int,input().split());print(c-d+b,d+c-a,a-d+b,b+c-a)",1
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s622527298,"# ABC_081_B_Shift_only.py
+N = int(input())
+a = list(map(int, input().split()))
+count = 0
+while True:
+	flag = 0
+	for i in range(0, N):
+		Ai = a[i]
+		if Ai % 2 == 1:
+			flag = 1
+	if flag == 1:
+		break
+	for i in range(0, N):
+		a[i] = a[i]//2
+	count += 1
+print(count)",0
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s802119805,"N=int(input())
+a = [int(i) for i in input().split()]
+
+count=0
+while 1:
+    if sum([i%2 for i in a]) == 0:
+        a = [i/2 for i in a]
+        count=count+1
+    else:
+        print(count)
+        break
+",0
+p02389,Write a program which calculates the area and perimeter of a given rectangle.,s804492034,"i = raw_input().strip().split()
+
+a = int(i[0])
+b = int(i[1])
+
+print a*b, (a+b)*2",2
+p02729,"We have N+M balls, each of which has an integer written on it.
+It is known that:
+
+The numbers written on N of the balls are even.
+The numbers written on M of the balls are odd.
+
+Find the number of ways to choose two of the N+M balls (disregarding order) so that the sum of the numbers written on them is even.
+It can be shown that this count does not depend on the actual values written on the balls.",s628876040,"a = [int(x) for x in input().split()]
+print(a[0]*(a[0] - 1) // 2 + a[1]*(a[1] - 1) // 2)",2
+p03140,"You are given three strings A, B and C. Each of these is a string of length N consisting of lowercase English letters.
+Our objective is to make all these three strings equal. For that, you can repeatedly perform the following operation:
+
+Operation: Choose one of the strings A, B and C, and specify an integer i between 1 and N (inclusive). Change the i-th character from the beginning of the chosen string to some other lowercase English letter.
+
+What is the minimum number of operations required to achieve the objective?",s616951445,"N = int(input())
+A = input()
+B = input()
+C = input()
+
+l = [[a, b, c] for a, b, c in zip(A, B, C)]
+
+cnt = 0
+for i in range(N):
+    l_set = set(l[i])
+    if len(l_set) == 1:
+        pass
+    elif len(l_set) == 2:
+        cnt += 1
+    else:
+        cnt += 2
+
+print(cnt)",2
+p04046,"We have a large square grid with H rows and W columns.
+Iroha is now standing in the top-left cell.
+She will repeat going right or down to the adjacent cell, until she reaches the bottom-right cell.
+However, she cannot enter the cells in the intersection of the bottom A rows and the leftmost B columns. (That is, there are A×B forbidden cells.) There is no restriction on entering the other cells.
+Find the number of ways she can travel to the bottom-right cell.
+Since this number can be extremely large, print the number modulo 10^9+7.",s932614654,"H, W, A, B = map(int, input().split())
+mod = 10**9 + 7
+
+fact = [1] * (H+W+1)
+fact_inv = [1] * (H+W+1)
+for i in range(1, H+W+1):
+    fact[i] = i * fact[i-1] % mod
+fact_inv[H+W] = pow(fact[H+W], mod-2, mod)
+for i in range(1, H+W+1)[::-1]:
+    fact_inv[i-1] = i * fact_inv[i] % mod
+comb = lambda n, k: fact[n] * fact_inv[k] * fact_inv[n-k] % mod
+
+ans = 0
+for i in range(B+1, W+1):
+    ans += comb((i-1) + (H-A-1), i-1) * comb((W-i) + (A-1), W-i) % mod
+    ans %= mod
+print(ans)
+",2
+p02546,"In the Kingdom of AtCoder, people use a language called Taknese, which uses lowercase English letters.
+In Taknese, the plural form of a noun is spelled based on the following rules:
+
+If a noun's singular form does not end with s, append s to the end of the singular form.
+If a noun's singular form ends with s, append es to the end of the singular form.
+
+You are given the singular form S of a Taknese noun. Output its plural form.",s349087056,"def main():
+    S = input()
+
+    if S[-1] == 's':
+        S = S + 'es'
+    else:
+        S = S + 's'
+
+    print(S)
+
+
+
+main()",0
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s837051188,"N = int(input())
+li = list(map(int,input().split()))
+count = 0
+while 1:
+    if all([x%2==0 for x in li]):
+        li = [int(x/2) for x in li]
+        count+=1
+    else:break
+print(count)",1
+p03697,"You are given two integers A and B as the input. Output the value of A + B.
+However, if A + B is 10 or greater, output error instead.",s143693340,"A,B = input().split(' ')
+A = int(A)
+B = int(B)
+if A+B < 10:
+  print(A+B)
+else:
+  print('error')",1
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s476321647,"a = int(input())
+b = list(map(int, input().split()))
+count = 0
+while(1):
+  flag = 0
+  for i in range(0, a, 1):
+    if (b[i] % 2 == 1) :
+      flag = 1
+  if (flag == 1) :
+    break
+  for i in range(0, a, 1):
+    b[i] /= 2
+  count += 1
+print(count)",0
+p02664,"For a string S consisting of the uppercase English letters P and D, let the doctoral and postdoctoral quotient of S be the total number of occurrences of D and PD in S as contiguous substrings. For example, if S = PPDDP, it contains two occurrences of D and one occurrence of PD as contiguous substrings, so the doctoral and postdoctoral quotient of S is 3.
+We have a string T consisting of P, D, and ?.
+Among the strings that can be obtained by replacing each ? in T with P or D, find one with the maximum possible doctoral and postdoctoral quotient.",s335698688,"
+from collections import Counter
+from collections import defaultdict
+from collections import deque
+from functools import reduce
+import math
+import itertools
+import heapq
+import numpy as np
+import bisect
+import sys
+sys.setrecursionlimit(10**6)
+
+
+def bfs(s,n,node):
+    #頂点が探索済みかどうかのチェック配列
+    check=[False for _ in range(n)]
+    check[s]=True
+    #次見る頂点を格納するキュー
+    queue=deque([s])
+    visited_num=1
+
+    #問題固有の配列
+    #color_check=[[True for _ in range(l)] for _ in range(n)]
+    color=[-1 for _ in range(n)]
+    color[s]=0
+
+    while visited_num<n:
+        #グラフが全連結ではない場合
+        if len(queue)==0:
+            #空配列を返す
+            #現状までの計算済み配列を返してもいいと思う
+            return color
+
+        now_vertex=queue.popleft()
+        #インデックスがない場合は
+        for next_vertex in node[now_vertex]:
+
+
+            if check[next_vertex]==True:
+                continue
+
+            queue.append(next_vertex)
+            check[next_vertex]=True
+
+            #問題固有の計算
+            color[next_vertex]=color[now_vertex]+1
+            visited_num+=1
+
+    return color
+
+#n=int(input())z
+#n,m=list(map(int,input().split()))
+#a=list(map(int,input().split()))
+ceil=lambda x,y: (x+y-1)//y
+input_list = lambda : list(map(int,input().split()))
+
+
+
+#n=int(input())
+#n,m=input_list()
+#a=input_list()
+
+s=input()
+ans=0
+s=[i if i!=""?"" else ""D"" for i in s]
+print("""".join(s))",2
+p04013,"Tak has N cards. On the i-th (1 \leq i \leq N) card is written an integer x_i.
+He is selecting one or more cards from these N cards, so that the average of the integers written on the selected cards is exactly A.
+In how many ways can he make his selection?",s091199355,"import sys
+from collections import defaultdict
+
+n, a, *x = map(int, sys.stdin.read().split())
+for i in range(n): x[i] -= a
+
+def main():
+  dp = defaultdict(int); dp[0] = 1
+  for i in range(n):
+    ndp = dp.copy()
+    for k, v in dp.items():
+      ndp[k+x[i]] += v
+    dp = ndp
+  print(dp[0] - 1)
+
+if __name__ == '__main__':
+  main()",0
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s721334603,"N = int(input())
+A = input().split()
+result = 0
+count = False
+while count == False:
+    if (A == ([0] * N or [""0""] * N)): break
+    for i in range(N):
+        if (int(A[i]) % 2 != 0): count = True
+        A[i] = int(A[i]) / 2
+    if (count == True): break
+    result += 1
+
+print(result)",0
+p02720,"A positive integer X is said to be a lunlun number if and only if the following condition is satisfied:
+
+In the base ten representation of X (without leading zeros), for every pair of two adjacent digits, the absolute difference of those digits is at most 1.
+
+For example, 1234, 1, and 334 are lunlun numbers, while none of 31415, 119, or 13579 is.
+You are given a positive integer K. Find the K-th smallest lunlun number.",s393179082,"from collections import deque
+K = int(input())
+
+q = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+q = deque(q)
+
+def next_n(n):
+    if n == 0:
+        return [0, 1]
+    elif n == 9:
+        return [8, 9]
+    else:
+        return [n-1, n, n+1]
+
+for _ in range(K-1):
+    now = q.popleft()
+    for next_ in next_n(now%10):
+        q.append(now*10 + next_)
+
+print(q[0])",1
+p03588,"A group of people played a game. All players had distinct scores, which are positive integers.
+Takahashi knows N facts on the players' scores. The i-th fact is as follows: the A_i-th highest score among the players is B_i.
+Find the maximum possible number of players in the game.",s934503551,"#B - Different Distribution
+N = int(input())
+A = [list(map(int, input().split())) for i in range(N)]
+A.sort(key=lambda x: x[1])
+
+print((A[0][0])+A[0][1])",2
+p02570,"Takahashi is meeting up with Aoki.
+They have planned to meet at a place that is D meters away from Takahashi's house in T minutes from now.
+Takahashi will leave his house now and go straight to the place at a speed of S meters per minute.
+Will he arrive in time?",s889079473,"a,b,c = map(int,input().split())
+
+print(""YNeos""[a/c > b::2])
+
+
+
+",0
+p03095,"You are given a string S of length N.
+Among its subsequences, count the ones such that all characters are different, modulo 10^9+7. Two subsequences are considered different if their characters come from different positions in the string, even if they are the same as strings.
+Here, a subsequence of a string is a concatenation of one or more characters from the string without changing the order.",s913608658,"import sys
+
+# import re
+import math
+import collections
+# import decimal
+import bisect
+import itertools
+import fractions
+# import functools
+import copy
+import heapq
+import decimal
+# import statistics
+import queue
+
+sys.setrecursionlimit(10000001)
+INF = 10 ** 16
+MOD = 10 ** 9 + 7
+
+ni = lambda: int(sys.stdin.readline())
+ns = lambda: map(int, sys.stdin.readline().split())
+na = lambda: list(map(int, sys.stdin.readline().split()))
+
+
+# ===CODE===
+
+
+def main():
+    n = ni()
+    s = input()
+
+    c = collections.Counter(s)
+
+    ans = 1
+    for v in c.values():
+        ans *= v + 1
+        ans %= MOD
+    ans = (ans - 1) % MOD
+    print(ans)
+
+
+if __name__ == '__main__':
+    main()
+",1
+p03836,"Dolphin resides in two-dimensional Cartesian plane, with the positive x-axis pointing right and the positive y-axis pointing up.
+Currently, he is located at the point (sx,sy). In each second, he can move up, down, left or right by a distance of 1.
+Here, both the x- and y-coordinates before and after each movement must be integers.
+He will first visit the point (tx,ty) where sx < tx and sy < ty, then go back to the point (sx,sy), then visit the point (tx,ty) again, and lastly go back to the point (sx,sy).
+Here, during the whole travel, he is not allowed to pass through the same point more than once, except the points (sx,sy) and (tx,ty).
+Under this condition, find a shortest path for him.",s885491090,"sx, sy, tx, ty = map(int, input().split())
+
+move = ''
+xz = abs(tx-sx)
+yz = abs(ty-sy)
+move += 'U'*yz + 'R'*xz + 'D'*yz + 'L'*xz
+move += 'L'*1 + 'U'*(yz+1) + 'R'*(xz+1) + 'D'*1
+move += 'R'*1 + 'D'*(yz+1) + 'L'*(xz+1) + 'U'*1
+print(move)",0
+p02711,"Given is a three-digit integer N. Does N contain the digit 7?
+If so, print Yes; otherwise, print No.",s415605458,"N=input()
+for idx in range(len(N)):
+  if N[idx] == str(7):
+    print('Yes')
+    break
+else:
+  print('No')",0
+p02881,"Takahashi is standing on a multiplication table with infinitely many rows and columns.
+The square (i,j) contains the integer i \times j. Initially, Takahashi is standing at (1,1).
+In one move, he can move from (i,j) to either (i+1,j) or (i,j+1).
+Given an integer N, find the minimum number of moves needed to reach a square that contains N.",s385476532,"import math
+
+N = int(input())
+ans = math.inf
+for i in range(1, math.ceil(math.sqrt(N)) + 1):
+    if N%i == 0:
+        ans = i+N//i-2
+print(ans)
+",2
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s640659317,"N = input()
+A = list(map(int,input().split()))
+c = 0
+d = -1
+while c>d:
+  d+=1
+  for i in A:
+    if i%2 == 0:
+      continue
+    else :
+      print(c)
+      break
+  else :
+    A=list(map(lambda x :x/2,A))
+    c += 1
+
+",0
+p03146,"A sequence a=\{a_1,a_2,a_3,......\} is determined as follows:
+
+
+The first term s is given as input.
+
+
+Let f(n) be the following function: f(n) = n/2 if n is even, and f(n) = 3n+1 if n is odd.
+
+
+a_i = s when i = 1, and a_i = f(a_{i-1}) when i > 1.
+
+
+Find the minimum integer m that satisfies the following condition:
+
+There exists an integer n such that a_m = a_n (m > n).",s180578791,"s=int(input())
+
+if s==1 or s==2:
+    print(4)
+else:
+    K=1
+    while s!=1:
+        if s%2:
+            s=3*s+1
+        else:
+            s//=2
+        K+=1
+    print(K+1)
+",0
+p03265,"There is a square in the xy-plane. The coordinates of its four vertices are (x_1,y_1),(x_2,y_2),(x_3,y_3) and (x_4,y_4) in counter-clockwise order.
+(Assume that the positive x-axis points right, and the positive y-axis points up.)
+Takahashi remembers (x_1,y_1) and (x_2,y_2), but he has forgot (x_3,y_3) and (x_4,y_4).
+Given x_1,x_2,y_1,y_2, restore x_3,y_3,x_4,y_4. It can be shown that x_3,y_3,x_4 and y_4 uniquely exist and have integer values.",s147336430,"x1,y1,x2,y2 = [int(i) for i in input().split()]
+
+height = y2 - y1
+width = x2 - x1
+
+x3 = x2 - height
+x4 = x3 - width
+y3 = y2 + width
+y4 = y3 - height
+
+print(x3,y3,x4,y4)",1
+p03362,"Print a sequence a_1, a_2, ..., a_N whose length is N that satisfies the following conditions:
+
+a_i (1 \leq i \leq N) is a prime number at most 55 555.
+The values of a_1, a_2, ..., a_N are all different.
+In every choice of five different integers from a_1, a_2, ..., a_N, the sum of those integers is a composite number.
+
+If there are multiple such sequences, printing any of them is accepted.",s823435645,"#096_D
+n = int(input())
+prime_5 = []
+for i in range(2, 55556):
+    flg = (i % 5 == 1)
+    if flg:
+        for j in range(2, int(i**0.5)+1):
+            if i % j == 0:
+                flg = False
+                break
+    if flg:
+        prime_5.append(i)
+print(*prime_5[:n])",2
+p02546,"In the Kingdom of AtCoder, people use a language called Taknese, which uses lowercase English letters.
+In Taknese, the plural form of a noun is spelled based on the following rules:
+
+If a noun's singular form does not end with s, append s to the end of the singular form.
+If a noun's singular form ends with s, append es to the end of the singular form.
+
+You are given the singular form S of a Taknese noun. Output its plural form.",s177924482,"if __name__ == '__main__':
+  s = str(input())
+
+  if s[-1] != 's':
+    print(f'{s}s')
+  else:
+    print(f'{s}es')",2
+p03434,"We have N cards. A number a_i is written on the i-th card.
+Alice and Bob will play a game using these cards. In this game, Alice and Bob alternately take one card. Alice goes first.
+The game ends when all the cards are taken by the two players, and the score of each player is the sum of the numbers written on the cards he/she has taken. When both players take the optimal strategy to maximize their scores, find Alice's score minus Bob's score.",s312456508,"from sys import stdin
+n = int(stdin.readline().rstrip())
+a = [int(x) for x in stdin.readline().rstrip().split()]
+ans = 0
+
+a.sort(reverse = True)
+
+for x in range(n):
+   if x % 2 == 0:
+      ans += a[x]
+   else:
+      ans -= a[x]
+
+print(ans)",1
+p03291,"The ABC number of a string T is the number of triples of integers (i, j, k) that satisfy all of the following conditions:
+
+1 ≤ i < j < k ≤ |T| (|T| is the length of T.)
+T_i = A (T_i is the i-th character of T from the beginning.)
+T_j = B
+T_k = C
+
+For example, when T = ABCBC, there are three triples of integers (i, j, k) that satisfy the conditions: (1, 2, 3), (1, 2, 5), (1, 4, 5). Thus, the ABC number of T is 3.
+You are given a string S. Each character of S is A, B, C or ?.
+Let Q be the number of occurrences of ? in S. We can make 3^Q strings by replacing each occurrence of ? in S with A, B or C. Find the sum of the ABC numbers of all these strings.
+This sum can be extremely large, so print the sum modulo 10^9 + 7.",s024864568,"data = input()
+MOD = 10**9 + 7
+SLen = len(data)
+targets = ""ABC""
+array = [[0 for i in range(SLen + 1)] for _ in range(4)]
+array[0][0] = 1
+for i in range(SLen):
+    for j in range(4):
+        if data[i] == '?':
+            if j < 3:
+                array[j + 1][i + 1] = (array[j + 1][i + 1] + array[j][i]) % MOD
+            array[j][i + 1] = (array[j][i + 1] + array[j][i] * 3) % MOD
+        else:
+            if j < 3 and data[i] == targets[j]:
+                array[j + 1][i + 1] = (array[j + 1][i + 1] + array[j][i]) % MOD
+            array[j][i + 1] = (array[j][i + 1] + array[j][i]) % MOD
+
+print(array[3][SLen])
+",1
+p02773,"We have N voting papers. The i-th vote (1 \leq i \leq N) has the string S_i written on it.
+Print all strings that are written on the most number of votes, in lexicographical order.",s043136053,"n=int(input())
+dic=dict()
+for i in range(n):
+    s=input()
+    if s in dic:
+        dic[s]+=1
+    else:
+        dic[s]=1
+ans=[]
+val=max(dic.values())
+for kv in dic.items():
+    if kv[1]==val:
+        ans.append(kv[0])
+ans=sorted(ans)
+for a in ans:
+    print(a)
+",1
+p03136,"Determine if an N-sided polygon (not necessarily convex) with sides of length L_1, L_2, ..., L_N can be drawn in a two-dimensional plane.
+You can use the following theorem:
+Theorem: an N-sided polygon satisfying the condition can be drawn if and only if the longest side is strictly shorter than the sum of the lengths of the other N-1 sides.",s013455552,"n = int(input())
+a = list(map(int, input().split()))
+asum = sum(a)
+amax = max(a)
+if amax < asum-amax:
+    print(""Yes"")
+else:
+    print(""No"")",1
+p02859,"Given is an integer r.
+How many times is the area of a circle of radius r larger than the area of a circle of radius 1?
+It can be proved that the answer is always an integer under the constraints given.",s474733047,"r = int(input())
+
+answer = r * r
+
+print(answer)
+",1
+p03253,"You are given positive integers N and M.
+How many sequences a of length N consisting of positive integers satisfy a_1 \times a_2 \times ... \times a_N = M? Find the count modulo 10^9+7.
+Here, two sequences a' and a'' are considered different when there exists some i such that a_i' \neq a_i''.",s828879500,"# AC: msec(Python3)
+from math import factorial
+import sys
+read = sys.stdin.read
+readline = sys.stdin.readline
+readlines = sys.stdin.readlines
+
+MOD = 10**9+7
+
+def cmb(n, r):
+    if n < 0 or r < 0:
+        return 0
+    if r > n:
+        return 0
+
+    r = min(n-r, r)
+    res = 1
+    for i in range(r):
+        res *= n - i
+
+    return res // factorial(r)
+
+
+def prime_factorization(n):
+    d = []
+    i, e = 2, 0  # factor, exponent
+    while i * i <= n:
+        while n % i == 0:
+            n //= i
+            e += 1
+        if e > 0:
+            d.append((i, e))
+        i += 1
+        e = 0
+    if n > 1:
+        d.append((n, 1))
+    return d
+
+
+def main():
+    N,M = map(int, readline().split())
+
+    d = prime_factorization(M)
+
+    ans = 1
+    for i, e in d:
+        ans *= cmb(N-1+e, e)
+        ans %= MOD
+
+    print(ans)
+
+
+if __name__ == ""__main__"":
+    main()
+",0
+p02577,"An integer N is a multiple of 9 if and only if the sum of the digits in the decimal representation of N is a multiple of 9.
+Determine whether N is a multiple of 9.",s339400929,"n = list(map(str,input()))
+ans = sum(list(map(int,list(n))))
+if ans % 9 == 0:
+    print('Yes')
+else:
+    print('No')",1
+p03207,"In some other world, today is the day before Christmas Eve.
+Mr. Takaha is buying N items at a department store. The regular price of the i-th item (1 \leq i \leq N) is p_i yen (the currency of Japan).
+He has a discount coupon, and can buy one item with the highest price for half the regular price. The remaining N-1 items cost their regular prices. What is the total amount he will pay?",s562874916,"def solve():
+    n = int(input())
+    s = []
+    for i in range(n):
+        s.append(int(input()))
+    s.sort()
+    res = 0
+    for i, x in enumerate(s):
+        res += x
+        if i == n - 1:
+            res -= x // 2
+    print(res)
+
+solve()",1
+p02716,"Given is an integer sequence A_1, ..., A_N of length N.
+We will choose exactly \left\lfloor \frac{N}{2} \right\rfloor elements from this sequence so that no two adjacent elements are chosen.
+Find the maximum possible sum of the chosen elements.
+Here \lfloor x \rfloor denotes the greatest integer not greater than x.",s420784322,"import sys
+
+N = int(input()); A = list(map(int,input().split()))
+
+if N == 2:
+    print(max(A))
+    sys.exit()
+
+dp = [0,max(A[:3]),A[0]+A[2]]
+tmp1 = dp[:]
+tmp2 = [0,max(A[:2]),0]
+flag1 = False
+flag2 = True if A[0] < A[2] and A[1] < A[2] else False
+flag3 = False
+
+for i in range(3,N):
+    b = A[i]
+    if i%2 == 0:
+        dp[0] = max(tmp2[0],tmp1[0]+b)
+        flag1 = True if tmp2[0] < tmp1[0]+b else False
+        if flag3:
+            dp[1] = max(tmp2[1],tmp1[1]+b)
+            flag2 = True if tmp2[1] < tmp1[1]+b else False
+        else:
+            dp[1] = max(tmp2[1],tmp2[0]+b,tmp1[1]+b)
+            flag2 = True if tmp2[1] < tmp2[0]+b or tmp2[1] < tmp1[1]+b else False
+        dp[2] += A[i]
+        tmp1 = dp[:]
+    else:
+        if flag1:
+            dp[0] = max(tmp1[1],tmp2[0]+b)
+            flag3 = True if tmp1[1] < tmp2[0]+b else False
+        else:
+            dp[0] = max(tmp1[1],tmp1[0]+b,tmp2[0]+b)
+            flag3 = True if tmp1[1] < tmp1[0]+b or tmp1[1] < tmp2[0]+b else False
+        if flag2:
+            dp[1] = max(tmp1[2],tmp2[1]+b)
+        else:
+            dp[1] = max(tmp1[2],tmp1[1]+b,tmp2[1]+b)
+        tmp2 = dp[:]
+
+print (dp[1])",0
+p02913,"Given is a string S of length N.
+Find the maximum length of a non-empty string that occurs twice or more in S as contiguous substrings without overlapping.
+More formally, find the maximum positive integer len such that there exist integers l_1 and l_2 ( 1 \leq l_1, l_2 \leq N - len + 1 ) that satisfy the following:
+
+
+l_1 + len \leq l_2
+
+
+S[l_1+i] = S[l_2+i] (i = 0, 1, ..., len - 1)
+
+
+If there is no such integer len, print 0.",s439336138,"n=int(input())
+s=input()
+
+suc=[0]*(n-1)
+ans=0
+for i,c in enumerate(s):
+    for j in range(n-1):
+        idx=(i+1+j)%n
+        if idx==0:
+            suc[j]=0#またぐのは禁止
+        if c==s[idx]:
+            suc[j]+=1
+            suc[j]=min(suc[j],j+1,n-1-j)#最大j+1を超えると重なるため
+            ans=max(ans,suc[j])
+        else:
+            suc[j]=0
+print(ans)",0
+p02577,"An integer N is a multiple of 9 if and only if the sum of the digits in the decimal representation of N is a multiple of 9.
+Determine whether N is a multiple of 9.",s536982227,"s = input()
+ans = 0
+for i in s:
+    ans += int(i)
+    ans %= 9
+print('Yes' if ans == 0 else 'No')",1
+p04020,"Snuke has a large collection of cards. Each card has an integer between 1 and N, inclusive, written on it.
+He has A_i cards with an integer i.
+Two cards can form a pair if the absolute value of the difference of the integers written on them is at most 1.
+Snuke wants to create the maximum number of pairs from his cards, on the condition that no card should be used in multiple pairs. Find the maximum number of pairs that he can create.",s559989826,"import sys
+input = sys.stdin.buffer.readline
+
+def main():
+    N = int(input())
+    ans = 0
+    L = [0]
+    for i in range(N):
+        num = int(input())
+        if L[-1] == 0:
+            ans += (num//2)
+            L.append(num%2)
+        else:
+            if num == 0:
+                L.append(num)
+                continue
+            else:
+                num -= 1
+                ans += (num//2+1)
+                L.append(num%2)
+
+    print(ans)
+
+if __name__ == ""__main__"":
+    main()
+",2
+p02988,"We have a permutation p = {p_1,\ p_2,\ ...,\ p_n} of {1,\ 2,\ ...,\ n}.
+Print the number of elements p_i (1 < i < n) that satisfy the following condition:
+
+p_i is the second smallest number among the three numbers p_{i - 1}, p_i, and p_{i + 1}.",s438449419,"n = int(input())
+l = list(map(int,input().split()))
+count = 0
+
+for i in range(n-2):
+    if l[i] < l[i+1] < l[i+2] or l[i+2] < l[i+1] < l[i]:
+        count += 1
+
+print(count)",1
+p02712,"Let us define the FizzBuzz sequence a_1,a_2,... as follows:
+
+If both 3 and 5 divides i, a_i=\mbox{FizzBuzz}.
+If the above does not hold but 3 divides i, a_i=\mbox{Fizz}.
+If none of the above holds but 5 divides i, a_i=\mbox{Buzz}.
+If none of the above holds, a_i=i.
+
+Find the sum of all numbers among the first N terms of the FizzBuzz sequence.",s006909967,"# 1 <= N <= 1000000
+N = int(input())
+
+total = []
+
+# N項目までに含まれる->N項目は含まない。だからN項目は+1で外す。
+for x in range(1, N+1):
+    if x % 15 == 0:
+        ""FizzBuzz""
+    elif x % 5 == 0:
+        ""Buzz""
+    elif x % 3 == 0:
+        ""Fizz""
+    else:
+        total.append(x) #リストに加える
+print(sum(total))",2
+p03059,"A biscuit making machine produces B biscuits at the following moments: A seconds, 2A seconds, 3A seconds and each subsequent multiple of A seconds after activation.
+Find the total number of biscuits produced within T + 0.5 seconds after activation.",s111578179,"import sys
+
+a, b, t = map(int, sys.stdin.readline().split())
+
+def main():
+    res = b * (t // a)
+    print(res)
+
+if __name__ ==  '__main__':
+    main()",2
+p02984,"There are N mountains in a circle, called Mountain 1, Mountain 2, ..., Mountain N in clockwise order. N is an odd number.
+Between these mountains, there are N dams, called Dam 1, Dam 2, ..., Dam N. Dam i (1 \leq i \leq N) is located between Mountain i and i+1 (Mountain N+1 is Mountain 1).
+When Mountain i (1 \leq i \leq N) receives 2x liters of rain, Dam i-1 and Dam i each accumulates x liters of water (Dam 0 is Dam N).
+One day, each of the mountains received a non-negative even number of liters of rain.
+As a result, Dam i (1 \leq i \leq N) accumulated a total of A_i liters of water.
+Find the amount of rain each of the mountains received. We can prove that the solution is unique under the constraints of this problem.",s889687040,"N = int(input())
+A = list(map(int, input().split()))
+
+S = sum(A)
+
+M = [0 for _ in range(N)]
+
+M0 = S
+
+for i in range(1, N, 2):
+    M0 -= 2*A[i]
+
+M[0] = M0
+
+for i in range(1, N):
+    M[i] = 2*A[i-1] - M[i-1]
+
+
+print(*M)
+",2
+p02917,"There is an integer sequence A of length N whose values are unknown.
+Given is an integer sequence B of length N-1 which is known to satisfy the following:
+ B_i \geq \max(A_i, A_{i+1})
+Find the maximum possible sum of the elements of A.",s621006789,"#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+#
+# Created: Jul, 14, 2020 12:42:18 by Nobody
+# $Author$
+# $Date$
+# $URL$
+__giturl__ = ""$URL$""
+
+
+from sys import stdin
+input = stdin.readline
+
+
+def main():
+  N = int(input())
+  B = list(map(int, input().split()))
+
+  A = [0]*(N)
+  A[0] = B[0]
+  A[1] = B[0]
+  for i in range(1, N-1):
+    if A[i] > B[i]:
+      A[i] = B[i]
+    A[i+1] = B[i]
+
+  # print(A)
+  print(sum(A))
+
+
+if(__name__ == '__main__'):
+  main()
+",1
+p03296,"Takahashi lives in another world. There are slimes (creatures) of 10000 colors in this world. Let us call these colors Color 1, 2, ..., 10000.
+Takahashi has N slimes, and they are standing in a row from left to right. The color of the i-th slime from the left is a_i.
+If two slimes of the same color are adjacent, they will start to combine themselves. Because Takahashi likes smaller slimes, he has decided to change the colors of some of the slimes with his magic.
+Takahashi can change the color of one slime to any of the 10000 colors by one spell.
+How many spells are required so that no slimes will start to combine themselves?",s276310048,"N=int(input())
+a=list(map(int,input().split()))
+b=[1]
+c=1
+for i in range(1,len(a)):
+    if a[i-1]==a[i]:
+        c+=1
+        b.append(c)
+    if a[i-1]!=a[i]:
+        c=1
+        b.append(c)
+d=[]
+for i in range(len(b)-1):
+    if b[i]>=b[i+1]:
+        d.append(b[i])
+d.append(b[len(b)-1])
+e=0
+for i in range(len(d)):
+    e+=d[i]//2
+print(e)",2
+p03050,"Snuke received a positive integer N from Takahashi.
+A positive integer m is called a favorite number when the following condition is satisfied:
+
+The quotient and remainder of N divided by m are equal, that is, \lfloor \frac{N}{m} \rfloor = N \bmod m holds.
+
+Find all favorite numbers and print the sum of those.",s127218067,"from math import sqrt, floor, ceil
+n = int(input())
+cnt = 0
+div = 1
+while div < (n - div) // div:
+    if (n - div) % div == 0:
+        cnt += (n - div) // div
+    div += 1
+print(cnt)",2
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s575045794,"def lo2(n):
+    count = 0
+    while n%2==0:
+        n=n//2
+        count+=1
+    return count
+
+N = int(input())
+A = list(map(int,input().split()))
+A = list(map(lo2,A))
+print(min(A))
+",1
+p04013,"Tak has N cards. On the i-th (1 \leq i \leq N) card is written an integer x_i.
+He is selecting one or more cards from these N cards, so that the average of the integers written on the selected cards is exactly A.
+In how many ways can he make his selection?",s797344222,"#
+# Written by NoKnowledgeGG @YlePhan
+# ('ω')
+#
+#import math
+#mod = 10**9+7
+#import itertools
+#import fractions
+#import numpy as np
+#mod = 10**4 + 7
+def kiri(n,m):
+  r_ = n / m
+  if (r_ - (n // m)) > 0:
+    return (n//m) + 1
+  else:
+    return (n//m)
+
+"""""" n! mod m 階乗
+mod = 1e9 + 7
+N = 10000000
+fac = [0] * N
+def ini():
+  fac[0] = 1 % mod
+  for i in range(1,N):
+    fac[i] = fac[i-1] * i % mod""""""
+
+""""""mod = 1e9+7
+N = 10000000
+pw = [0] * N
+def ini(c):
+  pw[0] = 1 % mod
+  for i in range(1,N):
+    pw[i] = pw[i-1] * c % mod""""""
+
+""""""
+def YEILD():
+  yield 'one'
+  yield 'two'
+  yield 'three'
+generator = YEILD()
+print(next(generator))
+print(next(generator))
+print(next(generator))
+""""""
+""""""def gcd_(a,b):
+  if b == 0:#結局はc,0の最大公約数はcなのに
+    return a
+  return gcd_(a,a % b) # a = p * b + q""""""
+""""""def extgcd(a,b,x,y):
+  d = a
+  if b!=0:
+    d = extgcd(b,a%b,y,x)
+    y -= (a//b) * x
+    print(x,y)
+  else:
+    x = 1
+    y = 0
+  return d""""""
+
+
+def readInts():
+  return list(map(int,input().split()))
+
+def main():
+  n,a = readInts()
+
+  X = readInts()
+
+  X = list(map(lambda i: i-a, X))# lambda iに、 i - aという演算のもと Xから入れる
+  # ここで、平均が8になるもの key = 0の時が答えになる。
+  # だからこそ　答えで dp[0] - 1 するのはこのため
+
+  dp = {0:1}
+
+  for i in X:
+    for k,v in list(dp.items()): # key,valueをそれぞれ抽出
+      dp[i+k] = dp.get(i+k, 0) + v
+      #
+      # get(なんか) なんかに入ってる辞書のvalueが返ってくる
+      # 無かったら、get(なんか,〇)で、〇に入ってるので辞書が更新される
+      #
+  # print(dp)
+  #{0: 6, 1: 6, 2: 2, -1: 2}
+  # 負の数にも対応している
+  print(dp[0]-1)
+
+if __name__ == '__main__':
+  main()",0
+p02726,"We have an undirected graph G with N vertices numbered 1 to N and N edges as follows:
+
+For each i=1,2,...,N-1, there is an edge between Vertex i and Vertex i+1.
+There is an edge between Vertex X and Vertex Y.
+
+For each k=1,2,...,N-1, solve the problem below:
+
+Find the number of pairs of integers (i,j) (1 \leq i < j \leq N) such that the shortest distance between Vertex i and Vertex j in G is k.",s074325881,"# 解説を参考に作成
+
+
+def solve(N, X, Y):
+    ans = [0] * (N)
+
+    for i in range(1, N):
+        for j in range(i + 1, N + 1):
+            k = min(abs(j - i), abs(X - i) + 1 + abs(Y - j))
+            ans[k] += 1
+
+    for i in ans[1:]:
+        print(i)
+
+
+if __name__ == '__main__':
+    N, X, Y = map(int, input().split())
+    solve(N, X, Y)
+",2
+p02546,"In the Kingdom of AtCoder, people use a language called Taknese, which uses lowercase English letters.
+In Taknese, the plural form of a noun is spelled based on the following rules:
+
+If a noun's singular form does not end with s, append s to the end of the singular form.
+If a noun's singular form ends with s, append es to the end of the singular form.
+
+You are given the singular form S of a Taknese noun. Output its plural form.",s042747221,"S = input()
+print('{}s'.format(S)) if S[-1] != 's' else print('{}es'.format(S))",2
+p03697,"You are given two integers A and B as the input. Output the value of A + B.
+However, if A + B is 10 or greater, output error instead.",s927715349,"A,B = map(int, input().split())
+
+AB = A + B
+
+if AB >= 10:
+    print(""error"")
+else:
+    print(AB)
+",1
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s520352983,"N = int(input())
+
+l = list(map(int, input().split()))
+
+counter = 0
+flag = 1
+
+while flag == 1:
+	for i in range(len(l)):
+		if l[i] % 2 != 0:
+			flag = 0
+			break
+		else:
+			l[i] = int(l[i] / 2)
+	if flag == 1:
+		counter += 1
+
+print(counter)",0
+p03285,"La Confiserie d'ABC sells cakes at 4 dollars each and doughnuts at 7 dollars each.
+Determine if there is a way to buy some of them for exactly N dollars. You can buy two or more doughnuts and two or more cakes, and you can also choose to buy zero doughnuts or zero cakes.",s431876179,"n = int(input())
+
+if (n % 7) == 3 or n in (1, 2, 5, 6, 9, 13):
+  print(""No"")
+else:
+  print(""Yes"")",0
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s692355570,"N = int(input())
+A = list(map(int, input().split()))
+
+def cnt(x):
+  ret = 0
+  while x%2 == 0:
+    ret += 1
+    x //= 2
+  return ret
+
+ans = 30
+for a in A:
+  ans = min(ans, cnt(a))
+
+print(ans)",0
+p03103,"Hearing that energy drinks increase rating in those sites, Takahashi decides to buy up M cans of energy drinks.
+There are N stores that sell energy drinks. In the i-th store, he can buy at most B_i cans of energy drinks for A_i yen (the currency of Japan) each.
+What is the minimum amount of money with which he can buy M cans of energy drinks?
+It is guaranteed that, in the given inputs, a sufficient amount of money can always buy M cans of energy drinks.",s351255372,"n,m = map(int,input().split())
+
+lis = []
+
+for _ in range(n):
+    a,b = map(int, input().split())
+    lis.append([a,b])
+
+lis = sorted(lis)
+
+total = 0
+cash = 0
+
+for i in range(n):
+    if total < m:
+        total += lis[i][1]
+        cash += lis[i][0] * lis[i][1]
+        if total >= m:
+            total -= lis[i][1]
+            cash -= lis[i][0] * lis[i][1]
+            for j in range(lis[i][1]):
+                while total < m:
+                    total += 1
+                    cash += lis[i][0]
+    else:
+        break
+
+print(cash)",2
+p02916,"Takahashi went to an all-you-can-eat buffet with N kinds of dishes and ate all of them (Dish 1, Dish 2, \ldots, Dish N) once.
+The i-th dish (1 \leq i \leq N) he ate was Dish A_i.
+When he eats Dish i (1 \leq i \leq N), he gains B_i satisfaction points.
+Additionally, when he eats Dish i+1 just after eating Dish i (1 \leq i \leq N - 1), he gains C_i more satisfaction points.
+Find the sum of the satisfaction points he gained.",s645479487,"N = int(input())
+A = list(map(int,input().split()))
+B = list(map(int,input().split()))
+C = list(map(int,input().split()))
+ans = 0
+cnt = 100
+for i in range(N):
+  if cnt + 1 == A[i]:
+    ans += C[cnt-1]
+  cnt = A[i]
+  ans += B[A[i]-1]
+
+print(ans)",2
+p02988,"We have a permutation p = {p_1,\ p_2,\ ...,\ p_n} of {1,\ 2,\ ...,\ n}.
+Print the number of elements p_i (1 < i < n) that satisfy the following condition:
+
+p_i is the second smallest number among the three numbers p_{i - 1}, p_i, and p_{i + 1}.",s058505024,"n = int(input())
+L = list(map(int,input().split()))
+cnt = 0
+for i in range(n-2):
+    if (L[i+1]>L[i]) and (L[i+1] < L[i+2]):
+        cnt += 1
+    if (L[i+1]<L[i]) and (L[i+1] > L[i+2]):
+        cnt += 1
+print(cnt)",2
+p02927,"Today is August 24, one of the five Product Days in a year.
+A date m-d (m is the month, d is the date) is called a Product Day when d is a two-digit number, and all of the following conditions are satisfied (here d_{10} is the tens digit of the day and d_1 is the ones digit of the day):
+
+d_1 \geq 2
+d_{10} \geq 2
+d_1 \times d_{10} = m
+
+Takahashi wants more Product Days, and he made a new calendar called Takahashi Calendar where a year consists of M month from Month 1 to Month M, and each month consists of D days from Day 1 to Day D.
+In Takahashi Calendar, how many Product Days does a year have?",s612531279,"M, D = input().split()
+M = int(M)
+d10 = int(D[0])
+if len(D) >1:
+  d1 = int(D[1])
+ans = 0
+for i in range(2,d10+1):
+  for j in range(2,10):
+    if i == d10 and j<=d1 and i*j <= M:
+      ans += 1
+
+    elif i*j <= M and i<d10:
+      ans += 1
+
+print(ans)
+",0
+p02789,"Takahashi is participating in a programming contest, AXC001. He has just submitted his code to Problem A.
+The problem has N test cases, all of which must be passed to get an AC verdict.
+Takahashi's submission has passed M cases out of the N test cases.
+Determine whether Takahashi's submission gets an AC.",s821985681,"
+def resolve():
+    n, m = map(int, input().split())
+    print('Yes' if n == m else 'No')
+
+if __name__ == ""__main__"":
+    resolve()
+",2
+p03068,"You are given a string S of length N consisting of lowercase English letters, and an integer K.
+Print the string obtained by replacing every character in S that differs from the K-th character of S, with *.",s931211549,"a = int(input())
+b = input()
+
+c = b[int(input()) - 1]
+
+s = [b[i] if b[i] == c else '*' for i in range(a)]
+
+print(''.join(s))
+",1
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s207959972,"N = int(input())
+A = list(map(int, input().split()))
+
+import numpy as np
+A_np = np.array(A)
+
+ans = 0
+
+while True:
+    A_np = A_np / 2
+    if len(np.nonzero(A_np%1)[0]) > 0:
+        break
+    else:
+        ans += 1
+
+print(ans)",0
+p02786,"Caracal is fighting with a monster.
+The health of the monster is H.
+Caracal can attack by choosing one monster. When a monster is attacked, depending on that monster's health, the following happens:
+
+If the monster's health is 1, it drops to 0.
+If the monster's health, X, is greater than 1, that monster disappears. Then, two new monsters appear, each with the health of \lfloor X/2 \rfloor.
+
+(\lfloor r \rfloor denotes the greatest integer not exceeding r.)
+Caracal wins when the healths of all existing monsters become 0 or below.
+Find the minimum number of attacks Caracal needs to make before winning.",s609891514,"n=int(input())
+ans=0
+while n>1:
+  n=n//2
+  ans+=1
+
+ans1=2**(ans+1)-1
+print(ans1)",0
+p02865,"How many ways are there to choose two distinct positive integers totaling N, disregarding the order?",s008374038,print(int((int(input())+1)/2-1)),2
+p03418,"Takahashi had a pair of two positive integers not exceeding N, (a,b), which he has forgotten.
+He remembers that the remainder of a divided by b was greater than or equal to K.
+Find the number of possible pairs that he may have had.",s014481419,"n, k = map(int, input().split())
+
+if k == 0:
+  print(n**2)
+  exit()
+
+ans  = 0
+
+for b in range(1,n+1):
+
+  # 連続部分
+  if b - k > 0:
+    ans += (n // b) * (b-k)
+
+  # 繰り返し範囲外
+  if ((n - (n // b)*b) - (k-1)) > 0:
+    ans += ((n - (n // b)*b) - (k-1))
+
+
+
+
+print(ans)",0
+p02812,"We have a string S of length N consisting of uppercase English letters.
+How many times does ABC occur in S as contiguous subsequences (see Sample Inputs and Outputs)?",s606612709,"n = int(input())
+s = input().strip()
+print(s.count('ABC'))
+",2
+p03192,"You are given an integer N that has exactly four digits in base ten.
+How many times does 2 occur in the base-ten representation of N?",s139779800,"input_num = str(input())
+cnt_2_in_str = lambda x: 1 if x == '2' else 0
+print(sum(map(cnt_2_in_str,input_num)))
+",2
+p03253,"You are given positive integers N and M.
+How many sequences a of length N consisting of positive integers satisfy a_1 \times a_2 \times ... \times a_N = M? Find the count modulo 10^9+7.
+Here, two sequences a' and a'' are considered different when there exists some i such that a_i' \neq a_i''.",s689736401,"import sys
+readline = sys.stdin.buffer.readline
+def even(n): return 1 if n%2==0 else 0
+""""""
+1*1*1*1*m = mなども含める
+4をそのまま使う場合と2*2に分ける場合などの場合分けが必要
+約数列挙からどうこうする？
+
+""""""
+n,m = map(int,readline().split())
+mod = 10**9+7
+
+def pow(n,p,mod=10**9+7): #繰り返し二乗法(nのp乗)
+    res = 1
+    while p > 0:
+        if p % 2 == 0:
+            n = n ** 2 % mod
+            p //= 2
+        else:
+            res = res * n % mod
+            p -= 1
+    return res % mod
+def factrial_memo(n=10**6,mod=10**9+7):
+    fact = [1, 1]
+    for i in range(2, n + 1):
+        fact.append((fact[-1] * i) % mod)
+    return fact
+fact = factrial_memo()
+
+""""""素因数分解""""""
+def factrize(n):
+    b = 2
+    fct = []
+    while b*b <= n:
+        while n % b == 0:
+            n //= b
+            #もし素因数を重複させたくないならここを加えてfct.append(b)を消す
+            """"""
+            if not b in fct:
+                fct.append(b)
+            """"""
+            fct.append(b)
+        b = b+1
+    if n > 1:
+        fct.append(n)
+    return fct #リストが帰る
+
+prime = factrize(m)
+
+from collections import defaultdict
+dic1 = defaultdict(int)
+
+for i in prime:
+    dic1[i] += 1
+
+ans = 1
+
+for i in dic1.values():
+    ans *= fact[n+i-1]*pow(fact[n-1],mod-2)*pow(fact[i],mod-2)
+    ans %= mod
+print(ans)",1
+p03000,"A ball will bounce along a number line, making N + 1 bounces. It will make the first bounce at coordinate D_1 = 0, and the i-th bounce (2 \leq i \leq N+1) at coordinate D_i = D_{i-1} + L_{i-1}.
+How many times will the ball make a bounce where the coordinate is at most X?",s044616440,"n,x=list(map(int,input().split()))
+l=list(map(int,input().split()))
+from itertools import accumulate
+l=[0]+list(accumulate(l))
+
+
+from bisect import bisect_right
+print(bisect_right(l,x))
+",2
+p02727,"You are going to eat X red apples and Y green apples.
+You have A red apples of deliciousness p_1,p_2, \dots, p_A, B green apples of deliciousness q_1,q_2, \dots, q_B, and C colorless apples of deliciousness r_1,r_2, \dots, r_C.
+Before eating a colorless apple, you can paint it red or green, and it will count as a red or green apple, respectively.
+From the apples above, you will choose the apples to eat while making the sum of the deliciousness of the eaten apples as large as possible.
+Find the maximum possible sum of the deliciousness of the eaten apples that can be achieved when optimally coloring zero or more colorless apples.",s083665084,"#!/usr/bin/env python3
+
+from pprint import pprint
+import sys
+
+sys.setrecursionlimit(10 ** 6)
+
+
+X, Y, A, B, C = map(int, input().split())
+apples_A = sorted(list(map(int, input().split())))
+apples_B = sorted(list(map(int, input().split())))
+apples_C = sorted(list(map(int, input().split())))
+
+# 赤のリンゴからおいしさが大きい順に X 個選ぶ (1)
+# 緑のリンゴからおいしさが大きい順に Y 個選ぶ (2)
+# (1), (2) そして 無色のリンゴのから、おいしさが大きいものから順に X + Y 個選べば良い
+
+apples_rest = sorted(apples_A[-X:] + apples_B[-Y:] + apples_C)
+ans = sum(apples_rest[ -(X + Y):])
+
+print(ans)
+",1
+p03807,"There are N integers written on a blackboard. The i-th integer is A_i.
+Takahashi will repeatedly perform the following operation on these numbers:
+
+Select a pair of integers, A_i and A_j, that have the same parity (that is, both are even or both are odd) and erase them.
+Then, write a new integer on the blackboard that is equal to the sum of those integers, A_i+A_j.
+
+Determine whether it is possible to have only one integer on the blackboard.",s014227283,"n = int(input())
+a = list(map(int, input().split()))
+count = 0
+for i in a:
+    if i%2 != 0:
+        count += 1
+if count%2 == 0:
+    print(""YES"")
+else:
+    print(""NO"")",2
+p02270,"You are given $n$ packages of $w_i$ kg from a belt conveyor in order ($i = 0, 1, ... n-1$). You should load all packages onto $k$ trucks which have the common maximum load $P$. Each truck can load consecutive packages (more than or equals to zero) from the belt conveyor unless the total weights of the packages in the sequence does not exceed the maximum load $P$.",s878700028,"# -*- coding: utf-8 -*-
+""""""
+Created on Mon Apr 30 15:18:29 2018
+ALDS1-4c
+@author: maezawa
+""""""
+def can_load(w, k, p):
+    n = len(w)
+    m = 0
+    tk = 0
+    i = 0
+    while tk < k:
+        if m + w[i] <= p:
+            m += w[i]
+            i += 1
+            if i >= n:
+                return n+1
+        else:
+            m = 0
+            tk += 1
+    return i
+
+
+n, k = list(map(int, input().split()))
+w = []
+tr = [0 for _ in range(k)]
+
+for i in range(n):
+    w.append(int(input()))
+
+maxw = max(w)
+# =============================================================================
+# for p in range(maxw, maxw*n):
+#     if can_load(w, k, p) == n:
+#         print(p)
+#         break
+# =============================================================================
+right = maxw*n
+left = maxw
+while left<right:
+    mid = (right+left)//2
+    cl = can_load(w, k, mid)
+    if cl == n:
+        print(mid)
+        break
+    elif cl < n:
+        left = mid + 1
+    else:
+        right = mid
+print(right)
+
+
+
+
+
+",0
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s890165719,"# 2020/07/24
+# AtCoder Beginner Contest 081 - B
+
+# Input
+n = int(input())
+a = list(map(int,input().split()))
+
+# Calc
+tflg = True
+ans = 0
+while(tflg):
+    ans = ans + 1
+    for i in range(n):
+        if a[i] % 2 == 1:
+            ans = ans - 1
+            tflg = False
+            break
+        else:
+            a[i] = a[i] / 2
+
+# Output
+print(ans)
+",0
+p04047,"Snuke is having a barbeque party.
+At the party, he will make N servings of Skewer Meal.
+
+
+Example of a serving of Skewer Meal
+
+He has a stock of 2N skewers, all of which will be used in Skewer Meal. The length of the i-th skewer is L_i.
+Also, he has an infinite supply of ingredients.
+To make a serving of Skewer Meal, he picks 2 skewers and threads ingredients onto those skewers.
+Let the length of the shorter skewer be x, then the serving can hold the maximum of x ingredients.
+What is the maximum total number of ingredients that his N servings of Skewer Meal can hold, if he uses the skewers optimally?",s029465098,"N=input();print(sum(sorted(list(map(int,input().split())))[::2]))",1
+p02546,"In the Kingdom of AtCoder, people use a language called Taknese, which uses lowercase English letters.
+In Taknese, the plural form of a noun is spelled based on the following rules:
+
+If a noun's singular form does not end with s, append s to the end of the singular form.
+If a noun's singular form ends with s, append es to the end of the singular form.
+
+You are given the singular form S of a Taknese noun. Output its plural form.",s792823937,"t=input()
+if t[-1]=='s':
+  ans=t+""es""
+else:
+  ans=t+""s""
+print(ans)",2
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s752003663,"import sys
+
+readline = sys.stdin.readline
+MOD = 10 ** 9 + 7
+INF = float('INF')
+sys.setrecursionlimit(10 ** 5)
+
+
+def main():
+    N = int(readline())
+    A = list(map(int, readline().split()))
+
+    ans = INF
+
+    for x in A:
+        cur = x
+        score = 0
+        while cur % 2 == 0:
+            cur //= 2
+            score += 1
+        ans = min(ans, score)
+
+    print(ans)
+
+
+if __name__ == '__main__':
+    main()
+",1
+p02546,"In the Kingdom of AtCoder, people use a language called Taknese, which uses lowercase English letters.
+In Taknese, the plural form of a noun is spelled based on the following rules:
+
+If a noun's singular form does not end with s, append s to the end of the singular form.
+If a noun's singular form ends with s, append es to the end of the singular form.
+
+You are given the singular form S of a Taknese noun. Output its plural form.",s733623091,"S = input()
+if S[len(S)-1] == 's':
+    answer = S + 'es'
+else:
+    answer = S + 's'
+print(answer)
+",2
+p03230,"You are given an integer N. Determine if there exists a tuple of subsets of \{1,2,...N\}, (S_1,S_2,...,S_k), that satisfies the following conditions:
+
+Each of the integers 1,2,...,N is contained in exactly two of the sets S_1,S_2,...,S_k.
+Any two of the sets S_1,S_2,...,S_k have exactly one element in common.
+
+If such a tuple exists, construct one such tuple.",s619106287,"import sys
+def input(): return sys.stdin.readline().strip()
+def mapint(): return map(int, input().split())
+sys.setrecursionlimit(10**9)
+
+N = int(input())
+from math import sqrt
+
+deg = int(sqrt(N*2))
+
+if N*2!=deg*(deg+1):
+    print('No')
+else:
+    print('Yes')
+    print(deg+1)
+    ans = [[] for _ in range(deg+1)]
+    now_len = deg
+    cnt = 1
+    for d in range(deg+1):
+        ans[d].extend(list(range(cnt, cnt+now_len)))
+        for i, c in enumerate(range(cnt, cnt+now_len), 1):
+            ans[d+i].append(c)
+        cnt += now_len
+        now_len -= 1
+    for i in range(deg+1):
+        print(deg, *ans[i])",2
+p02729,"We have N+M balls, each of which has an integer written on it.
+It is known that:
+
+The numbers written on N of the balls are even.
+The numbers written on M of the balls are odd.
+
+Find the number of ways to choose two of the N+M balls (disregarding order) so that the sum of the numbers written on them is even.
+It can be shown that this count does not depend on the actual values written on the balls.",s078742119,"import math
+N,M=map(int,input().split())
+def C(x):
+    if x>=2:
+        return math.factorial(x)//(math.factorial(x-2)*2)
+    else:
+        return 0
+print(C(N)+C(M))",0
+p02582,"We have weather records at AtCoder Town for some consecutive three days. A string of length 3, S, represents the records - if the i-th character is S, it means it was sunny on the i-th day; if that character is R, it means it was rainy on that day.
+Find the maximum number of consecutive rainy days in this period.",s017722344,"s = input()
+cnt = 0
+
+if s == 'RSR':
+    cnt = 1
+else:
+    for i in range(3):
+        if s[i] == 'R':
+            cnt += 1
+
+print(cnt)",2
+p03200,"There are N Reversi pieces arranged in a row. (A Reversi piece is a disc with a black side and a white side.)
+The state of each piece is represented by a string S of length N.
+If S_i=B, the i-th piece from the left is showing black;
+If S_i=W, the i-th piece from the left is showing white.
+Consider performing the following operation:
+
+Choose i (1 \leq i < N) such that the i-th piece from the left is showing black and the (i+1)-th piece from the left is showing white, then flip both of those pieces. That is, the i-th piece from the left is now showing white and the (i+1)-th piece from the left is now showing black.
+
+Find the maximum possible number of times this operation can be performed.",s439263617,"s = input()
+l=len(s)
+ans = 0
+W = 0
+for i in range(l):
+  if s[i] == ""W"":
+    ans += len(s[W:i])
+    W += 1
+
+print(ans)",1
+p03438,"You are given two integer sequences of length N: a_1,a_2,..,a_N and b_1,b_2,..,b_N.
+Determine if we can repeat the following operation zero or more times so that the sequences a and b become equal.
+Operation: Choose two integers i and j (possibly the same) between 1 and N (inclusive), then perform the following two actions simultaneously:
+
+Add 2 to a_i.
+Add 1 to b_j.",s700511361,"n = int(input())
+
+a = list(map(int, input().split()))
+b = list(map(int, input().split()))
+
+a_sum = sum(a)
+b_sum = sum(b)
+
+if a_sum > b_sum:
+    print(""No"")
+    exit(0)
+
+less_a_cnt = 0
+less_b_cnt = 0
+
+for i in range(n):
+    if a[i] < b[i]:
+        less_a_cnt += int((b[i] - a[i]) / 2)
+    else:
+        less_b_cnt += a[i] - b[i]
+
+if less_a_cnt < less_b_cnt:
+    print(""No"")
+else:
+    print(""Yes"")
+",0
+p03563,"Takahashi is a user of a site that hosts programming contests.
+When a user competes in a contest, the rating of the user (not necessarily an integer) changes according to the performance of the user, as follows:
+
+Let the current rating of the user be a.
+Suppose that the performance of the user in the contest is b.
+Then, the new rating of the user will be the avarage of a and b.
+
+For example, if a user with rating 1 competes in a contest and gives performance 1000, his/her new rating will be 500.5, the average of 1 and 1000.
+Takahashi's current rating is R, and he wants his rating to be exactly G after the next contest.
+Find the performance required to achieve it.",s264502669,"a = int(input())
+b = int(input())
+res = 2 * b - a
+print(res)",0
+p03238,"In 2020, AtCoder Inc. with an annual sales of more than one billion yen (the currency of Japan) has started a business in programming education.
+One day, there was an exam where a one-year-old child must write a program that prints Hello World, and a two-year-old child must write a program that receives integers A, B and prints A+B.
+Takahashi, who is taking this exam, suddenly forgets his age.
+He decides to write a program that first receives his age N (1 or 2) as input, then prints Hello World if N=1, and additionally receives integers A, B and prints A+B if N=2.
+Write this program for him.",s713489796,"if int(input()) == 1:
+  print('Hello World')
+else:
+  ans = int(input())
+  ans += int(input())
+  print(ans)",1
+p03805,"You are given an undirected unweighted graph with N vertices and M edges that contains neither self-loops nor double edges.
+Here, a self-loop is an edge where a_i = b_i (1≤i≤M), and double edges are two edges where (a_i,b_i)=(a_j,b_j) or (a_i,b_i)=(b_j,a_j) (1≤i<j≤M).
+How many different paths start from vertex 1 and visit all the vertices exactly once?
+Here, the endpoints of a path are considered visited.
+For example, let us assume that the following undirected graph shown in Figure 1 is given.
+
+
+Figure 1: an example of an undirected graph
+
+The following path shown in Figure 2 satisfies the condition.
+
+
+Figure 2: an example of a path that satisfies the condition
+
+However, the following path shown in Figure 3 does not satisfy the condition, because it does not visit all the vertices.
+
+
+Figure 3: an example of a path that does not satisfy the condition
+
+Neither the following path shown in Figure 4, because it does not start from vertex 1.
+
+
+Figure 4: another example of a path that does not satisfy the condition",s320684624,"N,M = map(int,input().split())
+
+path = [[0]*(N+1) for _ in range(N+1)]
+
+for i in range(M):
+    a,b = map(int,input().split())
+    path[a][b] = 1
+    path[b][a] = 1
+
+visited = [0]*(N+1)
+
+def dfs(now,depth):
+    if visited[now]:
+        return 0
+    if depth == N:
+        return 1 # 最後まで探索したらはじめて+1
+
+    visited[now] = 1
+
+    total_paths = 0
+
+    for i in range(1,N+1):
+        if path[now][i]:
+            total_paths += dfs(i, depth + 1)
+
+    visited[now] = 0
+
+    return total_paths
+
+print(dfs(1,1))",2
+p02584,"Takahashi, who lives on the number line, is now at coordinate X. He will make exactly K moves of distance D in the positive or negative direction.
+More specifically, in one move, he can go from coordinate x to x + D or x - D.
+He wants to make K moves so that the absolute value of the coordinate of the destination will be the smallest possible.
+Find the minimum possible absolute value of the coordinate of the destination.",s717684041,"x, k, d = map(int,input().split())
+x =abs(x)
+s = x//d
+if x-k*d>0:
+  print(x-k*d)
+else:
+    if (k-s)%2==0:
+        print(x-s*d)
+    else:
+        print(-x+(s+1)*d)
+",2
+p03637,"We have a sequence of length N, a = (a_1, a_2, ..., a_N).
+Each a_i is a positive integer.
+Snuke's objective is to permute the element in a so that the following condition is satisfied:
+
+For each 1 ≤ i ≤ N - 1, the product of a_i and a_{i + 1} is a multiple of 4.
+
+Determine whether Snuke can achieve his objective.",s806184423,"from collections import Counter
+n=int(input())
+a=list(map(int,input().split()))
+amod4=list(map(lambda x:x%4, a))
+d=Counter(amod4)
+if n-d[0]-d[2]<d[0]+1:
+  print('Yes')
+elif d[2]==0 and n==2*d[0]+1:
+  print('Yes')
+else:
+  print('No')
+",0
+p02780,"We have N dice arranged in a line from left to right. The i-th die from the left shows p_i numbers from 1 to p_i with equal probability when thrown.
+We will choose K adjacent dice, throw each of them independently, and compute the sum of the numbers shown. Find the maximum possible value of the expected value of this sum.",s906361928,"n,k=map(int, input().split())
+p=list(map(int, input().split()))
+num=sum(p[0:k])
+ans=num
+for i in range(n-k):
+  num=num-p[i]+p[i+k]
+  ans=max(ans,num)
+print((ans+k)/2)",0
+p02972,"There are N empty boxes arranged in a row from left to right.
+The integer i is written on the i-th box from the left (1 \leq i \leq N).
+For each of these boxes, Snuke can choose either to put a ball in it or to put nothing in it.
+We say a set of choices to put a ball or not in the boxes is good when the following condition is satisfied:
+
+For every integer i between 1 and N (inclusive), the total number of balls contained in the boxes with multiples of i written on them is congruent to a_i modulo 2.
+
+Does there exist a good set of choices? If the answer is yes, find one good set of choices.",s458735339,"import sys
+input = sys.stdin.readline
+
+def I(): return int(input())
+def MI(): return map(int, input().split())
+def LI(): return list(map(int, input().split()))
+
+def main():
+    mod=10**9+7
+    N=I()
+    a=LI()
+    b=[0]*N
+
+
+    for i in range(N-1,-1,-1):
+        temp=0
+        for j in range(i+1,N+1,i+1):
+            jj=j-1
+            if b[jj]:
+                temp+=1
+        temp=temp%2
+        if temp!=a[i]:
+            b[i]=1
+
+    M=sum(b)
+    ans=[]
+    for i in range(N):
+        if b[i]:
+            ans.append(i+1)
+
+    print(M)
+    print(' '.join(map(str, ans)))
+
+
+main()
+",0
+p04047,"Snuke is having a barbeque party.
+At the party, he will make N servings of Skewer Meal.
+
+
+Example of a serving of Skewer Meal
+
+He has a stock of 2N skewers, all of which will be used in Skewer Meal. The length of the i-th skewer is L_i.
+Also, he has an infinite supply of ingredients.
+To make a serving of Skewer Meal, he picks 2 skewers and threads ingredients onto those skewers.
+Let the length of the shorter skewer be x, then the serving can hold the maximum of x ingredients.
+What is the maximum total number of ingredients that his N servings of Skewer Meal can hold, if he uses the skewers optimally?",s467278053,"n = int(input())
+a = list(map(int, input().split()))
+
+a.sort()
+ans = 0
+for i in range(2*n):
+	if not i&1:
+		ans += a[i]
+
+print(ans)
+",1
+p02570,"Takahashi is meeting up with Aoki.
+They have planned to meet at a place that is D meters away from Takahashi's house in T minutes from now.
+Takahashi will leave his house now and go straight to the place at a speed of S meters per minute.
+Will he arrive in time?",s191576367,"D,T,S=map(int,input().split())
+if 1<=D<=10000 and 1<=T<=10000 and 1<=S<=10000:
+  if (D/S)>T:
+    print(""No"")
+  else:
+    print(""Yes"")",1
+p03463,"A game is played on a strip consisting of N cells consecutively numbered from 1 to N.
+Alice has her token on cell A. Borys has his token on a different cell B.
+Players take turns, Alice moves first.
+The moving player must shift his or her token from its current cell X to the neighboring cell on the left, cell X-1, or on the right, cell X+1.
+Note that it's disallowed to move the token outside the strip or to the cell with the other player's token.
+In one turn, the token of the moving player must be shifted exactly once.
+The player who can't make a move loses, and the other player wins.
+Both players want to win. Who wins if they play optimally?",s874135876,"N,A,B=map(int,input().split())
+print('Alice' if (B-A-1)%2 else 'Borys')",2
+p03090,"You are given an integer N.
+Build an undirected graph with N vertices with indices 1 to N that satisfies the following two conditions:
+
+The graph is simple and connected.
+There exists an integer S such that, for every vertex, the sum of the indices of the vertices adjacent to that vertex is S.
+
+It can be proved that at least one such graph exists under the constraints of this problem.",s067576139,"n=int(input())
+m=(n*(n-1)//2)-(n//2)
+print(m)
+x=n+1-n%2
+for i in range(1,n):
+    for j in range(i+1,n+1):
+        if i+j!=x:
+            print(i,j)
+
+
+
+",2
+p02577,"An integer N is a multiple of 9 if and only if the sum of the digits in the decimal representation of N is a multiple of 9.
+Determine whether N is a multiple of 9.",s639741700,"n = int(input())
+n_s = str(n)
+m = 0
+for i in range(len(n_s)):
+    m += int(n_s[i])
+    m = m % 9
+
+if m == 0:
+    print(""Yes"")
+else:
+    print(""No"")
+",1
+p03853,"There is an image with a height of H pixels and a width of W pixels. Each of the pixels is represented by either . or *. The character representing the pixel at the i-th row from the top and the j-th column from the left, is denoted by C_{i,j}.
+Extend this image vertically so that its height is doubled. That is, print a image with a height of 2H pixels and a width of W pixels where the pixel at the i-th row and j-th column is equal to C_{(i+1)/2,j} (the result of division is rounded down).",s463759859,"h, _ = map(int, input().split())
+for _ in range(h):
+    s = input()
+    print(s+'\n'+s)
+",1
+p03495,"Takahashi has N balls. Initially, an integer A_i is written on the i-th ball.
+He would like to rewrite the integer on some balls so that there are at most K different integers written on the N balls.
+Find the minimum number of balls that Takahashi needs to rewrite the integers on them.",s749638092,"N, K = map(int, input().split())
+L = list(map(int, input().split()))
+
+from collections import Counter
+C = Counter(L).most_common()
+
+ans = 0
+for i, item in enumerate(C):
+    if i < K:
+        continue;
+    ans += item[1]
+
+print(ans, flush=True)
+",1
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s693514073,"N = int(input())
+A = list(map(int, input().split()))
+
+counter = 0
+while not 1 in [a % 2 for a in A]:
+    A = [a // 2 for a in A]
+    counter += 1
+print(counter)",0
+p03209,"In some other world, today is Christmas.
+Mr. Takaha decides to make a multi-dimensional burger in his party. A level-L burger (L is an integer greater than or equal to 0) is the following thing:
+
+A level-0 burger is a patty.
+A level-L burger (L \geq 1) is a bun, a level-(L-1) burger, a patty, another level-(L-1) burger and another bun, stacked vertically in this order from the bottom.
+
+For example, a level-1 burger and a level-2 burger look like BPPPB and BBPPPBPBPPPBB (rotated 90 degrees), where B and P stands for a bun and a patty.
+The burger Mr. Takaha will make is a level-N burger. Lunlun the Dachshund will eat X layers from the bottom of this burger (a layer is a patty or a bun). How many patties will she eat?",s430952067,"# -*- coding: utf-8 -*-
+""""""
+Created on Mon Apr 27 21:30:42 2020
+""""""
+
+import sys
+#import numpy as np
+
+sys.setrecursionlimit(10 ** 9)
+#def input():
+#    return sys.stdin.readline()[:-1]
+mod = 10**9+7
+
+#N = int(input())
+N, X = map(int,input().split())
+#A = list(map(int,input().split()))
+
+n = N
+eat = X
+
+def dfs(x):
+    x
+
+ans = 0
+#print(ans,eat,n)
+while eat > 0 and n >= 0:
+    if eat == (pow(2,n+2) - 3 + 1) //2:
+        ans += pow(2,n) - 1 + 1
+        eat = 0
+        n -= 1
+    elif eat > (pow(2,n+2) - 3 + 1) //2:
+        ans += pow(2,n) - 1 + 1
+        eat -= (pow(2,n+2) - 2) //2
+        n -= 1
+    else:
+        eat -= 1
+        n -= 1
+#    print(ans,eat,n)
+
+print(ans)
+
+",0
+p03638,"We have a grid with H rows and W columns of squares.
+Snuke is painting these squares in colors 1, 2, ..., N.
+Here, the following conditions should be satisfied:
+
+For each i (1 ≤ i ≤ N), there are exactly a_i squares painted in Color i. Here, a_1 + a_2 + ... + a_N = H W.
+For each i (1 ≤ i ≤ N), the squares painted in Color i are 4-connected. That is, every square painted in Color i can be reached from every square painted in Color i by repeatedly traveling to a horizontally or vertically adjacent square painted in Color i.
+
+Find a way to paint the squares so that the conditions are satisfied.
+It can be shown that a solution always exists.",s721385443,"h, w = map(int, input().split())
+n = int(input())
+l = list(map(int, input().split()))
+
+ans = []
+for i in range(n):
+  ans += [i+1]*l[i]
+
+for i in range(h):
+  temp = ans[i*w:(i+1)*w]
+  if i%2 == 0:
+    print(*temp)
+  else:
+    temp = reversed(temp)
+    print(*temp)",1
+p03101,"There are H rows and W columns of white square cells.
+You will choose h of the rows and w of the columns, and paint all of the cells contained in those rows or columns.
+How many white cells will remain?
+It can be proved that this count does not depend on what rows and columns are chosen.",s347347406,"h1,w1=map(int,input().split())
+h2,w2=map(int,input().split())
+
+print(h1*w1-(w1*h2+h1*w2-h2*w2))
+
+",2
+p03776,"You are given N items.
+The value of the i-th item (1 \leq i \leq N) is v_i.
+Your have to select at least A and at most B of these items.
+Under this condition, find the maximum possible arithmetic mean of the values of selected items.
+Additionally, find the number of ways to select items so that the mean of the values of selected items is maximized.",s503527999,"import math
+
+def nCr(n,r):
+    return math.factorial(n) // (math.factorial(n-r) * math.factorial(r))
+
+N,A,B = map(int,input().split())
+
+v = list(map(int,input().split()))
+
+minlis = []
+maxlis = []
+
+v.sort()
+
+for i in range(N):
+
+    if i < N-A:
+        minlis.append(v[i])
+
+    else:
+        maxlis.append(v[i])
+
+
+ave = sum(maxlis) / A
+print (ave)
+
+
+x = min(maxlis)
+
+xinmax = 0
+xinmin = 0
+
+for i in minlis:
+    if i == x:
+        xinmin += 1
+
+for i in maxlis:
+    if i == x:
+        xinmax += 1
+
+if ave == x and xinmin != 0:
+
+    ans = 0
+
+    for i in range(xinmax + xinmin - A + 1):
+
+        i += A
+        if i > B:
+            break
+
+        ans += nCr(xinmin+xinmax,i)
+
+    print (ans)
+
+else:
+
+    print (nCr(xinmin+xinmax,xinmax))",1
+p03606,"Joisino is working as a receptionist at a theater.
+The theater has 100000 seats, numbered from 1 to 100000.
+According to her memo, N groups of audiences have come so far, and the i-th group occupies the consecutive seats from Seat l_i to Seat r_i (inclusive).
+How many people are sitting at the theater now?",s960616227,"N=input()
+N=int(N)
+
+ans=0
+
+for i in range(N):
+    l,r=input().split()
+    l=int(l)
+    r=int(r)
+    p=r-l+1
+    ans+=p
+
+print(ans)",0
+p03637,"We have a sequence of length N, a = (a_1, a_2, ..., a_N).
+Each a_i is a positive integer.
+Snuke's objective is to permute the element in a so that the following condition is satisfied:
+
+For each 1 ≤ i ≤ N - 1, the product of a_i and a_{i + 1} is a multiple of 4.
+
+Determine whether Snuke can achieve his objective.",s542875556,"with open(0) as f:
+    N, *a = map(int, f.read().split())
+i, j, k = 0, 0, 0
+for x in a:
+    if x%4 == 0:
+        i += 1
+    elif x%2 == 0:
+        j += 1
+    else:
+        k += 1
+
+if j > 0:
+    k += 1
+print('Yes' if k <= i+1 else 'No')
+",0
+p02863,"Takahashi is at an all-you-can-eat restaurant.
+The restaurant offers N kinds of dishes. It takes A_i minutes to eat the i-th dish, whose deliciousness is B_i.
+The restaurant has the following rules:
+
+You can only order one dish at a time. The dish ordered will be immediately served and ready to eat.
+You cannot order the same kind of dish more than once.
+Until you finish eating the dish already served, you cannot order a new dish.
+After T-0.5 minutes from the first order, you can no longer place a new order, but you can continue eating the dish already served.
+
+Let Takahashi's happiness be the sum of the deliciousness of the dishes he eats in this restaurant.
+What is the maximum possible happiness achieved by making optimal choices?",s448802687,"def solve():
+    from sys import stdin
+    f_i = stdin
+
+    N, T = map(int, f_i.readline().split())
+    AB = [tuple(map(int, f_i.readline().split())) for i in range(N)]
+    AB.sort()
+
+    dp = [[0] * T for i in range(N + 1)]
+
+    for i, AB_i in enumerate(AB, start=1):
+        A_i, B_i = AB_i
+        dp_i = dp[i]
+        dp_pre = dp[i-1]
+        dp_i[:A_i] = dp_pre[:A_i]
+        for j, t in enumerate(zip(dp_pre[A_i:], dp_pre), start=A_i):
+            x, y = t
+            if x < y + B_i:
+                dp_i[j] = y + B_i
+            else:
+                dp_i[j] = x
+
+    ans = max(dp[k][-1] + AB[k][1] for k in range(N))
+    print(ans)
+
+solve()",1
+p02546,"In the Kingdom of AtCoder, people use a language called Taknese, which uses lowercase English letters.
+In Taknese, the plural form of a noun is spelled based on the following rules:
+
+If a noun's singular form does not end with s, append s to the end of the singular form.
+If a noun's singular form ends with s, append es to the end of the singular form.
+
+You are given the singular form S of a Taknese noun. Output its plural form.",s535194371,"# -*- coding: utf-8 -*-
+
+def answer(s):
+    if s.endswith('s'):
+        print(s + 'es')
+    else:
+        print(s + 's')
+
+
+answer(input())",2
+p03253,"You are given positive integers N and M.
+How many sequences a of length N consisting of positive integers satisfy a_1 \times a_2 \times ... \times a_N = M? Find the count modulo 10^9+7.
+Here, two sequences a' and a'' are considered different when there exists some i such that a_i' \neq a_i''.",s515183035,"import sys
+input = lambda : sys.stdin.readline().rstrip()
+sys.setrecursionlimit(max(1000, 10**9))
+write = lambda x: sys.stdout.write(x+""\n"")
+
+
+n,m = map(int, input().split())
+
+def factor(n, m=None):
+    # mを与えると、高々その素因数まで見て、残りは分解せずにそのまま出力する
+    arr = {}
+    temp = n
+    M = int(-(-n**0.5//1))+1
+    if m is not None:
+        M = min(m+1, M)
+    for i in range(2, M):
+        if temp%i==0:
+            cnt=0
+            while temp%i==0:
+                cnt+=1
+                temp //= i
+            arr[i] = cnt
+
+    if temp!=1:
+        arr[temp] = 1
+
+    if not arr:
+        arr[n] = 1
+
+    return arr
+
+d = factor(m)
+
+M = 10**9+7 # 出力の制限
+N = max(d.values())+10+n # 必要なテーブルサイズ
+
+g1 = [None] * (N+1) # 元テーブル
+g2 = [None] * (N+1) #逆元テーブル
+inverse = [None] * (N+1) #逆元テーブル計算用テーブル
+g1[0] = g1[1] = g2[0] = g2[1] = 1
+inverse[0], inverse[1] = [0, 1]
+
+for i in range( 2, N + 1 ):
+    g1[i] = ( g1[i-1] * i ) % M
+    inverse[i] = ( -inverse[M % i] * (M//i) ) % M # ai+b==0 mod M <=> i==-b*a^(-1) <=> i^(-1)==-b^(-1)*aより
+    g2[i] = (g2[i-1] * inverse[i]) % M
+
+def cmb(n, r, M):
+    if ( r<0 or r>n ):
+        return 0
+    r = min(r, n-r)
+    return (g1[n] * g2[r] * g2[n-r]) % M
+
+if m!=1:
+    ans = 1
+    for v in d.values():
+        ans *= cmb(v+n-1, n-1, M)
+        ans %= M
+else:
+    ans = 1
+print(ans%M)",0
+p03576,"We have N points in a two-dimensional plane.
+The coordinates of the i-th point (1 \leq i \leq N) are (x_i,y_i).
+Let us consider a rectangle whose sides are parallel to the coordinate axes that contains K or more of the N points in its interior.
+Here, points on the sides of the rectangle are considered to be in the interior.
+Find the minimum possible area of such a rectangle.",s560315984,"import itertools
+
+N, K = map(int, input().split())
+P = [tuple(map(int, input().split())) for _ in range(N)]
+
+X = sorted([x for x, _ in P])
+Y = sorted([y for _, y in P])
+dict_x = {v: k + 1 for k, v in enumerate(X)}
+dict_y = {v: k + 1 for k, v in enumerate(Y)}
+
+table = [[0] * (N + 1) for _ in range(N + 1)]
+for x, y in P:
+    table[dict_y[y]][dict_x[x]] = 1
+
+for x in range(N + 1):
+    for y in range(N):
+        table[y + 1][x] += table[y][x]
+for y in range(N + 1):
+    for x in range(N):
+        table[y][x + 1] += table[y][x]
+
+ans = float('inf')
+for x1, x2 in itertools.combinations(range(N), 2):
+    for y1, y2 in itertools.combinations(range(N), 2):
+        if table[y2 + 1][x2 + 1] - table[y2 + 1][x1] - table[y1][x2 + 1] + table[y1][x1] >= K:
+            ans = min(ans, (X[x2] - X[x1]) * (Y[y2] - Y[y1]))
+print(ans)",1
+p02683,"Takahashi, who is a novice in competitive programming, wants to learn M algorithms.
+Initially, his understanding level of each of the M algorithms is 0.
+Takahashi is visiting a bookstore, where he finds N books on algorithms.
+The i-th book (1\leq i\leq N) is sold for C_i yen (the currency of Japan). If he buys and reads it, his understanding level of the j-th algorithm will increase by A_{i,j} for each j (1\leq j\leq M).
+There is no other way to increase the understanding levels of the algorithms.
+Takahashi's objective is to make his understanding levels of all the M algorithms X or higher. Determine whether this objective is achievable. If it is achievable, find the minimum amount of money needed to achieve it.",s974896544,"import itertools
+n,m,x=map(int, input().split())
+a = [list(map(int, input().split())) for l in range(n)]
+bit=list(itertools.product([0,1],repeat=n))
+M=10**7
+for i in range(2**n):
+  cnt1=[0]*m
+  cnt2=0
+  for j in range(n):
+    if bit[i][j]==1:
+      cnt2+=a[j][0]
+      for k in range(m):
+        cnt1[k]+=a[j][k+1]
+  ans=True
+  for j in range(m):
+    if cnt1[j]<x:
+      ans=False
+  if ans:
+    M=min(cnt2,M)
+if M==10**7:
+  print(-1)
+else:
+  print(M)",0
+p02571,"Given are two strings S and T.
+Let us change some of the characters in S so that T will be a substring of S.
+At least how many characters do we need to change?
+Here, a substring is a consecutive subsequence. For example, xxx is a substring of yxxxy, but not a substring of xxyxx.",s378795032,"s=input()
+t=input()
+
+count_min = 1000
+
+for i in range(len(s)-len(t)+1):
+  count = 0
+  for j in range(len(t)):
+    if s[i+j] != t[j]:
+      count+=1
+  if count < count_min:
+    count_min = count
+
+print(count_min)",1
+p03838,"Snuke has a calculator. It has a display and two buttons.
+Initially, the display shows an integer x.
+Snuke wants to change this value into another integer y, by pressing the following two buttons some number of times in arbitrary order:
+
+Button A: When pressed, the value on the display is incremented by 1.
+Button B: When pressed, the sign of the value on the display is reversed.
+
+Find the minimum number of times Snuke needs to press the buttons to achieve his objective.
+It can be shown that the objective is always achievable regardless of the values of the integers x and y.",s626229018,"x, y = map(int, input().split());
+
+MAX = 100000000000000;
+
+# どれが最小かを考える
+# そのまま近づける
+a = y - x;
+if (a < 0):
+  a = MAX;
+# xを反転させて近づける
+b = y + x;
+if (b < 0):
+  b = MAX;
+# yを反転
+c = y * (-1) - x;
+if (c < 0):
+  c = MAX;
+# xとyの両方を反転させて近づける
+d = y * (-1) + x;
+if (d < 0):
+  d = MAX;
+
+# 最小を求める
+ans = min(a, b + 1, c + 1, d + 2);
+print(ans);",2
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s532565077,"def notExistOdd(lst):
+    for i in lst:
+        if i%2==1:
+            return False
+    return True
+
+n=int(input())
+a=[int(i)for i in input().split()]
+res=0
+div=lambda x:x/2
+while notExistOdd(a):
+    res+=1
+    a=list(map(div,a))
+print(res)",0
+p03377,"There are a total of A + B cats and dogs.
+Among them, A are known to be cats, but the remaining B are not known to be either cats or dogs.
+Determine if it is possible that there are exactly X cats among these A + B animals.",s000118868,"def li():
+    return list(map(int, input().split()))
+
+
+def mi():
+    return map(int, input().split())
+
+
+def ii():
+    return int(input())
+
+
+A, B, X = mi()
+
+if X < A:
+    print(""NO"")
+elif X - A <= B:
+    print(""YES"")
+else:
+    print(""NO"")
+",2
+p02852,"Takahashi is playing a board game called Sugoroku.
+On the board, there are N + 1 squares numbered 0 to N. Takahashi starts at Square 0, and he has to stop exactly at Square N to win the game.
+The game uses a roulette with the M numbers from 1 to M. In each turn, Takahashi spins the roulette. If the number x comes up when he is at Square s, he moves to Square s+x. If this makes him go beyond Square N, he loses the game.
+Additionally, some of the squares are Game Over Squares. He also loses the game if he stops at one of those squares. You are given a string S of length N + 1, representing which squares are Game Over Squares. For each i (0 \leq i \leq N), Square i is a Game Over Square if S[i] = 1 and not if S[i] = 0.
+Find the sequence of numbers coming up in the roulette in which Takahashi can win the game in the fewest number of turns possible. If there are multiple such sequences, find the lexicographically smallest such sequence. If Takahashi cannot win the game, print -1.",s023629470,"from sys import stdin
+def main():
+    #入力
+    readline=stdin.readline
+    n,m=map(int,readline().split())
+    s=readline().strip()
+
+    ans=[]
+    flag=False
+    i=n
+    while True:
+        max_i=i
+        for sa in range(1,m+1):
+            if i-sa==0:
+                ans.append(sa)
+                flag=True
+                break
+            else:
+                if s[i-sa]==""0"":
+                    max_i=i-sa
+        if flag: break
+        else:
+            if max_i!=i:
+                ans.append(i-max_i)
+                i=max_i
+            else:
+                break
+
+    if flag:
+        ans.reverse()
+        print(*ans)
+    else:
+        print(-1)
+
+if __name__==""__main__"":
+    main()",2
+p03625,"We have N sticks with negligible thickness.
+The length of the i-th stick is A_i.
+Snuke wants to select four different sticks from these sticks and form a rectangle (including a square), using the sticks as its sides.
+Find the maximum possible area of the rectangle.",s367135454,"import collections
+import sys
+n = int(input())
+ls = list(map(int,input().split()))
+c =collections.Counter(ls)
+d = list(c)
+p = []
+q = []
+mm = 0
+mx3 = 0
+for i in range(len(d)):
+    if c[d[i]] >=4:
+        p.append(d[i])
+    if c[d[i]] >=2:
+        q.append(d[i])
+if p == [] and len(q) < 2:
+    print(0)
+    sys.exit()
+if len(q) >= 2:
+    mx1 = max(q)
+    q.remove(mx1)
+    mx2 = max(q)
+    mm = mx1 * mx2
+if p != []:
+    mx3 = max(p)**2
+print(max(mm,mx3))
+
+
+",1
+p02729,"We have N+M balls, each of which has an integer written on it.
+It is known that:
+
+The numbers written on N of the balls are even.
+The numbers written on M of the balls are odd.
+
+Find the number of ways to choose two of the N+M balls (disregarding order) so that the sum of the numbers written on them is even.
+It can be shown that this count does not depend on the actual values written on the balls.",s906682112,"n, m = map(int, input().split())
+
+import math
+def comb(n, r):
+    if n < r:
+        return 0
+    return math.factorial(n) // (math.factorial(n - r) * math.factorial(r))
+
+print(comb(n,2) + comb(m,2))",2
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s088057016,"N = int(input())
+A = input().split()
+l=list()
+for i in range(N):
+    A[i] = int(A[i])
+    if A[i] % 2 == 1:
+        l.append(0)
+        break
+    else:
+        for j in range(30):
+            A[i] = A[i] / 2
+            if A[i] % 2 == 1:
+                l.append(j+1)
+                break
+print(min(l))",0
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s195297500,"N = int(input())
+A = list(map(int, input().split()))
+
+res = float('inf')
+
+for i in A:
+    cnt = 0
+    while True:
+        if i % 2 == 1:
+            if cnt == 0:
+                print(0)
+                exit()
+            elif cnt < res:
+                res = cnt
+                break
+            else:
+                break
+        i = i // 2
+        cnt += 1
+
+print(res)
+
+",0
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s771466944,"from math import gcd
+n = int(input())
+a = list(map(int, input().split()))
+ans = a[0]
+for i in range(1, n):
+    ans = gcd(ans, a[i])
+cnt = 0
+while ans % 2 == 0:
+    ans //= 2
+    cnt += 1
+print(cnt)",0
+p02727,"You are going to eat X red apples and Y green apples.
+You have A red apples of deliciousness p_1,p_2, \dots, p_A, B green apples of deliciousness q_1,q_2, \dots, q_B, and C colorless apples of deliciousness r_1,r_2, \dots, r_C.
+Before eating a colorless apple, you can paint it red or green, and it will count as a red or green apple, respectively.
+From the apples above, you will choose the apples to eat while making the sum of the deliciousness of the eaten apples as large as possible.
+Find the maximum possible sum of the deliciousness of the eaten apples that can be achieved when optimally coloring zero or more colorless apples.",s770208554,"x, y, a, b, c = map(int,input().split())
+p_p = list(map(int,input().split()))
+q_q = list(map(int,input().split()))
+r_r = list(map(int,input().split()))
+p_p.sort(reverse=True)
+q_q.sort(reverse=True)
+r_r.sort(reverse=True)
+
+oisisa = sum(p_p[:x])+sum(q_q[:y])
+apple = p_p[:x] + q_q[:y]
+apple.sort()
+seen = 0
+for i in range(min(x+y,c)):
+    if r_r[i] > apple[seen]:
+        oisisa = oisisa + r_r[i] - apple[seen]
+        seen += 1
+    else:
+        break
+
+
+print(oisisa)",0
+p02711,"Given is a three-digit integer N. Does N contain the digit 7?
+If so, print Yes; otherwise, print No.",s339358756,"N = input()
+
+flag = False
+for i in range(len(N)):
+  if N[i] ==""7"":
+    flag =True
+if flag:
+  print (""Yes"")
+else :
+  print (""No"")",2
+p02690,"Give a pair of integers (A, B) such that A^5-B^5 = X.
+It is guaranteed that there exists such a pair for the given integer X.",s586966093,"# +の場合
+i = 0
+ans = 0
+while ans <= 1000000000:
+   i += 1
+   ans = i**5 - (i-1)**5
+# i: 120
+
+# -の場合
+i = 0
+ans = 0
+while ans <= 1000000000:
+   i -= 1
+   ans = i**5 - (i-1)**5
+# i: -119
+
+n = int(input())
+l = [_**5 for _ in range(120)]
+
+for i in range(1,120):
+    for j in range(120):
+        if l[i] - l[j] == n:
+            print(int(l[i]**0.2), int(l[j]**0.2))
+            exit()
+        if l[i] + l[j] == n:
+            print(int(l[i]**0.2), int(-1*l[j]**0.2))
+            exit()",2
+p02910,"Takahashi will do a tap dance. The dance is described by a string S where each character is L, R, U, or D. These characters indicate the positions on which Takahashi should step. He will follow these instructions one by one in order, starting with the first character.
+S is said to be easily playable if and only if it satisfies both of the following conditions:
+
+Every character in an odd position (1-st, 3-rd, 5-th, \ldots) is R, U, or D.
+Every character in an even position (2-nd, 4-th, 6-th, \ldots) is L, U, or D.
+
+Your task is to print Yes if S is easily playable, and No otherwise.",s459010314,"S=input()
+isOK=True
+for i in range(len(S)):
+  if((i+1)%2==1):
+    if(S[i]==""L""):
+      isOK=False
+  else:
+    if(S[i]==""R""):
+      isOK=False
+
+if(isOK):
+  print(""Yes"")
+else:
+  print(""No"")
+",1
+p04019,"Snuke lives on an infinite two-dimensional plane. He is going on an N-day trip.
+At the beginning of Day 1, he is at home. His plan is described in a string S of length N.
+On Day i(1 ≦ i ≦ N), he will travel a positive distance in the following direction:
+
+North if the i-th letter of S is N
+West if the i-th letter of S is W
+South if the i-th letter of S is S
+East if the i-th letter of S is E
+
+He has not decided each day's travel distance. Determine whether it is possible to set each day's travel distance so that he will be back at home at the end of Day N.",s767553340,"import collections
+s = list(input())
+ans = ""Yes""
+c = collections.Counter(s)
+
+if c[""N""] * c[""S""] == 0:
+    if c[""N""] != c[""S""]:
+        ans = ""No""
+if c[""W""] * c[""E""] == 0:
+    if c[""W""] != c[""E""]:
+        ans = ""No""
+
+print(ans)",2
+p03946,"There are N towns located in a line, conveniently numbered 1 through N. Takahashi the merchant is going on a travel from town 1 to town N, buying and selling apples.
+Takahashi will begin the travel at town 1, with no apple in his possession. The actions that can be performed during the travel are as follows:
+
+Move: When at town i (i < N), move to town i + 1.
+Merchandise: Buy or sell an arbitrary number of apples at the current town. Here, it is assumed that one apple can always be bought and sold for A_i yen (the currency of Japan) at town i (1 ≦ i ≦ N), where A_i are distinct integers. Also, you can assume that he has an infinite supply of money.
+
+For some reason, there is a constraint on merchandising apple during the travel: the sum of the number of apples bought and the number of apples sold during the whole travel, must be at most T. (Note that a single apple can be counted in both.)
+During the travel, Takahashi will perform actions so that the profit of the travel is maximized. Here, the profit of the travel is the amount of money that is gained by selling apples, minus the amount of money that is spent on buying apples. Note that we are not interested in apples in his possession at the end of the travel.
+Aoki, a business rival of Takahashi, wants to trouble Takahashi by manipulating the market price of apples. Prior to the beginning of Takahashi's travel, Aoki can change A_i into another arbitrary non-negative integer A_i' for any town i, any number of times. The cost of performing this operation is |A_i - A_i'|. After performing this operation, different towns may have equal values of A_i.
+Aoki's objective is to decrease Takahashi's expected profit by at least 1 yen. Find the minimum total cost to achieve it. You may assume that Takahashi's expected profit is initially at least 1 yen.",s589769441,"n,t = map(int, input().split())
+a = list(map(int, input().split()))
+min_a = a[0]
+min_b = 0
+cnt = 0
+for i in range(1, n):
+    min_a = min(min_a, a[i-1])
+    if min_b < a[i]-min_a:
+        min_b = a[i]-min_a
+        cnt = 1
+    elif min_b == a[i]-min_a:
+        cnt += 1
+print(cnt)
+",2
+p02548,"Given is a positive integer N.
+How many tuples (A,B,C) of positive integers satisfy A \times B + C = N?",s023121617,"n = int(input())
+D = [0] * n
+for i in range(1, n):
+    for j in range(i, n, i):
+        D[j] += 1
+print(sum(D))
+",0
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s814018334,"import sys
+import copy
+import math
+import itertools
+N = int(input())
+A = [int(c) for c in input().split()]
+cnt = 0
+
+while sum(list(map(lambda x:x%2,A)))==0:
+    A=list(map(lambda x:int(x/2),A))
+    cnt+=1
+
+print(cnt)",0
+p03326,"Takahashi became a pastry chef and opened a shop La Confiserie d'ABC to celebrate AtCoder Beginner Contest 100.
+The shop sells N kinds of cakes.
+Each kind of cake has three parameters ""beauty"", ""tastiness"" and ""popularity"". The i-th kind of cake has the beauty of x_i, the tastiness of y_i and the popularity of z_i.
+These values may be zero or negative.
+Ringo has decided to have M pieces of cakes here. He will choose the set of cakes as follows:
+
+Do not have two or more pieces of the same kind of cake.
+Under the condition above, choose the set of cakes to maximize (the absolute value of the total beauty) + (the absolute value of the total tastiness)  + (the absolute value of the total popularity).
+
+Find the maximum possible value of (the absolute value of the total beauty) + (the absolute value of the total tastiness) + (the absolute value of the total popularity) for the set of cakes that Ringo chooses.",s978111748,"import numpy as np
+import itertools
+N, M = map(int, input().split())
+x = [0] * N
+y = [0] * N
+z = [0] * N
+for i in range(N):
+    x[i], y[i], z[i] = map(int, input().split())
+
+x = np.array(x)
+y = np.array(y)
+z = np.array(z)
+
+ans = 0
+vals = []
+for op1,op2,op3 in itertools.product([-1,1],repeat=3):
+    #print(op1,op2,op3)
+    s = x*op1 + y*op2 + z*op3
+    #print(s)
+    s.sort()
+    vals.append(s[N-M:].sum())
+
+
+print(max(vals))",0
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s852966428,"N=int(input())
+an=list(map(int,input().split()))
+n=0
+while(all(a%2==0 for a in an)):
+    an=[a//2 for a in an]
+    n+=1
+print(n)",0
+p02546,"In the Kingdom of AtCoder, people use a language called Taknese, which uses lowercase English letters.
+In Taknese, the plural form of a noun is spelled based on the following rules:
+
+If a noun's singular form does not end with s, append s to the end of the singular form.
+If a noun's singular form ends with s, append es to the end of the singular form.
+
+You are given the singular form S of a Taknese noun. Output its plural form.",s827636371,"s = input()
+
+a = s[len(s) - 1]
+
+#print(a)
+
+if a == ""s"":
+    s = s + ""es""
+else:
+    s = s + ""s""
+
+print(s)",1
+p03293,"You are given string S and T consisting of lowercase English letters.
+Determine if S equals T after rotation.
+That is, determine if S equals T after the following operation is performed some number of times:
+Operation: Let S = S_1 S_2 ... S_{|S|}. Change S to S_{|S|} S_1 S_2 ... S_{|S|-1}.
+Here, |X| denotes the length of the string X.",s753373307,"S = input()
+T = input()
+N = len(S)
+V = ["""" for i in range(N)]
+for i in range(N):
+  for j in range(N):
+    V[i] = V[i][:] + S[(i+j)%N]
+flg = False
+for i in range(N):
+  if V[i] == T:
+    flg = True
+if flg:
+  print(""Yes"")
+else:
+  print(""No"")",1
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s992395863,"n = int(input())
+a = map(int, input().split())
+
+ans = 0
+isEven = True
+
+while isEven:
+  list_tmp = []
+  for an in a:
+    if an % 2 ==0:
+      list_tmp.append(an / 2)
+    else:
+      isEven = False
+      break;
+  a = list_tmp
+  ans += 1
+
+print(ans - 1)
+",0
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s598155426,"n = input()
+a = input()
+a = list(map(int, a.split()))
+i = 0
+cont_flg = True
+while cont_flg:
+  if sum(list(map(lambda x: x % 2, a))) == 0:
+  	i += 1
+  	a = list(map(lambda x: x / 2, a))
+  else:
+    cont_flg = False
+print(i)",0
+p02973,"You are given a sequence with N integers: A = \{ A_1, A_2, \cdots, A_N \}.
+For each of these N integers, we will choose a color and paint the integer with that color. Here the following condition must be satisfied:
+
+If A_i and A_j (i < j) are painted with the same color, A_i < A_j.
+
+Find the minimum number of colors required to satisfy the condition.",s171250150,"from bisect import bisect
+
+n=int(input())
+a=[0]*n
+for i in range(n):
+    a[i]=-int(input())
+
+def loopa():
+
+    n=len(a)
+    dp = [10**10]*(n+1)
+    dp[0] = -10**10
+
+    for i in range(n):
+        idx = bisect(dp, a[i])
+        dp[idx] = min(a[i], dp[idx])
+
+    return dp
+
+dp=loopa()
+
+print(bisect(dp, 10**10-1)-1)
+
+",2
+p02580,"We have a two-dimensional grid with H \times W squares. There are M targets to destroy in this grid - the position of the i-th target is \left(h_i, w_i \right).
+Takahashi will choose one square in this grid, place a bomb there, and ignite it. The bomb will destroy all targets that are in the row or the column where the bomb is placed. It is possible to place the bomb at a square with a target.
+Takahashi is trying to maximize the number of targets to destroy. Find the maximum number of targets that can be destroyed.",s330640655,"import collections
+h, w, m = map(int, input().split())
+h = [None]*m
+w = [None]*m
+for i in range(m):
+    u, v = map(int, input().split())
+    h[i] = u
+    w[i] = v
+hc = collections.Counter(h)
+wc = collections.Counter(w)
+hm = hc.most_common()[0][1]
+hs = set([])
+for hi, ci in hc.most_common():
+    if ci == hm:
+        hs.add(hi)
+    else:
+        break
+wm = wc.most_common()[0][1]
+ws = set([])
+for wi, ci in wc.most_common():
+    if ci == wm:
+        ws.add(wi)
+    else:
+        break
+cnt = 0
+for i in range(m):
+    if h[i] in hs and w[i] in ws:
+        cnt += 1
+if cnt == len(hs)*len(ws):
+    print(hm + wm -1)
+else:
+    print(hm + wm)",2
+p03637,"We have a sequence of length N, a = (a_1, a_2, ..., a_N).
+Each a_i is a positive integer.
+Snuke's objective is to permute the element in a so that the following condition is satisfied:
+
+For each 1 ≤ i ≤ N - 1, the product of a_i and a_{i + 1} is a multiple of 4.
+
+Determine whether Snuke can achieve his objective.",s111592939,"def main():
+    n = int(input())
+    As = list(map(int, input().split()))
+    fours = 0
+    evens = 0
+    odds = 0
+    for A in As:
+        if A % 4 == 0:
+            fours += 1
+        elif A % 2 == 0:
+            evens += 1
+        else:
+            odds += 1
+
+    if fours+(evens)//2 >= n//2:
+        ans = 'Yes'
+    else:
+        ans = 'No'
+    print(ans)
+
+
+if __name__ == ""__main__"":
+    main()
+",1
+p02727,"You are going to eat X red apples and Y green apples.
+You have A red apples of deliciousness p_1,p_2, \dots, p_A, B green apples of deliciousness q_1,q_2, \dots, q_B, and C colorless apples of deliciousness r_1,r_2, \dots, r_C.
+Before eating a colorless apple, you can paint it red or green, and it will count as a red or green apple, respectively.
+From the apples above, you will choose the apples to eat while making the sum of the deliciousness of the eaten apples as large as possible.
+Find the maximum possible sum of the deliciousness of the eaten apples that can be achieved when optimally coloring zero or more colorless apples.",s902030545,"import sys
+input = sys.stdin.readline
+
+x, y, a, b, c = map(int, input().split())
+p = sorted(list(map(int, input().split())))
+q = sorted(list(map(int, input().split())))
+r = sorted(list(map(int, input().split())))
+
+n = 0
+np = 0
+nq = 0
+ans = 0
+while n < x + y:
+    cs = []
+    if p and np < x:
+        cs.append(p[-1])
+    if q and nq < y:
+        cs.append(q[-1])
+    if r:
+        cs.append(r[-1])
+    m = max(cs)
+    if r and m == r[-1]:
+        ans += r.pop()
+    elif p and m == p[-1]:
+        ans += p.pop()
+        np += 1
+    else:
+        ans += q.pop()
+        nq += 1
+    n += 1
+
+print(ans)
+",2
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s409530365,"#!/usr/bin/env python3
+
+from typing import List
+
+
+def main():
+    N = int(input())
+    args = list(map(lambda x: int(x), input().split()))
+    counter = 0
+    target = args
+    while canDev(target):
+        counter += 1
+        target = dev2(target)
+
+    print(counter)
+
+
+def canDev(target: List[int]) -> bool:
+    for item in target:
+        if item % 2 != 0:
+            return False
+    return True
+
+
+def dev2(target: List[int]) -> List[int]:
+    return list(map(lambda x: int(x / 2), target))
+
+
+if __name__ == ""__main__"":
+    main()
+",0
+p02973,"You are given a sequence with N integers: A = \{ A_1, A_2, \cdots, A_N \}.
+For each of these N integers, we will choose a color and paint the integer with that color. Here the following condition must be satisfied:
+
+If A_i and A_j (i < j) are painted with the same color, A_i < A_j.
+
+Find the minimum number of colors required to satisfy the condition.",s301790930,"from sys import stdin
+from bisect import bisect
+
+N = int(stdin.readline().rstrip())
+A = []
+for i in range(N):
+    A.append(int(input()))
+
+dp = []
+for a in A[::-1]:
+    i = bisect(dp, a)
+    if i < len(dp):
+        dp[i] = a
+    else:
+        dp.append(a)
+print(len(dp))",1
+p03597,"We have an N \times N square grid.
+We will paint each square in the grid either black or white.
+If we paint exactly A squares white, how many squares will be painted black?",s442348415,"n = int(input())
+a = int(input())
+
+menseki = n**2
+print(int(menseki-a))",1
+p03434,"We have N cards. A number a_i is written on the i-th card.
+Alice and Bob will play a game using these cards. In this game, Alice and Bob alternately take one card. Alice goes first.
+The game ends when all the cards are taken by the two players, and the score of each player is the sum of the numbers written on the cards he/she has taken. When both players take the optimal strategy to maximize their scores, find Alice's score minus Bob's score.",s839590987,"import sys
+read = sys.stdin.read
+readlines = sys.stdin.readlines
+def main():
+    n, *a = map(int, read().split())
+    a.sort(reverse=True)
+    alice = sum(a[::2])
+    bob = sum(a[1::2])
+    print(alice - bob)
+
+
+if __name__ == '__main__':
+    main()
+",1
+p03393,"Gotou just received a dictionary. However, he doesn't recognize the language used in the dictionary. He did some analysis on the dictionary and realizes that the dictionary contains all possible diverse words in lexicographical order.
+A word is called diverse if and only if it is a nonempty string of English lowercase letters and all letters in the word are distinct. For example, atcoder, zscoder and agc are diverse words while gotou and connect aren't diverse words.
+Given a diverse word S, determine the next word that appears after S in the dictionary, i.e. the lexicographically smallest diverse word that is lexicographically larger than S, or determine that it doesn't exist.
+Let X = x_{1}x_{2}...x_{n} and Y = y_{1}y_{2}...y_{m} be two distinct strings. X is lexicographically larger than Y if and only if Y is a prefix of X or x_{j} > y_{j} where j is the smallest integer such that x_{j} \neq y_{j}.",s331749634,"import sys, re
+from collections import deque, defaultdict, Counter
+from math import ceil, sqrt, hypot, factorial, pi, sin, cos, radians
+from itertools import accumulate, permutations, combinations, product
+from operator import itemgetter, mul
+from copy import deepcopy
+from string import ascii_lowercase, ascii_uppercase, digits
+from bisect import bisect, bisect_left
+from fractions import gcd
+from heapq import heappush, heappop
+from functools import reduce
+def input(): return sys.stdin.readline().strip()
+def INT(): return int(input())
+def MAP(): return map(int, input().split())
+def LIST(): return list(map(int, input().split()))
+def ZIP(n): return zip(*(MAP() for _ in range(n)))
+sys.setrecursionlimit(10 ** 9)
+INF = float('inf')
+mod = 10 ** 9 + 7
+
+S = input()
+
+if S == ""zyxwvutsrqponmlkjihgfedcba"":
+	print(-1)
+elif len(S) < len(ascii_lowercase):
+	for char in ascii_lowercase:
+		if char not in S:
+			print(S+char)
+			break
+else:
+	S = S[::-1]
+	for i in range(len(S)-1):
+		if S[i+1] < S[i]:
+			for char in sorted(S[:i+1]):
+				if char > S[i+1]:
+					print(S[::-1][:-i-2]+char)
+					exit()
+",1
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s221781657,"# coding = utf-8
+n=input("""")
+a=input("""")
+a=a.split("" "")
+a=[int(s) for s in a]
+a.sort()
+base=100000
+n=1
+for num in a:
+    while num%2**n==0:
+        n=n+1
+    n=n-1
+    if n < base:
+        base=n
+print(base)",0
+p03110,"Takahashi received otoshidama (New Year's money gifts) from N of his relatives.
+You are given N values x_1, x_2, ..., x_N and N strings u_1, u_2, ..., u_N as input. Each string u_i is either JPY or BTC, and x_i and u_i represent the content of the otoshidama from the i-th relative.
+For example, if x_1 = 10000 and u_1 = JPY, the otoshidama from the first relative is 10000 Japanese yen; if x_2 = 0.10000000 and u_2 = BTC, the otoshidama from the second relative is 0.1 bitcoins.
+If we convert the bitcoins into yen at the rate of 380000.0 JPY per 1.0 BTC, how much are the gifts worth in total?",s171673996,"N = int(input())
+ans = 0.0
+for _ in range(N):
+    xs, u = input().split()
+    x = float(xs)
+    if u == ""JPY"":
+        ans += x
+    else:
+        ans += x * 380000.0
+print(ans)",2
+p04012,"Let w be a string consisting of lowercase letters.
+We will call w beautiful if the following condition is satisfied:
+
+Each lowercase letter of the English alphabet occurs even number of times in w.
+
+You are given the string w. Determine if w is beautiful.",s831945303,"w = input()
+while len(w) > 0:
+    a = w[0]
+    if w.count(a)%2 != 0:
+        print(""No"")
+        exit()
+    w = w.replace(a,"""")
+print(""Yes"")",0
+p03003,"You are given two integer sequences S and T of length N and M, respectively, both consisting of integers between 1 and 10^5 (inclusive).
+In how many pairs of a subsequence of S and a subsequence of T do the two subsequences are the same in content?
+Here the subsequence of A is a sequence obtained by removing zero or more elements from A and concatenating the remaining elements without changing the order.
+For both S and T, we distinguish two subsequences if the sets of the indices of the removed elements are different, even if the subsequences are the same in content.
+Since the answer can be tremendous, print the number modulo 10^9+7.",s342784034,"def e_common_subsequence(N, M, S, T, MOD=10**9 + 7):
+    # dp[i][j]: S[i], T[j] まで考慮したとき、この2つをペアにしたときの場合の数
+    dp = [[0] * (M + 1) for _ in range(N + 1)]
+
+    total = [[0] * (M + 1) for _ in range(N + 1)]
+    for i in range(N + 1):
+        total[i][0] = 1
+    for j in range(M + 1):
+        total[0][j] = 1
+
+    ans = 1  # 空の列は常に等しい列である
+    for i in range(N):
+        for j in range(M):
+            if S[i] == T[j]:
+                dp[i + 1][j + 1] = (total[i][j] % MOD)
+                ans += dp[i + 1][j + 1]
+            total[i + 1][j + 1] = (total[i][j + 1] + total[i + 1][j]
+                                   - total[i][j] + dp[i + 1][j + 1] + MOD) % MOD
+    return ans % MOD
+
+N, M = [int(i) for i in input().split()]
+S = [int(i) for i in input().split()]
+T = [int(i) for i in input().split()]
+print(e_common_subsequence(N, M, S, T))",1
+p03862,"There are N boxes arranged in a row.
+Initially, the i-th box from the left contains a_i candies.
+Snuke can perform the following operation any number of times:
+
+Choose a box containing at least one candy, and eat one of the candies in the chosen box.
+
+His objective is as follows:
+
+Any two neighboring boxes contain at most x candies in total.
+
+Find the minimum number of operations required to achieve the objective.",s010340052,"N, x = map(int,input().split())
+a = list(map(int,input().split()))
+
+ans = 0
+for k in range(1,N):
+    if a[k-1] + a[k] > x:
+        t = (a[k-1] + a[k]) - x
+        ans += t
+        if a[k] >= t:
+            a[k] -= t
+        else:
+            a[k-1] -= t-a[k]
+            a[k] = 0
+print(ans)
+",0
+p03671,"Snuke is buying a bicycle.
+The bicycle of his choice does not come with a bell, so he has to buy one separately.
+He has very high awareness of safety, and decides to buy two bells, one for each hand.
+The store sells three kinds of bells for the price of a, b and c yen (the currency of Japan), respectively.
+Find the minimum total price of two different bells.",s982771271,"A = [int(i) for i in input().split()]
+print(sum(A) - max(A))",2
+p02972,"There are N empty boxes arranged in a row from left to right.
+The integer i is written on the i-th box from the left (1 \leq i \leq N).
+For each of these boxes, Snuke can choose either to put a ball in it or to put nothing in it.
+We say a set of choices to put a ball or not in the boxes is good when the following condition is satisfied:
+
+For every integer i between 1 and N (inclusive), the total number of balls contained in the boxes with multiples of i written on them is congruent to a_i modulo 2.
+
+Does there exist a good set of choices? If the answer is yes, find one good set of choices.",s594074327,"def main():
+    _ = int(input())
+    A = list(map(int, input().split()))
+    A.insert(0, 1e10)
+    ans = []
+    B = [0] * len(A)
+    for i in range(len(A)-1, 0, -1):
+        idx = i
+        s = 0
+        while idx <= len(A) - 1:
+            s += B[idx]
+            idx += i
+
+        if s % 2 != A[i]:
+            ans.append(i)
+            B[i] = 1
+
+    if len(ans) > 0:
+        print(len(ans))
+        print(*ans)
+    else:
+        print(0)
+
+
+if __name__ == '__main__':
+    main()
+",0
+p02546,"In the Kingdom of AtCoder, people use a language called Taknese, which uses lowercase English letters.
+In Taknese, the plural form of a noun is spelled based on the following rules:
+
+If a noun's singular form does not end with s, append s to the end of the singular form.
+If a noun's singular form ends with s, append es to the end of the singular form.
+
+You are given the singular form S of a Taknese noun. Output its plural form.",s807509093,"s = input()
+if s[-1] == 's':
+    print(s+'es')
+else:
+    print(s+'s')
+",2
+p02853,"We held two competitions: Coding Contest and Robot Maneuver.
+In each competition, the contestants taking the 3-rd, 2-nd, and 1-st places receive 100000, 200000, and 300000 yen (the currency of Japan), respectively. Furthermore, a contestant taking the first place in both competitions receives an additional 400000 yen.
+DISCO-Kun took the X-th place in Coding Contest and the Y-th place in Robot Maneuver.
+Find the total amount of money he earned.",s309428626,"money = [0, 300000, 200000, 100000]
+a,b = map(int, input().split())
+
+st = money[a if a < len(money) else 0] \
+ + money[b if b < len(money) else 0]
+if a == 1 and b == 1:
+  st += 400000
+print(st)",1
+p03946,"There are N towns located in a line, conveniently numbered 1 through N. Takahashi the merchant is going on a travel from town 1 to town N, buying and selling apples.
+Takahashi will begin the travel at town 1, with no apple in his possession. The actions that can be performed during the travel are as follows:
+
+Move: When at town i (i < N), move to town i + 1.
+Merchandise: Buy or sell an arbitrary number of apples at the current town. Here, it is assumed that one apple can always be bought and sold for A_i yen (the currency of Japan) at town i (1 ≦ i ≦ N), where A_i are distinct integers. Also, you can assume that he has an infinite supply of money.
+
+For some reason, there is a constraint on merchandising apple during the travel: the sum of the number of apples bought and the number of apples sold during the whole travel, must be at most T. (Note that a single apple can be counted in both.)
+During the travel, Takahashi will perform actions so that the profit of the travel is maximized. Here, the profit of the travel is the amount of money that is gained by selling apples, minus the amount of money that is spent on buying apples. Note that we are not interested in apples in his possession at the end of the travel.
+Aoki, a business rival of Takahashi, wants to trouble Takahashi by manipulating the market price of apples. Prior to the beginning of Takahashi's travel, Aoki can change A_i into another arbitrary non-negative integer A_i' for any town i, any number of times. The cost of performing this operation is |A_i - A_i'|. After performing this operation, different towns may have equal values of A_i.
+Aoki's objective is to decrease Takahashi's expected profit by at least 1 yen. Find the minimum total cost to achieve it. You may assume that Takahashi's expected profit is initially at least 1 yen.",s446886761,"import sys
+from collections import Counter
+
+n, t, *a = map(int, sys.stdin.read().split())
+
+def main():
+  cand = []
+  mi = a[0]
+  for x in a[1:]:
+    cand.append(x - mi)
+    mi = min(mi, x)
+  c = Counter(cand)
+  ans = c[max(c.keys())]
+  print(ans)
+
+if __name__ == '__main__':
+  main()",2
+p02972,"There are N empty boxes arranged in a row from left to right.
+The integer i is written on the i-th box from the left (1 \leq i \leq N).
+For each of these boxes, Snuke can choose either to put a ball in it or to put nothing in it.
+We say a set of choices to put a ball or not in the boxes is good when the following condition is satisfied:
+
+For every integer i between 1 and N (inclusive), the total number of balls contained in the boxes with multiples of i written on them is congruent to a_i modulo 2.
+
+Does there exist a good set of choices? If the answer is yes, find one good set of choices.",s400237734,"N = int(input())
+Alist = list(map(int,input().split()))
+Answer = [0]*(N+1)
+M = 0
+for i in range(1,len(Alist)+1):
+    A = Alist[-i]
+    n = (N+1)-i
+    if sum(Answer[n::n])%2 != A:
+        Answer[-i] = 1
+        M += 1
+print(M)
+Ans = []
+for k in range(len(Answer)):
+    if Answer[k] == 1:
+        Ans.append(k)
+print(*Ans[0:],end=""\t"")    ",1
+p03494,"There are N positive integers written on a blackboard: A_1, ..., A_N.
+Snuke can perform the following operation when all integers on the blackboard are even:
+
+Replace each integer X on the blackboard by X divided by 2.
+
+Find the maximum possible number of operations that Snuke can perform.",s588074493,"num = int(input())
+nu_list = [int(v) for v in input().split()]
+count = 0
+#print(nu_list)
+bool = True
+while bool == True:
+  for i in range(len(nu_list)):
+    if nu_list[i] % 2 != 0:
+      bool = False
+      break
+    else:
+      nu_list[i] = nu_list[i] // 2
+  if bool == True:
+    count += 1
+print(count)",0
+p02661,"There are N integers X_1, X_2, \cdots, X_N, and we know that A_i \leq X_i \leq B_i.
+Find the number of different values that the median of X_1, X_2, \cdots, X_N can take.",s657427585,"n = int(input())
+AB = []
+A = [0]*n
+B = [0]*n
+for i in range(n):
+  A[i],B[i] = map(int,input().split())
+
+A = sorted(A)
+B = sorted(B)
+
+if n%2 == 1:
+  l = A[n//2]
+  r = B[n//2]
+  print(r-l + 1)
+else:
+  l = (A[n//2-1]+A[n//2])/2
+  r = (B[n//2-1]+B[n//2])/2
+  print(int((r-l)*2+1))",1

@@ -1,0 +1,16 @@
+p02572 s933762291
+n = int(input())
+a = list(map(int, input().split()))
+
+mod = 10**9 + 7
+
+# Squaring each element in a
+a_square = [x**2 for x in a]
+
+# Calculating the sum of pairwise products
+total = sum(a)**2 - sum(a_square)
+answer = total // 2 % mod
+
+print(answer)
+```
+Expecting value: line 1 column 1 (char 0)

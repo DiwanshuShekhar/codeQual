@@ -1,0 +1,31 @@
+p03722 s884236690
+def bellman_ford(edges, num_v, start):
+    inf = float("inf")
+    dist = [inf for i in range(num_v)]
+    dist[start] = 0
+
+    for i in range(num_v):
+        update = False
+        for edge in edges:
+            if dist[edge[0]] != inf and dist[edge[1]] > dist[edge[0]] + edge[2]:
+                dist[edge[1]] = dist[edge[0]] + edge[2]
+                update = True
+        if not update:
+            break
+        if i == num_v-1 and update:
+            return "inf"
+
+    return -dist[num_v - 1]
+
+def main():
+    n, m = map(int, input().split())
+    edges = []
+    for i in range(m):
+        a, b, c = map(int, input().split())
+        edges.append([a - 1, b - 1, -c])
+    print(bellman_ford(edges, n, 0))
+
+if __name__=="__main__":
+    main()
+```
+Expecting value: line 1 column 1 (char 0)

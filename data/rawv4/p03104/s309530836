@@ -1,0 +1,16 @@
+p03104 s309530836
+a, b = map(int, input().split())
+
+def f(x):
+    if x % 4 == 0:
+        return x
+    elif x % 4 == 1:
+        return 1
+    elif x % 4 == 2:
+        return x + 1
+    else:
+        return 0
+
+print(f(a-1) ^ f(b))
+```
+Expecting value: line 1 column 1 (char 0)

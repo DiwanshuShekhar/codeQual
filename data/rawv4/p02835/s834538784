@@ -1,0 +1,5 @@
+p02835 s834538784
+result = "win" if sum(map(int, input().split())) < 22 else "bust"
+print(result)
+```
+Expecting value: line 1 column 1 (char 0)

@@ -1,0 +1,12 @@
+p02394 s892714104
+x, y, w, h, r = map(int, input().split())
+
+if r <= x <= w - r and r <= y <= h - r:
+    print("Yes")
+else:
+    print("No")
+```
+"""
+Write a program which reads a rectangle and a circle, and determines whether the circle is arranged inside the rectangle. As shown in the following figures, the upper right coordinate $(W, H)$ of the rectangle and the central coordinate $(x, y)$ and radius $r$ of the circle are given.
+"""
+Expecting value: line 1 column 1 (char 0)

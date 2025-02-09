@@ -1,0 +1,17 @@
+p02702 s006293756
+s = input()
+r = [0] * 2019
+r[0] = 1
+p = 0
+ans = 0
+for i in range(len(s)):
+    p = (p + int(s[-(i + 1)]) * pow(10, i, 2019)) % 2019
+    ans += r[p]
+    r[p] += 1
+print(ans)
+```
+"""
+Given is a string S consisting of digits from 1 through 9.
+Find the number of pairs of integers (i,j) (1 ≤ i ≤ j ≤ |S|) that satisfy the following condition:
+Condition: In base ten, the i-th through j-th characters of S form an integer that is a multiple of 2019.
+Expecting value: line 1 column 1 (char 0)

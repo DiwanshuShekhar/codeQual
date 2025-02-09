@@ -1,0 +1,22 @@
+p03212 s487481887
+N = int(input())
+
+def dfs(s):
+    if int(s) > N:
+        return 0
+
+    count = 1 if all(s.count(c) > 0 for c in "753") else 0
+
+    for c in "753":
+        count += dfs(s + c)
+
+    return count
+
+print(dfs("0"))
+```
+"""
+You are given an integer N. Among the integers between 1 and N (inclusive), how many Shichi-Go-San numbers (literally "Seven-Five-Three numbers") are there?
+Here, a Shichi-Go-San number is a positive integer that satisfies the following condition:
+
+When the number is written in base ten, each of the digits 7, 5 and 3 appears at least once, and the other digits never appear.
+Expecting value: line 1 column 1 (char 0)

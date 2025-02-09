@@ -1,0 +1,19 @@
+p03103 s150736440
+N, M = list(map(int, input().split()))
+stores = []
+for _ in range(N):
+    A, B = list(map(int, input().split()))
+    stores.append((A, B))
+stores.sort()
+
+total_cost = 0
+for A, B in stores:
+    if M > B:
+        total_cost += A * B
+        M -= B
+    else:
+        total_cost += A * M
+        break
+print(total_cost)
+```
+Expecting value: line 1 column 1 (char 0)

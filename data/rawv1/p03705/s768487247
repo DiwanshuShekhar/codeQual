@@ -1,0 +1,15 @@
+p03705 s768487247
+n, a, b = map(int, input().split())
+
+if a > b:
+    print(0)
+elif n == 1:
+    if a == b:
+        print(1)
+    else:
+        print(0)
+else:
+    min_sum = a + (n - 1) * a
+    max_sum = b + (n - 1) * b
+    print(max_sum - min_sum + 1)
+Expecting value: line 1 column 1 (char 0)

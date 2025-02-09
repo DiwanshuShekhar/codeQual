@@ -1,0 +1,10 @@
+p03145 s657431543
+a, b, c = map(int, input().split())
+print(a * b // 2)
+```
+"""
+There is a right triangle ABC with ∠ABC=90°.
+Given the lengths of the three sides, |AB|,|BC| and |CA|, find the area of the right triangle ABC.
+It is guaranteed that the area of the triangle ABC is an integer.
+"""
+Expecting value: line 1 column 1 (char 0)

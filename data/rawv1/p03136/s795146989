@@ -1,0 +1,13 @@
+p03136 s795146989
+N = int(input())
+L = list(map(int, input().split()))
+
+max_length = max(L)
+sum_other_lengths = sum(L) - max_length
+
+if max_length < sum_other_lengths:
+    print("Yes")
+else:
+    print("No")
+```
+Expecting value: line 1 column 1 (char 0)

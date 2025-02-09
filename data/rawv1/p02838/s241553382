@@ -1,0 +1,30 @@
+p02838 s241553382
+n = int(input())
+arr = list(map(int, input().split()))
+MOD = 10**9 + 7
+
+sum_xor = 0
+for i in range(60):
+    bit = 1 << i
+    count_one = count_zero = 0
+    for a in arr:
+        if a & bit:
+            count_one += 1
+        else:
+            count_zero += 1
+    sum_xor += bit * count_one * count_zero
+    sum_xor %= MOD
+
+print(sum_xor)
+```
+This Python code first defines the total number of integers `n` and an array `arr` that holds all these `n` integers. It also defines a constant `MOD` with a value of \(10^9 + 7\).
+
+The variable `sum_xor` is initialized to 0 and will hold the final XOR sum result. The code iterates through each bit position from 0 to 59 (as the problem statement suggests that \(A_i\) can go up until \(2^{60}\)). It uses `bit` to store the current bit (power of 2) being considered.
+
+In each iteration, it calculates the count of numbers in `arr` that have a 1 at the current bit position (`count_one`) and the count of numbers that have a 0 at this position (`count_zero`). This is done by iterating through all numbers in `arr` and using bitwise operations to check each number's bit at the current position.
+
+With the counts `count_one` and `count_zero`, it calculates the contribution of the current bit to the total XOR sum as `bit * count_one * count_zero`. This captures the principle that for each pair of numbers where one has a 1 and the other has a 0 at the current bit position, the XOR operation will result in a 1 at this bit position in the result, contributing to the sum.
+
+The contribution is added to `sum_xor` and is taken modulo \(10^9 + 7\) to prevent integer overflow issues and to comply with the problem's requirement to find the result modulo \(10^9 + 7\).
+
+Expecting value: line 1 column 1 (char 0)

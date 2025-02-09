@@ -1,0 +1,19 @@
+p02813 s070506060
+from itertools import permutations
+
+def main():
+    n = int(input())
+    p = tuple(map(int, input().split()))
+    q = tuple(map(int, input().split()))
+
+    all_permutations = list(permutations(range(1, n+1)))
+
+    a = all_permutations.index(p)
+    b = all_permutations.index(q)
+
+    print(abs(a - b))
+
+if __name__ == '__main__':
+    main()
+```
+Expecting value: line 1 column 1 (char 0)

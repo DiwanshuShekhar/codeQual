@@ -1,0 +1,10 @@
+p03304 s258277176
+N, M, D = map(int, input().split())
+
+if D == 0:
+    ans = (N - D) * (M - 1) / N / N
+else:
+    ans = 2 * (N - D) * (M - 1) / N / N
+print(ans)
+```
+Expecting value: line 1 column 1 (char 0)

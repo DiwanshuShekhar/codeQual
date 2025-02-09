@@ -1,0 +1,14 @@
+p03797 s348457969
+n, m = map(int, input().split())
+print(min(n, m//2))
+```
+"""
+Snuke loves puzzles.
+Today, he is working on a puzzle using S- and c-shaped pieces.
+In this puzzle, you can combine two c-shaped pieces into one S-shaped piece, as shown in the figure below:
+
+
+
+Snuke decided to create as many Scc groups as possible by putting together one S-shaped piece and two c-shaped pieces.
+Find the maximum number of Scc groups that can be created when Snuke has N S-shaped pieces and M c-shaped pieces.
+Expecting value: line 1 column 1 (char 0)

@@ -1,0 +1,24 @@
+p03574 s103453952
+n,m=map(int,input().split())
+s = [list(input()) for _ in range(n)]
+
+dx = [0,0,1,1,1,-1,-1,-1]
+dy = [1,-1,1,0,-1,1,0,-1]
+
+for i in range(n):
+    for j in range(m):
+        ans = 0
+        if s[i][j]=='#':
+            continue
+        for d in range(8):
+            ni,nj = i+dx[d],j+dy[d]
+            if 0<=ni<n and 0<=nj<m:
+                if s[ni][nj] =='#':
+                    ans += 1
+        s[i][j] = str(ans)
+
+for i in range(n):
+    print(''.join(s[i]))
+
+```
+Expecting value: line 1 column 1 (char 0)

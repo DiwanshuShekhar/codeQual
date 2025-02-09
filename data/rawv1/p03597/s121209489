@@ -1,0 +1,12 @@
+p03597 s121209489
+N = int(input())
+A = int(input())
+
+print(N**2 - A)
+```
+"""
+We have an N \times N square grid.
+We will paint each square in the grid either black or white.
+If we paint exactly A squares white, how many squares will be painted black?
+"""
+Expecting value: line 1 column 1 (char 0)

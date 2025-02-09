@@ -1,0 +1,21 @@
+p02623 s000372636
+from itertools import accumulate
+
+N, M, K = map(int, input().split())
+A = list(map(int, input().split()))
+B = list(map(int, input().split()))
+
+A_acc = [0] + list(accumulate(A))
+B_acc = [0] + list(accumulate(B))
+
+ans = 0
+j = M
+for i in range(N + 1):
+    if A_acc[i] > K:
+        break
+    while B_acc[j] > K - A_acc[i]:
+        j -= 1
+    ans = max(ans, i + j)
+print(ans)
+```
+Expecting value: line 1 column 1 (char 0)

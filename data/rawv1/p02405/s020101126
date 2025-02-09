@@ -1,0 +1,12 @@
+p02405 s020101126
+while True:
+    h, w = map(int, input().split())
+    if h == w == 0:
+        break
+    for i in range(h):
+        for j in range(w):
+            print('#' if (i + j) % 2 == 0 else '.', end='')
+        print()
+    print()
+```
+Expecting value: line 1 column 1 (char 0)

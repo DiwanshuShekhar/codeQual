@@ -1,0 +1,25 @@
+p02265 s557499530
+from collections import deque
+
+def main():
+	n = int(input())
+	dq = deque([])
+	for _ in range(n):
+		command = input().split()
+		if command[0] == 'insert':
+			dq.appendleft(command[1])
+		elif command[0] == 'delete':
+			try:
+				dq.remove(command[1])
+			except:
+				pass
+		elif command[0] == 'deleteFirst':
+			dq.popleft()
+		elif command[0] == 'deleteLast':
+			dq.pop()
+	print(" ".join(dq))
+
+if __name__ == '__main__':
+	main()
+```
+Expecting value: line 1 column 1 (char 0)

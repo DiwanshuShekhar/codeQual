@@ -1,0 +1,15 @@
+p02993 s136774144
+s = input()
+result = "Good"
+for i in range(3):
+    if s[i] == s[i+1]:
+        result = "Bad"
+        break
+print(result)
+```
+"""
+The door of Snuke's laboratory is locked with a security code.
+The security code is a 4-digit number. We say the security code is hard to enter when it contains two consecutive digits that are the same.
+You are given the current security code S. If S is hard to enter, print Bad; otherwise, print Good.
+"""
+Expecting value: line 1 column 1 (char 0)

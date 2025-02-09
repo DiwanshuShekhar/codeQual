@@ -1,0 +1,32 @@
+p03593 s041542439
+h, w = map(int, input().split())
+s = [input() for _ in range(h)]
+
+# Count each character occurrence
+from collections import Counter
+char_count = Counter("".join(s))
+
+# Condition for being able to arrange as palindrome matrix
+# - In case of both h and w are odd, we can have one character with odd count,
+#   and h//2 + w//2 characters with count%4==2, rest must have count%4==0
+# - In case of one of h or w is odd and the other is even,
+#   we can have h//2 (if h is odd) or w//2 (if w is odd) characters with count%4==2, rest must have count%4==0
+# - Otherwise, all characters must have count%4==0
+
+if h % 2 == 1 and w % 2 == 1:
+    odd_allowed = 1
+    two_allowed = (h // 2) + (w // 2)
+else:
+    odd_allowed = 0
+    two_allowed = (h // 2) * (h % 2) + (w // 2) * (w % 2)
+
+odd_count = sum(1 for v in char_count.values() if v % 2 == 1)
+two_count = sum(1 for v in char_count.values() if v % 4 == 2)
+
+# Check if condition is satisfied
+if odd_count <= odd_allowed and two_count <= two_allowed:
+    print("Yes")
+else:
+    print("No")
+```
+Expecting value: line 1 column 1 (char 0)

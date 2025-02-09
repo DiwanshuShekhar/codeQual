@@ -1,0 +1,12 @@
+p02402 s211748891
+from sys import stdin
+
+def main():
+    _ = stdin.readline()
+    arr = list(map(int, stdin.readline().split()))
+    print(min(arr), max(arr), sum(arr))
+
+if __name__ == '__main__':
+    main()
+```
+Expecting value: line 1 column 1 (char 0)

@@ -1,0 +1,20 @@
+p03633 s566196642
+from math import gcd
+n = int(input())
+t = [int(input()) for _ in range(n)]
+
+def lcm(x, y):
+    return x * y // gcd(x, y)
+
+ans = t[0]
+for i in range(1, n):
+    ans = lcm(ans, t[i])
+
+print(ans)
+```
+"""
+We have N clocks. The hand of the i-th clock (1≤i≤N) rotates through 360° in exactly T_i seconds.
+Initially, the hand of every clock stands still, pointing directly upward.
+Now, Dolphin starts all the clocks simultaneously.
+In how many seconds will the hand of every clock point directly upward again?
+Expecting value: line 1 column 1 (char 0)

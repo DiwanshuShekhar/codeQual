@@ -1,0 +1,15 @@
+p03523 s372416216
+S = input()
+A = ['AKIHABAR', 'KIHABAR', 'AKIHABR', 'KIHR', 'AKIHAB', 'AKIHAR', 'KIHAB', 'KIHAR']
+for a in A:
+    if S == a + 'A' * (9 - len(a)):
+        print('YES')
+        exit()
+print('NO')
+```
+"""
+You are given a string S.
+Takahashi can insert the character A at any position in this string any number of times.
+Can he change S into AKIHABARA?
+"""
+Expecting value: line 1 column 1 (char 0)

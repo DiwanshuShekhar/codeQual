@@ -1,0 +1,12 @@
+p02267 s687747678
+n = int(input())
+S = set(map(int,input().split()))
+q = int(input())
+T = set(map(int,input().split()))
+
+print(len(S&T))
+```
+"""
+You are given a sequence of n integers S and a sequence of different q integers T. Write a program which outputs C, the number of integers in T which are also in the set S.
+"""
+Expecting value: line 1 column 1 (char 0)

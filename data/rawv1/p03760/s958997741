@@ -1,0 +1,22 @@
+p03760 s958997741
+O = input()
+E = input()
+
+# Initialize an empty string for the password
+password = ""
+
+# Iterate over the length of the longer of the two strings
+for i in range(len(O) + len(E)):
+    # If i is even, add characters from O
+    if i % 2 == 0:
+        if i < len(O):
+            password += O[i // 2]
+    # If i is odd, add characters from E
+    else:
+        if i // 2 < len(E):
+            password += E[i // 2]
+
+# Print the restored password
+print(password)
+```
+Expecting value: line 1 column 1 (char 0)

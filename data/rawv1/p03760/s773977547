@@ -1,0 +1,19 @@
+p03760 s773977547
+O = input()
+E = input()
+password = ''
+for i in range(len(E)):
+    password += O[i] + E[i]
+if len(O) > len(E):
+    password += O[-1]
+print(password)
+```
+"""
+Snuke signed up for a new website which holds programming competitions.
+He worried that he might forget his password, and he took notes of it.
+Since directly recording his password would cause him trouble if stolen,
+he took two notes: one contains the characters at the odd-numbered positions, and the other contains the characters at the even-numbered positions.
+You are given two strings O and E. O contains the characters at the odd-numbered positions retaining their relative order, and E contains the characters at the even-numbered positions retaining their relative order.
+Restore the original password.
+"""
+Expecting value: line 1 column 1 (char 0)

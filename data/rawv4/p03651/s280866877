@@ -1,0 +1,19 @@
+p03651 s280866877
+def gcd(a, b):
+    while b:
+        a, b = b, a % b
+    return a
+
+N, K = map(int, input().split())
+A = list(map(int, input().split()))
+
+g = A[0]
+for a in A[1:]:
+    g = gcd(g, a)
+
+if K % g == 0 and K <= max(A):
+    print("POSSIBLE")
+else:
+    print("IMPOSSIBLE")
+```
+Expecting value: line 1 column 1 (char 0)

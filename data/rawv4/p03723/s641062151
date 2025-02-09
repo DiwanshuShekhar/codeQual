@@ -1,0 +1,22 @@
+p03723 s641062151
+a, b, c = map(int, input().split())
+
+if a == b == c and a % 2 == 0:
+    print(-1)
+else:
+    count = 0
+    while a % 2 == 0 and b % 2 == 0 and c % 2 == 0:
+        a, b, c = (b + c) // 2, (a + c) // 2, (a + b) // 2
+        count += 1
+    print(count)
+```
+"""
+Takahashi, Aoki and Snuke love cookies. They have A, B and C cookies, respectively. Now, they will exchange those cookies by repeating the action below:
+
+Each person simultaneously divides his cookies in half and gives one half to each of the other two persons.
+
+This action will be repeated until there is a person with odd number of cookies in hand.
+How many times will they repeat this action?
+Note that the answer may not be finite.
+"""
+Expecting value: line 1 column 1 (char 0)

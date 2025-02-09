@@ -1,0 +1,1 @@
+{"problem_id": "p02553", "submission_id": "s200086292", "problem_description": "Given are integers a,b,c and d.\nIf x and y are integers and a \\leq x \\leq b and c\\leq y \\leq d hold, what is the maximum possible value of x \\times y?", "quality_score": {"functionality": "5", "readability": "5", "pythonic": "5", "error_handling": "4", "efficiency": "5"}}

@@ -1,0 +1,48 @@
+p03555 s353075470
+```
+C11 C12 C13
+C21 C22 C23
+```
+The task is to determine if the grid remains the same when rotated 180 degrees. This essentially means checking if `C11` is the same as `C23`, `C12` is the same as `C22`, and `C13` is the same as `C21`.
+
+Let's break down the steps required to solve this problem, considering the input, processing, and output:
+
+1. **Input**:
+    - Read the first and second row of the grid, which can be represented as strings `C1` and `C2`.
+
+2. **Processing**:
+    - To check if the grid remains the same when rotated 180 degrees, compare `C1[0]` with `C2[2]`, `C1[1]` with `C2[1]`, and `C1[2]` with `C2[0]`.
+
+3. **Output**:
+    - If all the above comparisons are true, print "YES".
+    - Otherwise, print "NO".
+
+Here's how the solution can be structured in pseudo-code:
+
+```
+# Step 1: Input
+Read C1 (string)
+Read C2 (string)
+
+# Step 2: Processing and Step 3: Output
+If (C1[0] == C2[2]) and (C1[1] == C2[1]) and (C1[2] == C2[0]) then
+    Print "YES"
+Else
+    Print "NO"
+```
+
+Let's translate this approach to Python code:
+
+```python
+# Input
+C1 = input()
+C2 = input()
+
+# Check if the grid remains the same when rotated 180 degrees
+if C1[0] == C2[2] and C1[1] == C2[1] and C1[2] == C2[0]:
+    print("YES")
+else:
+    print("NO")
+```
+
+Expecting value: line 1 column 1 (char 0)

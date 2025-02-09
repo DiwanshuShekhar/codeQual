@@ -1,0 +1,19 @@
+p04020 s219062501
+n = int(input())
+A = list(map(int, input().split()))
+ans = 0
+for i in range(n):
+    ans += A[i] // 2
+    if i < n - 1 and A[i] % 2 == 1 and A[i + 1] > 0:
+        ans += 1
+        A[i] -= 1
+        A[i + 1] -= 1
+print(ans)
+```
+"""
+Snuke has a large collection of cards. Each card has an integer between 1 and N, inclusive, written on it.
+He has A_i cards with an integer i.
+Two cards can form a pair if the absolute value of the difference of the integers written on them is at most 1.
+Snuke wants to create the maximum number of pairs from his cards, on the condition that no card should be used in multiple pairs. Find the maximum number of pairs that he can create.
+"""
+Expecting value: line 1 column 1 (char 0)

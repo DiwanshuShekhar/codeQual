@@ -1,0 +1,14 @@
+p03304 s403598783
+import decimal
+a=decimal.Decimal
+n,m,d=map(int, input().split())
+if d==0:print(a(m-1)/a(n))
+else:print(a(2*(n-d)*(m-1))/a(n*n))
+```
+"""
+Let us define the beauty of a sequence (a_1,... ,a_n) as the number of pairs of two adjacent elements in it whose absolute differences are d.
+For example, when d=1, the beauty of the sequence (3, 2, 3, 10, 9) is 3.
+There are a total of n^m sequences of length m where each element is an integer between 1 and n (inclusive).
+Find the beauty of each of these n^m sequences, and print the average of those values.
+"""
+Expecting value: line 1 column 1 (char 0)

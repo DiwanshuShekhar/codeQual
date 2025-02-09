@@ -1,0 +1,17 @@
+p03126 s506624945
+N, M = map(int, input().split())
+likes = [0] * M  # Initialize a list to count likes for each food
+
+# Loop through each person
+for _ in range(N):
+    # Get the list of foods the current person likes
+    A = list(map(int, input().split()))[1:]
+    # Mark each liked food
+    for a in A:
+        likes[a-1] += 1
+
+# Count the number of foods liked by everyone
+result = sum(like == N for like in likes)
+print(result)
+```
+Expecting value: line 1 column 1 (char 0)

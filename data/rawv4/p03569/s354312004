@@ -1,0 +1,27 @@
+p03569 s354312004
+s = input()
+
+left, right = 0, len(s) - 1
+operations = 0
+
+while left < right:
+    # When characters at both ends match, simply move towards the center
+    if s[left] == s[right]:
+        left += 1
+        right -= 1
+    # When the left character is 'x', it can be aligned with the right by adding 'x' to the right
+    elif s[left] == 'x':
+        left += 1
+        operations += 1
+    # When the right character is 'x', it can be aligned with the left by adding 'x' to the left
+    elif s[right] == 'x':
+        right -= 1
+        operations += 1
+    # If the characters on both ends differ and neither is 'x', making a palindrome is impossible
+    else:
+        print(-1)
+        exit()
+
+print(operations)
+```
+Expecting value: line 1 column 1 (char 0)

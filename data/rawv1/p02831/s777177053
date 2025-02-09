@@ -1,0 +1,12 @@
+p02831 s777177053
+A, B = map(int, input().split())
+
+# Since Python 3.9, gcd and lcm functions are in the math module
+from math import gcd, lcm
+
+# Calculate the least common multiple of A and B
+lcm_val = lcm(A, B)
+
+print(lcm_val)
+```
+Expecting value: line 1 column 1 (char 0)

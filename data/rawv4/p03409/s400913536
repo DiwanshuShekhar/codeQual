@@ -1,0 +1,20 @@
+p03409 s400913536
+import sys
+
+input = sys.stdin.readline
+
+N = int(input())
+R = sorted([tuple(map(int, input().split())) for _ in range(N)], key=lambda x: -x[1])
+B = sorted([tuple(map(int, input().split())) for _ in range(N)])
+
+ans = 0
+for c, d in B:
+    for i, (a, b) in enumerate(R):
+        if a < c and b < d:
+            ans += 1
+            R.pop(i)
+            break
+
+print(ans)
+```
+Expecting value: line 1 column 1 (char 0)

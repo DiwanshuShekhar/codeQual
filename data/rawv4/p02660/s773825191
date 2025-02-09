@@ -1,0 +1,30 @@
+p02660 s773825191
+N = int(input())
+
+def prime_factorize(n):
+    res = []
+    for i in range(2, int(n**0.5)+1):
+        if n % i != 0:
+            continue
+        ex = 0
+        while n % i == 0:
+            ex += 1
+            n //= i
+        res.append(ex)
+    if n != 1:
+        res.append(1)
+    return res
+
+prime_cnt_list = prime_factorize(N)
+ans = 0
+
+for prime_cnt in prime_cnt_list:
+    e = 1
+    while prime_cnt >= e:
+        prime_cnt -= e
+        ans += 1
+        e += 1
+
+print(ans)
+```
+Expecting value: line 1 column 1 (char 0)

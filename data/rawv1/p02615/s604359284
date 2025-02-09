@@ -1,0 +1,6 @@
+p02615 s604359284
+n = int(input())
+a = sorted(map(int, input().split()), reverse=True)
+print(sum(a[:n//2+1]) - sum(a[n//2+1:]) - (a[0] if n % 2 else 0))
+```
+Expecting value: line 1 column 1 (char 0)

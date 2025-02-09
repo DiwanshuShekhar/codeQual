@@ -1,0 +1,13 @@
+p03377 s986961134
+a, b, x = map(int, input().split())
+
+if x < a or x > a + b:
+    print("NO")
+else:
+    print("YES")
+```
+"""
+There are a total of A + B cats and dogs.
+Among them, A are known to be cats, but the remaining B are not known to be either cats or dogs.
+Determine if it is possible that there are exactly X cats among these A + B animals.
+Expecting value: line 1 column 1 (char 0)

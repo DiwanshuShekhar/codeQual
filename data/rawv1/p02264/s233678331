@@ -1,0 +1,20 @@
+p02264 s233678331
+n, q = map(int, input().split())
+p = []
+for _ in range(n):
+    name, time = input().split()
+    p.append((name, int(time)))
+
+time_passed = 0
+while p:
+    current = p.pop(0)
+    if current[1] > q:
+        time_passed += q
+        p.append((current[0], current[1] - q))
+    else:
+        time_passed += current[1]
+        print(current[0], time_passed)
+```
+"""
+There are n processes in a queue. Each process has namei and timei.  The round-robin scheduling handles the processes in order. A round-robin scheduler gives each process a quantum (a time slot) and interrupts the process if it is not completed by then. The process is resumed and moved to the end of the queue, then the scheduler handles the next process in the queue.
+Expecting value: line 1 column 1 (char 0)

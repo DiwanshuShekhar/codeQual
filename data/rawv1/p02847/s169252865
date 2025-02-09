@@ -1,0 +1,6 @@
+p02847 s169252865
+input_map = {"SUN": 7, "MON": 6, "TUE": 5, "WED": 4, "THU": 3, "FRI": 2, "SAT": 1}
+day = input()
+print(input_map[day])
+```
+Expecting value: line 1 column 1 (char 0)

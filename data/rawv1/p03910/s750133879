@@ -1,0 +1,17 @@
+p03910 s750133879
+n = int(input())
+
+# Find the smallest k such that 1+2+...+k >= n
+k = 1
+while k * (k+1) // 2 < n:
+    k += 1
+
+# If the sum exceeds n, we need to eliminate the excess value
+excess = k * (k+1) // 2 - n
+
+# Print numbers from 1 to k, skipping the excess value if any
+for i in range(1, k+1):
+    if i != excess:
+        print(i)
+```
+Expecting value: line 1 column 1 (char 0)

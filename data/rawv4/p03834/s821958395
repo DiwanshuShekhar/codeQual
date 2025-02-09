@@ -1,0 +1,18 @@
+p03834 s821958395
+s=input()
+print(s[0:5],s[6:13],s[14:20])
+```
+The given code reads an input string `s` which is expected to be in a specific format. After reading the input, it slices the string into three parts based on known indices and prints them separated by spaces.
+
+Explanation of each part of the code:
+
+1. `s=input()`: This line reads an input from the standard input (usually, the keyboard or a file redirected to the program) and stores it in the variable `s`.
+
+2. `s[0:5], s[6:13], s[14:20]`: These three expressions slice the string `s` into three parts.
+    - `s[0:5]` takes the substring from index `0` to index `4` (the end index `5` is not included). This is assumed to be the first five lowercase English letters.
+    - `s[6:13]` takes the substring from index `6` to index `12` (the end index `13` is not included). This is assumed to be the next seven lowercase English letters after the comma.
+    - `s[14:20]` takes the substring from index `14` to index `19` (the end index `20` is not included). This is assumed to be the five lowercase English letters after the second comma.
+
+3. `print(s[0:5], s[6:13], s[14:20])`: This line prints the three substrings separated by spaces. It effectively replaces the commas in the input string `s` with spaces, as required by the problem statement.
+
+Expecting value: line 1 column 1 (char 0)
